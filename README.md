@@ -1,6 +1,6 @@
-# motor-market
+# Motor-Market
 
-# follow below steps to run all services.
+## follow below steps to run all services.
 
 - 1. clone this repo
 
