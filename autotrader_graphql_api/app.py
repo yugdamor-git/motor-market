@@ -6,7 +6,7 @@ graphql_api = GraphqlApi()
 
 app = Flask(__name__)
 
-auth_token = "1d9f0cf413468abf271ccd3f483bf3ef"
+auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
 @app.route("/autotrader/graphql")
 def graphql():
