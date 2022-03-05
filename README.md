@@ -2,10 +2,10 @@
 
 # follow below steps to run all services.
 
-# clone this repo
+- 1. clone this repo
 
-# install docker
+- 2. install docker
 
-# docker-compose build
+- 3. docker-compose build
 
-# docker-compose up -d
+- 4. docker-compose up -d
