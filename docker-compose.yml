@@ -9,3 +9,9 @@ services:
 
     ports:
       - "5000:5000"
+  
+  redis:
+    image: "redis:alpine"
+    hostname: redis
+    ports:
+      - "5001:6379"
