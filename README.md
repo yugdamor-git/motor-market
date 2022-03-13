@@ -2,7 +2,7 @@
 
 # services
 
-### autotrader-graphql-api
+### 1. autotrader-graphql-api
     - port : 5000
     - this api accept auto trader listing id as input and return data about that listing
     - example :
@@ -18,10 +18,10 @@
         example :
             - http://{host/ip-address}:5000/autotrader/graphql?id=202201030964186&token={auth-token}&type=all
 
-### redis
+### 2. redis
     - port 5001
     - for any caching related task this redis instance port should be used.
-    
+
 
 ## follow below steps to run all services.
 
