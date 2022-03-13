@@ -2,7 +2,7 @@
 
 # services
 
-### 1. autotrader-graphql-api
+### 1. Autotrader Graphql Api
     - port : 5000
     - this api accept auto trader listing id as input and return data about that listing
     - example :
@@ -18,9 +18,14 @@
         example :
             - http://{host/ip-address}:5000/autotrader/graphql?id=202201030964186&token={auth-token}&type=all
 
-### 2. redis
+### 2. Redis
     - port 5001
     - for any caching related task this redis instance port should be used.
+
+### 3. Pulsar
+    - port 5002,5003
+    - pulsar is used for data pipeline. for more info you can refer pulsar doc : https://pulsar.apache.org
+    - 
 
 
 ## follow below steps to run all services.

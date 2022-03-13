@@ -15,3 +15,16 @@ services:
     hostname: redis
     ports:
       - "5001:6379"
+  
+  pulsar:
+    build: ./pulsar
+    volumes:
+      - ./pulsar/pulsardata:/pulsar/data
+    
+    command: "bin/pulsar standalone"
+
+    ports:
+      - 5002:6650
+      - 5003:8080
+
+
