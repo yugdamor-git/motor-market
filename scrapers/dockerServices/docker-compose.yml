@@ -36,6 +36,6 @@ services:
     ports:
       - ${MONGO_INITDB_PORT}:27017
     volumes:
-      - .mongodb/database:/data/db
+      - ./mongodb/database:/data/db
 
 
