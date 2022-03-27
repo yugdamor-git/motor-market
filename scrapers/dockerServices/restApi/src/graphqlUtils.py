@@ -2,7 +2,7 @@ import requests
 import json
 import os
 
-class GraphqlApi:
+class graphqlUtils:
     
     def __init__(self):
         self.residential_proxy = {

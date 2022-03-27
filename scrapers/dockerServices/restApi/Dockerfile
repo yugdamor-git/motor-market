@@ -5,7 +5,7 @@ RUN apt-get update
 RUN apt-get install -y python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
 
 # copy the requirements file into the image
-COPY ./requirements.txt /app/requirements.txt
+COPY ./src/requirements.txt /app/requirements.txt
 
 # switch working directory
 WORKDIR /app
@@ -14,7 +14,7 @@ WORKDIR /app
 RUN pip install -r requirements.txt
 
 # copy every content from the local file to the image
-COPY . /app
+COPY ./src /app
 
 # configure the container to run in an executed manner
 ENTRYPOINT [ "uwsgi" ]

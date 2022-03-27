@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  autotrader-graphql-api:
-    build: ./autotrader_graphql_api
+  rest-api:
+    build: ./restApi
     environment:
       - RESIDENTIAL_PROXY=http://${RESIDENTIAL_PROXY_USERNAME}:${RESIDENTIAL_PROXY_PASSWORD}@gate.smartproxy.com:${RESIDENTIAL_PROXY_PORT}
       - FLASK_AUTH_TOKEN=${FLASK_AUTH_TOKEN}

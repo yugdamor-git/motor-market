@@ -1,15 +1,17 @@
-from flask import Flask,jsonify,request
-from GraphqlApi import GraphqlApi
+
+from flask import Blueprint,request,jsonify
 import os
+from graphqlUtils import graphqlUtils
 
-graphql_api = GraphqlApi()
+gutils = graphqlUtils()
 
-app = Flask(__name__)
+graphql = Blueprint("graphql",__name__)
 
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
-@app.route("/autotrader/graphql")
-def graphql():
+@graphql.route("/graphql")
+
+def graphqlEndpoint():
     response = {
         "data":None,
         "message":None,
@@ -19,8 +21,6 @@ def graphql():
     token = request.args.get("token")
     
     query_type = request.args.get("type")
-    
-    
     
     if token == None:
         response["status"] = False
@@ -36,7 +36,7 @@ def graphql():
     message = "200"
     status = False
     try:
-        data = graphql_api.fetch(listing_id,query_type)
+        data = gutils.fetch(listing_id,query_type)
         status = True
     except Exception as e:
         data = None
@@ -47,8 +47,3 @@ def graphql():
     response["status"] = status
     
     return jsonify(response)
-
-
-if __name__ == "__main__":
-    port = int(os.environ.get('PORT', 5000))
-    app.run(debug=True, host='0.0.0.0', port=port)
