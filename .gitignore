@@ -1,3 +1,4 @@
-/.env
+./dockerServices/.env
 /__pycache__
-/pulsar/pulsardata
+/dockerServices/pulsar/pulsardata
+/dockerServices/mongodb/database

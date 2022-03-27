@@ -8,13 +8,13 @@ services:
       - FLASK_AUTH_TOKEN=${FLASK_AUTH_TOKEN}
 
     ports:
-      - "5000:5000"
+      - ${REST_API_PORT}:5000
   
   redis:
     image: "redis:alpine"
     hostname: redis
     ports:
-      - "5001:6379"
+      - ${REDIS_PORT}:6379
   
   pulsar:
     build: ./pulsar
@@ -24,7 +24,18 @@ services:
     command: "bin/pulsar standalone"
 
     ports:
-      - 5002:6650
-      - 5003:8080
+      - ${PULSAR_PORT_1}:6650
+      - ${PULSAR_PORT_2}:8080
+  
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+
+    ports:
+      - ${MONGO_INITDB_PORT}:27017
+    volumes:
+      - .mongodb/database:/data/db
 
 
