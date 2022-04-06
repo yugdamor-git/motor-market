@@ -8,7 +8,7 @@ class topicHandler:
         
         self.topicSubscribe = 'motormarket.scraper.autotrader.listing.calculation'
         
-        self.topicPublish = 'motormarket.scraper.autotrader.listing.calculation'
+        self.topicPublish = 'motormarket.scraper.autotrader.listing.image'
         
         self.topicLogs = 'motormarket.scraper.autotrader.listing.log'
         
@@ -29,8 +29,6 @@ class topicHandler:
                 data = json.loads(message.data)
                 
                 self.consumer.acknowledge(message)
-                
-                
                 
                 self.produce()
                 

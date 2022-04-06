@@ -1,0 +1,1072 @@
+,make,model,seats
+0,abarth,124 spider,2
+3,abarth,595,4
+58,abarth,695,2
+60,abarth,695,4
+71,abarth,500,4
+73,abarth,500c,4
+75,abarth,grande punto,4
+76,abarth,punto evo,4
+78,ac,302 and 212,2
+79,ac,mamba,2
+83,aixam,400 & 500,2
+84,aixam,400 & 500,4
+100,aixam,a751,4
+105,aixam,a751,2
+106,aixam,ccity,2
+107,aixam,ccity,4
+108,aixam,crossline,4
+113,aixam,crossover,4
+115,aixam,roadline,4
+117,alfa romeo,4c,2
+119,alfa romeo,giulia,5
+128,alfa romeo,giulia,4
+152,alfa romeo,giulietta,5
+255,alfa romeo,stelvio,5
+294,alfa romeo,145,5
+301,alfa romeo,146,5
+308,alfa romeo,147,5
+389,alfa romeo,155,5
+395,alfa romeo,156,5
+564,alfa romeo,159,5
+696,alfa romeo,164,5
+717,alfa romeo,166,5
+740,alfa romeo,brera,4
+764,alfa romeo,gt,5
+783,alfa romeo,gtv,4
+784,alfa romeo,gtv,2
+791,alfa romeo,mito,4
+818,alfa romeo,mito,5
+861,alfa romeo,spider,2
+879,alfa romeo,spider,4
+887,asia,rocsta,4
+889,aston martin,db11,4
+894,aston martin,dbs superleggera,2
+896,aston martin,dbx,5
+897,aston martin,rapide,4
+903,aston martin,vanquish,2
+904,aston martin,vanquish,4
+920,aston martin,vantage,2
+925,aston martin,cygnet,4
+927,aston martin,db7,4
+945,aston martin,db9,4
+960,aston martin,dbs,2
+964,aston martin,v8,4
+1007,aston martin,vantage,5
+1009,aston martin,virage,4
+1011,aston martin,virage,5
+1013,audi,a1,5
+1078,audi,a3,5
+1080,audi,a3,6
+1125,audi,a3,4
+1285,audi,a4,5
+1813,audi,a5,4
+2078,audi,a5,5
+2247,audi,a6,5
+2345,audi,a6,4
+2360,audi,a7,5
+2429,audi,a8,5
+2471,audi,q2,5
+2544,nan,nan,nan
+2576,audi,q3,5
+2704,audi,q5,5
+2760,audi,q7,5
+2762,audi,q7,7
+2810,audi,q8,5
+2833,audi,r8,2
+2855,audi,tt,4
+2945,audi,tt,2
+3035,audi,a1,4
+3203,audi,a2,4
+5126,audi,a4,4
+7020,audi,a7,4
+7232,audi,cabriolet,4
+7648,bentley,bentayga,5
+7654,bentley,bentayga,4
+7655,bentley,bentayga,7
+7689,bentley,continental gt,4
+7723,bentley,flying spur,5
+7728,bentley,mulsanne,5
+7736,bentley,arnage,4
+7744,bentley,arnage,5
+7746,bentley,azure/continental,4
+7759,bentley,brooklands,5
+7760,bentley,brooklands,4
+7762,bentley,continental flying spur,5
+7794,bentley,continental gt,2
+7810,bentley,turbo r,4
+7812,bmw,i3,4
+7855,bmw,i8,4
+7862,bmw,i8,2
+7863,bmw,x1,5
+7976,bmw,x2,5
+8031,bmw,x3,5
+8076,bmw,x4,5
+8118,bmw,x5,5
+8119,bmw,x5,7
+8176,bmw,x6,5
+8202,bmw,x7,7
+8203,bmw,x7,6
+8229,bmw,z4,2
+8250,bmw,alpina,5
+8269,bmw,alpina,4
+8280,bmw,alpina,2
+8667,bmw,x6,4
+8698,bmw,z3,2
+8812,bmw,z8,2
+8813,bmw alpina,b3,5
+8819,bmw alpina,b4,4
+8824,bmw alpina,b5,5
+8828,bmw alpina,b7,5
+8830,bmw alpina,b7,4
+8831,bmw alpina,d3,5
+8837,bmw alpina,d5,5
+8839,bmw alpina,xb7,7
+8840,bmw alpina,xb7,6
+8841,bmw alpina,xd3,5
+8845,bmw alpina,b6,4
+8848,bmw alpina,d4,4
+8853,bristol,blenheim,5
+8854,bristol,blenheim,4
+8856,bristol,blenheim,2
+8857,bristol,fighter,2
+8860,cadillac,bls,5
+8896,cadillac,cts,5
+8901,cadillac,escalade,7
+8904,cadillac,seville,5
+8905,cadillac,srx,7
+8909,cadillac,sts,5
+8911,cadillac,xlr,2
+8912,caterham,super seven,2
+8961,chevrolet,aveo,5
+8979,chevrolet,blazer,5
+8982,chevrolet,camaro,4
+8998,chevrolet,captiva,5
+9005,chevrolet,captiva,7
+9020,chevrolet,corvette,2
+9024,chevrolet,cruze,5
+9084,chevrolet,epica,5
+9088,chevrolet,kalos,5
+9099,chevrolet,lacetti,5
+9112,chevrolet,matiz,5
+9122,chevrolet,orlando,7
+9139,chevrolet,spark,5
+9148,chevrolet,tacuma,5
+9153,chevrolet,trax,5
+9160,chevrolet,volt,4
+9162,chrysler,300c,5
+9178,chrysler,crossfire,2
+9184,chrysler,delta,5
+9198,chrysler,dodge viper,2
+9199,chrysler,grand voyager,7
+9226,chrysler,neon,5
+9241,chrysler,pt cruiser,5
+9276,chrysler,pt cruiser,4
+9282,chrysler,sebring,5
+9285,chrysler,sebring,4
+9288,chrysler,voyager,7
+9305,chrysler,voyager,5
+9312,chrysler,ypsilon,5
+9336,citroën,berlingo,5
+9337,citroën,berlingo,7
+9359,citroën,c1,4
+9406,citroën,c3,5
+9450,citroën,c3 aircross,5
+9471,citroën,c4 cactus,5
+9486,citroën,c4 spacetourer,5
+9511,citroën,c5,5
+9528,citroën,dispatch combi,9
+9541,citroën,grand c4 spacetourer,7
+9578,citroën,spacetourer,5
+9579,citroën,spacetourer,8
+9601,citroën,spacetourer,6
+9608,citroën,spacetourer,9
+9637,citroën,spacetourer,7
+9665,citroën,ax,5
+9703,citroën,berlingo multispace,5
+9714,citroën,berlingo multispace,7
+9783,citroën,c2,4
+9943,citroën,c3,4
+9962,citroën,c3 picasso,5
+9999,citroën,c3 pluriel,4
+10013,citroën,c3 xtr,5
+10016,citroën,c4,5
+10186,citroën,c4 picasso,5
+10291,citroën,c4 picasso,4
+10498,citroën,c6,5
+10510,citroën,c8,7
+10532,citroën,c8,6
+10547,citroën,dispatch combi,6
+10564,citroën,ds3,5
+10655,citroën,ds4,5
+10684,citroën,ds5,5
+10714,citroën,grand c4 picasso,7
+10824,citroën,nemo multispace,5
+10830,citroën,saxo,5
+10897,citroën,synergie,6
+10898,citroën,synergie,7
+10899,citroën,synergie,5
+10917,citroën,synergie,8
+10932,citroën,xantia,5
+11085,citroën,xm,5
+11099,citroën,xsara,5
+11196,citroën,xsara picasso,5
+11223,citroën,zx,5
+11292,coleman milne,hearse,5
+11296,coleman milne,limousine,5
+11302,corvette,c6,2
+11315,corvette,stingray,2
+11317,cupra,ateca,5
+11325,cupra,leon,5
+11335,dacia,duster,5
+11370,dacia,logan,5
+11416,dacia,sandero,5
+11524,daewoo,espero,5
+11532,daewoo,kalos,5
+11542,daewoo,korando,5
+11545,daewoo,lacetti,5
+11548,daewoo,lanos,5
+11578,daewoo,leganza,5
+11592,daewoo,matiz,5
+11611,daewoo,musso,5
+11617,daewoo,nexia,5
+11635,daewoo,nubira,5
+11660,daewoo,tacuma,5
+11668,daihatsu,applause,5
+11670,daihatsu,charade,5
+11694,daihatsu,copen,2
+11697,daihatsu,cuore,5
+11711,daihatsu,fourtrak,7
+11725,daihatsu,grand move,5
+11733,daihatsu,materia,5
+11735,daihatsu,mira,4
+11736,daihatsu,move,5
+11740,daihatsu,sirion,5
+11776,daihatsu,sportrak,4
+11785,daihatsu,terios,5
+11810,daihatsu,yrv,5
+11819,daimler,saloon,5
+11824,daimler,saloon,4
+11833,daimler,super eight,5
+11834,de tomaso,guara,2
+11836,dfsk,glory,7
+11837,dodge,avenger,5
+11842,dodge,caliber,5
+11851,dodge,journey,7
+11858,dodge,nitro,5
+11862,dodge,ram,6
+11864,ds,3,5
+11924,ds,3 crossback,5
+11939,ds,7 crossback,5
+11998,ds,4,5
+12042,ds,5,5
+12057,eagle,hearse,5
+12058,eagle,hearse,2
+12059,eagle,hearse,4
+12063,eagle,limousine,8
+12073,farbio,gts,2
+12076,fbs,census,2
+12077,ferrari,488,2
+12079,ferrari,812 superfast,2
+12080,ferrari,gtc4lusso,4
+12082,ferrari,portofino,4
+12083,ferrari,360,2
+12088,ferrari,456,2
+12092,ferrari,458,2
+12097,ferrari,550,2
+12098,ferrari,575,2
+12102,ferrari,599 gtb,2
+12104,ferrari,612,4
+12106,ferrari,california,4
+12108,ferrari,california t,2
+12110,ferrari,enzo,2
+12111,ferrari,f12berlinetta,2
+12113,ferrari,f355,2
+12119,ferrari,f430,2
+12124,ferrari,f512,2
+12125,ferrari,ff,4
+12127,fiat,124 spider,2
+12133,fiat,500,4
+12438,fiat,500 electric,4
+12445,fiat,500l,5
+12506,fiat,500x,5
+12581,fiat,doblo,5
+12583,fiat,doblo,7
+12793,fiat,fiorino,5
+12828,fiat,panda,4
+12841,fiat,panda,5
+12867,fiat,qubo,5
+12896,fiat,tipo,5
+12946,fiat,500l,7
+12954,fiat,500l mpw,5
+12955,fiat,500l mpw,7
+12980,fiat,barchetta,2
+12982,fiat,brava,5
+13004,fiat,brava,4
+13009,fiat,bravo,5
+13069,fiat,cinquecento,4
+13070,fiat,cinquecento,5
+13073,fiat,coupe,4
+13076,fiat,coupe,5
+13078,fiat,croma,5
+13123,fiat,grande punto,4
+13124,fiat,grande punto,5
+13186,fiat,idea,5
+13200,fiat,marea,5
+13260,fiat,multipla,6
+13302,fiat,punto,5
+13492,fiat,punto evo,5
+13525,fiat,scudo,5
+13531,fiat,scudo,8
+13535,fiat,scudo,6
+13536,fiat,scudo,9
+13555,fiat,sedici,5
+13563,fiat,seicento,5
+13577,fiat,stilo,5
+13630,fiat,ulysse,7
+13638,fiat,ulysse,6
+13644,fiat,ulysse,5
+13647,fiat,ulysse,8
+13654,ford,ecosport,5
+13711,ford,edge,5
+13729,ford,fiesta,5
+13952,ford,focus,5
+14270,ford,galaxy,7
+14322,ford,grand tourneo connect,7
+14326,ford,grand tourneo connect,5
+14351,ford,ka,5
+14363,ford,kuga,5
+14583,ford,mondeo,5
+14849,ford,mustang,4
+14945,ford,puma,5
+14963,ford,tourneo connect,5
+14994,ford,tourneo courier,5
+15002,ford,transit courier kombi,5
+15005,ford,transit custom,5
+15008,ford,cougar,4
+15011,ford,escort,5
+15195,ford,escort,4
+15199,ford,explorer,5
+15671,ford,focus,4
+16631,ford,fusion,5
+16773,ford,galaxy,6
+16786,ford,ka,4
+16868,ford,maverick,5
+16871,ford,maverick,7
+17774,ford,probe,4
+17776,ford,puma,4
+17783,ford,scorpio,5
+17841,ford,streetka,2
+17846,honda,civic,5
+17871,honda,civic,4
+17899,honda,e,4
+17901,honda,jazz,5
+17905,honda,nsx,2
+17906,honda,accord,5
+18124,honda,accord,4
+18748,honda,concerto,5
+18754,honda,crx,5
+18760,honda,insight,5
+18770,honda,insight,2
+18848,honda,legend,5
+18855,honda,logo,5
+18865,honda,prelude,4
+18881,honda,s2000,2
+18885,honda,shuttle,7
+18887,honda,shuttle,6
+18889,honda,stream,5
+18890,honda,stream,7
+18893,hummer,h2,5
+18894,hummer,h2,7
+18896,hummer,h3,5
+18902,hyundai,i10,5
+18917,hyundai,i20,5
+18975,hyundai,i30,5
+19067,hyundai,i40,5
+19130,hyundai,i800,8
+19141,hyundai,ioniq,5
+19152,hyundai,ioniq electric,5
+19156,hyundai,ix20,5
+19185,hyundai,kona,5
+19204,hyundai,kona electric,5
+19212,hyundai,santa fe,7
+19220,hyundai,tucson,5
+19287,hyundai,accent,5
+19289,hyundai,accent,4
+19329,hyundai,amica,4
+19333,hyundai,amica,5
+19337,hyundai,atoz,4
+19344,hyundai,coupe,4
+19364,hyundai,coupe,5
+19377,hyundai,elantra,5
+19391,hyundai,genesis,5
+19392,hyundai,getz,5
+19421,hyundai,grandeur,5
+19428,hyundai,i10,4
+19677,hyundai,ix35,5
+19731,hyundai,lantra,5
+19748,hyundai,matrix,5
+19769,hyundai,santa fe,5
+19849,hyundai,sonata,5
+19872,hyundai,terracan,5
+19876,hyundai,trajet,7
+19887,hyundai,trajet,5
+19908,hyundai,veloster,4
+19919,hyundai,xg30,5
+19920,infiniti,q30,5
+20026,infiniti,q50,5
+20072,infiniti,qx30,5
+20082,infiniti,ex,5
+20097,infiniti,fx,5
+20131,infiniti,g,4
+20156,infiniti,g,5
+20178,infiniti,m,5
+20207,infiniti,q60,4
+20213,invicta,s1,2
+20214,isuzu,trooper,5
+20222,isuzu,trooper,7
+20266,jaguar,xe,5
+20314,jaguar,xe,4
+20342,jaguar,xf,5
+20426,jaguar,xj,5
+20619,jaguar,xjs,4
+20623,jaguar,xjsc,4
+20627,jaguar,xk,4
+20645,jaguar,xk,5
+20653,jaguar,xk8,4
+20681,jeep,cherokee,5
+20707,jeep,compass,5
+20725,jeep,grand cherokee,5
+20744,jeep,renegade,5
+20796,jeep,wrangler,4
+20797,jeep,wrangler,5
+20857,jeep,commander,7
+20910,jeep,patriot,5
+20985,jensen,sv8,2
+20986,kia,carens,7
+21010,kia,ceed,5
+21044,kia,niro,5
+21055,kia,optima,5
+21078,kia,picanto,5
+21079,kia,picanto,4
+21112,kia,proceed,5
+21143,kia,rio,5
+21160,kia,sorento,7
+21177,kia,soul,5
+21209,kia,soul ev,5
+21211,kia,sportage,5
+21283,kia,stinger,5
+21289,kia,stonic,5
+21303,kia,venga,5
+21339,kia,xceed,5
+21350,kia,carens,5
+21374,kia,carens,6
+21521,kia,cerato,5
+21532,kia,clarus,5
+21542,kia,magentis,5
+21557,kia,magentis,4
+21563,kia,mentor,5
+21683,kia,pride,5
+21685,kia,pride,4
+21839,kia,sedona,7
+21886,kia,shuma,5
+21894,kia,shuma ii,5
+21899,kia,sorento,5
+22049,lamborghini,aventador,2
+22063,lamborghini,huracan,2
+22074,lamborghini,urus,5
+22075,lamborghini,diablo,2
+22081,lamborghini,gallardo,2
+22103,lamborghini,murcielago,2
+22109,lancia,delta,5
+22110,land rover,defender,5
+22111,land rover,defender,6
+22112,land rover,defender,7
+22170,land rover,discovery,7
+22194,land rover,discovery sport,7
+22195,land rover,discovery sport,5
+22342,land rover,range rover,5
+22416,land rover,range rover evoque,5
+22560,land rover,range rover sport,5
+22563,land rover,range rover sport,7
+22631,land rover,range rover velar,5
+22685,land rover,discovery,5
+22787,land rover,discovery,6
+22817,land rover,freelander,5
+22904,land rover,freelander,4
+23124,land rover,range rover evoque,4
+23210,levc,tx,6
+23211,levc,tx,7
+23215,lexus,ct,5
+23285,lexus,es,5
+23291,lexus,is,5
+23380,lexus,lc,4
+23415,lexus,ls,5
+23429,lexus,nx,5
+23511,lexus,rc,4
+23558,lexus,rx,5
+23600,lexus,rx,7
+23615,lexus,rx,6
+23616,lexus,ux,5
+23651,lexus,gs,5
+23868,lexus,is,4
+23940,lexus,ls,4
+24028,lexus,sc,5
+24029,lexus,sc,4
+24030,ligier,ambra,2
+24033,ligier,nova,2
+24034,lotus,elise,2
+24093,lotus,evora,2
+24094,lotus,evora,4
+24147,lotus,exige,2
+24215,lotus,esprit,2
+24221,lotus,europa,2
+24245,lti,tx4,6
+24257,lti,txii,6
+24263,marcos,lm,4
+24264,marcos,lm,2
+24266,marcos,manta ray,2
+24269,marcos,mantis,2
+24275,marcos,tso,2
+24277,marlin,5exi,2
+24282,marlin,hunter,2
+24288,marlin,makaira,2
+24290,marlin,sportster toi,2
+24291,maserati,ghibli,5
+24339,maserati,gran cabriolet,4
+24349,maserati,granturismo,4
+24353,maserati,granturismo,2
+24363,maserati,levante,5
+24393,maserati,quattroporte,5
+24423,maserati,3200 gt,4
+24425,maserati,430,4
+24430,maserati,coupe,4
+24434,maserati,gransport,4
+24449,maserati,shamal,4
+24450,maserati,spyder,2
+24452,maserati,spyder,4
+24454,maybach,57,4
+24456,maybach,62,4
+24458,mazda,2,5
+24503,mazda,3,5
+24548,mazda,6,5
+24618,mazda,121,5
+24857,mazda,323,5
+24888,mazda,5,7
+25053,mazda,626,5
+25099,mazda,demio,5
+25108,mazda,mpv,7
+25111,mazda,premacy,5
+25120,mazda,premacy,7
+25124,mazda,tribute,5
+25128,mazda,xedos 6,5
+25134,mazda,xedos 9,5
+25136,mclaren,540c,2
+25137,mclaren,570gt,2
+25138,mclaren,570s,2
+25140,mclaren,600lt,2
+25142,mclaren,720s,2
+25148,mclaren,765lt,2
+25149,mclaren,gt,2
+25150,mclaren,senna,2
+25156,mclaren,650s,2
+25157,mclaren,650s spider,2
+25158,mclaren,675lt,2
+25159,mclaren,p1,2
+25160,mg,gs,5
+25164,mg,hs,5
+25169,mg,mg5 ev,5
+25171,mg,zs,5
+25183,mg,zs ev,5
+25185,mg,f,2
+25200,mg,rv8,2
+25201,mg,sv,2
+25203,mg,tf,2
+25223,mg,zr,5
+25309,mg,zs,4
+25319,mg,zt,5
+25389,mg motor uk,mg3,5
+25405,mg motor uk,magnette,5
+25409,mg motor uk,mg6,5
+25421,mg motor uk,tf,2
+25425,mia,c,3
+25426,mia,l,4
+25427,mia,l,3
+25428,microcar,m8,2
+25429,microcar,m8,4
+25430,microcar,mc1/mc2,2
+25432,microcar,mc1/mc2,4
+25435,microcar,practic,2
+25439,microcar,virgo,2
+25440,microcar,virgo,4
+25456,mini,clubman,5
+25803,mini,convertible,4
+26051,mini,countryman,5
+26483,mini,electric hatch,4
+26486,mini,hatchback,4
+26488,mini,hatchback,5
+26634,mini,hatchback,2
+27817,mini,cooper s,4
+27848,mini,cooper s,2
+27927,mini,cooper s,5
+28400,mini,coupe,2
+28795,mini,john cooper works,2
+28803,mini,john cooper works,5
+28821,mini,john cooper works,4
+28885,mini,paceman,4
+28933,mini,roadster,2
+28961,mitsubishi,asx,5
+29016,mitsubishi,eclipse cross,5
+29034,mitsubishi,mirage,5
+29052,mitsubishi,outlander,5
+29055,mitsubishi,outlander,7
+29122,mitsubishi,shogun sport,7
+29124,mitsubishi,3000 gt,2
+29125,mitsubishi,carisma,5
+29285,mitsubishi,colt,5
+29335,mitsubishi,colt,4
+29370,mitsubishi,fto,4
+29372,mitsubishi,galant,5
+29441,mitsubishi,grandis,7
+29457,mitsubishi,i,4
+29460,mitsubishi,lancer,5
+29492,mitsubishi,lancer evo,5
+29516,mitsubishi,lancer evo,4
+29544,mitsubishi,shogun,5
+29545,mitsubishi,shogun,7
+29646,mitsubishi,shogun pinin,4
+29658,mitsubishi,shogun pinin,5
+29693,mitsubishi,shogun sport,5
+29714,mitsubishi,sigma,5
+29716,mitsubishi,space runner,5
+29720,mitsubishi,space star,5
+29746,mitsubishi,space wagon,7
+29752,mitsubishi,space wagon,6
+29755,mitsubishi,space wagon,5
+29765,morgan,3 wheeler,2
+29770,morgan,aero coupe,2
+29772,morgan,aero supersports tourer,2
+29774,morgan,plus eight,2
+29776,morgan,plus four,2
+29778,morgan,plus six,2
+29782,morgan,roadster,2
+29783,morgan,roadster,4
+29787,morgan,aero 8,2
+29794,nissan,370z,2
+29815,nissan,juke,5
+29826,nissan,leaf,5
+29836,nissan,micra,5
+30026,nissan,nv200 combi,5
+30027,nissan,nv200 combi,7
+30086,nissan,qashqai,5
+30361,nissan,200 sx,4
+30364,nissan,350z,2
+30382,nissan,almera,5
+30531,nissan,almera tino,5
+30558,nissan,cube,5
+30802,nissan,maxima qx,5
+30892,nissan,micra,3
+31053,nissan,micra,4
+31156,nissan,murano,5
+31159,nissan,note,5
+31268,nissan,pathfinder,7
+31274,nissan,pathfinder,5
+31301,nissan,patrol,5
+31305,nissan,patrol,7
+31326,nissan,pixo,4
+31333,nissan,primera,5
+31578,nissan,pulsar,5
+31747,nissan,qashqai+2,7
+31864,nissan,qx,5
+31870,nissan,serena,8
+31874,nissan,serena,7
+31878,nissan,skyline r33,4
+31879,nissan,skyline r34,4
+31880,nissan,terrano,5
+31887,nissan,terrano,7
+31916,noble,m12,2
+31920,perodua,kelisa,4
+31928,perodua,kenari,5
+31931,perodua,myvi,5
+31943,perodua,nippa,4
+31948,peugeot,108,4
+32001,peugeot,2008,5
+32019,peugeot,208,5
+32039,peugeot,3008,5
+32085,peugeot,308,5
+32268,peugeot,5008,7
+32308,peugeot,508,5
+32342,peugeot,expert combi,9
+32356,peugeot,rifter,5
+32357,peugeot,rifter,7
+32383,peugeot,traveller,5
+32384,peugeot,traveller,8
+32407,peugeot,traveller,9
+32420,peugeot,traveller,6
+32427,peugeot,traveller,7
+32453,peugeot,1007,4
+32466,peugeot,106,5
+32486,peugeot,107,4
+32630,peugeot,205,5
+32631,peugeot,206,5
+32818,peugeot,206,4
+32831,peugeot,206,2
+32871,peugeot,207,4
+32905,peugeot,207,5
+33374,peugeot,306,5
+33421,peugeot,306,4
+33435,peugeot,306,2
+33563,peugeot,307,4
+33579,peugeot,307,5
+33735,peugeot,307,7
+33841,peugeot,308,4
+34019,peugeot,4007,7
+34021,peugeot,4007,5
+34024,peugeot,405,5
+34088,peugeot,406,5
+34399,peugeot,406,4
+34423,peugeot,407,5
+34585,peugeot,407,4
+34807,peugeot,605,5
+34811,peugeot,607,5
+34848,peugeot,806,7
+34849,peugeot,806,5
+34851,peugeot,806,8
+34900,peugeot,807,7
+34938,peugeot,807,6
+34949,peugeot,bipper tepee,5
+34963,peugeot,expert tepee,6
+34965,peugeot,expert tepee,9
+34995,peugeot,ion,4
+34996,peugeot,partner combi,5
+35013,peugeot,partner tepee,5
+35023,peugeot,partner tepee,7
+35051,peugeot,rcz,4
+35077,pgo,cevennes,2
+35079,pgo,speedster ii,2
+35081,polestar,1,4
+35082,polestar,2,5
+35083,porsche,718 boxster,2
+35093,porsche,718 cayman,2
+35103,porsche,911,4
+35119,porsche,911,2
+35134,porsche,cayenne,5
+35140,porsche,cayenne,4
+35152,porsche,macan,5
+35163,porsche,panamera,5
+35164,porsche,panamera,4
+35193,porsche,taycan,4
+35341,porsche,911,5
+35393,porsche,boxster,2
+35480,porsche,cayman,2
+35530,prindiville,hummer,2
+35531,proton,compact,4
+35546,proton,compact,5
+35547,proton,coupe,4
+35548,proton,coupe,2
+35551,proton,exora,7
+35554,proton,impian,5
+35566,proton,persona,5
+35567,proton,persona,4
+35606,proton,preve,5
+35608,proton,satria,4
+35610,proton,satria,5
+35625,proton,satria neo,5
+35631,proton,savvy,4
+35634,proton,wira,5
+35636,proton,wira,4
+35679,reliant,robin & rialto,2
+35683,reliant,robin & rialto,4
+35687,renault,captur,5
+35733,renault,clio,5
+35802,renault,grand scenic,7
+35843,renault,kadjar,5
+35919,renault,koleos,5
+35934,renault,megane,5
+36062,renault,scenic,5
+36103,renault,twingo,4
+36118,renault,twizy,2
+36125,renault,zoe,5
+36166,renault,19,5
+36172,renault,19,4
+36174,renault,avantime,5
+36617,renault,clio,4
+36761,renault,clio,2
+36876,renault,espace,5
+36878,renault,espace,7
+36980,renault,fluence,5
+36983,renault,grand espace,7
+37035,renault,grand espace,6
+37048,renault,grand espace,5
+37060,renault,grand modus,5
+37176,renault,grand scenic,5
+37308,renault,kangoo,5
+37373,renault,laguna,5
+37509,renault,laguna,4
+37844,renault,laguna,7
+38121,renault,megane,4
+38263,renault,megane,2
+39010,renault,megane scenic,5
+39055,renault,modus,5
+39134,renault,safrane,5
+39534,renault,vel satis,5
+39546,renault,wind,2
+39556,rover,100,5
+39584,rover,200,5
+39681,rover,25,5
+39805,rover,400,5
+39891,rover,45,5
+39999,rover,600,5
+40034,rover,75,5
+40260,rover,800,5
+40291,rover,cityrover,5
+40295,rover,mini,4
+40305,rover,streetwise,4
+40309,rover,streetwise,5
+40348,saab,900,5
+40389,saab,900,4
+40400,saab,9000,5
+40438,san,storm,2
+40444,seat,alhambra,7
+40502,seat,arona,5
+40565,seat,ateca,5
+40694,seat,ibiza,5
+40747,seat,leon,5
+40991,seat,mii,4
+41031,seat,mii electric,5
+41032,seat,tarraco,7
+41069,seat,toledo,5
+41099,seat,alhambra,6
+41120,seat,alhambra,5
+41143,seat,altea,5
+41230,seat,arosa,5
+41231,seat,arosa,4
+41247,seat,cordoba,5
+41274,seat,exeo,5
+42079,skoda,citigo,4
+42133,skoda,fabia,5
+42254,skoda,kamiq,5
+42273,skoda,karoq,5
+42330,skoda,kodiaq,5
+42332,skoda,kodiaq,7
+42431,skoda,octavia,5
+42461,skoda,rapid,5
+42533,skoda,scala,5
+42555,skoda,superb,5
+43016,skoda,felicia,5
+43666,skoda,roomster,5
+43954,skoda,yeti,5
+44086,smart,eq forfour,4
+44095,smart,eq fortwo,2
+44116,smart,forfour,4
+44233,smart,fortwo,2
+44362,smart,city,2
+44385,smart,crossblade,2
+44406,smart,forfour,5
+44522,smart,roadster,2
+44536,ssangyong,korando,5
+44578,ssangyong,rexton,7
+44580,ssangyong,rexton,5
+44587,ssangyong,tivoli,5
+44627,ssangyong,tivoli xlv,5
+44643,ssangyong,turismo,7
+44655,ssangyong,kyron,5
+44719,ssangyong,rexton w,7
+44726,ssangyong,rexton w,5
+44730,ssangyong,rodius,7
+44746,subaru,brz,4
+44760,subaru,forester,5
+44762,subaru,impreza,5
+44764,subaru,levorg,5
+44766,subaru,outback,5
+44774,subaru,xv,5
+44780,subaru,b9 tribeca,5
+44782,subaru,b9 tribeca,7
+44932,subaru,justy,4
+44934,subaru,justy,5
+44936,subaru,legacy,5
+45080,subaru,wrx,5
+45118,suzuki,across,5
+45119,suzuki,baleno,5
+45124,suzuki,celerio,5
+45131,suzuki,ignis,4
+45132,suzuki,ignis,5
+45146,suzuki,jimny,4
+45149,suzuki,swift,5
+45166,suzuki,vitara,5
+45217,suzuki,alto,4
+45227,suzuki,alto,5
+45247,suzuki,grand vitara,4
+45249,suzuki,grand vitara,5
+45303,suzuki,grand vitara,7
+45345,suzuki,kizashi,5
+45346,suzuki,liana,5
+45358,suzuki,splash,5
+45368,suzuki,swift,4
+45429,suzuki,sx4,5
+45451,suzuki,vitara,4
+45465,suzuki,vitara,2
+45469,td cars,td 2000,2
+45473,tesla,model 3,5
+45477,tesla,model s,5
+45522,tesla,model x,5
+45526,tesla,model x,6
+45528,tesla,model x,7
+45571,tesla,roadster,2
+45574,toyota,auris,5
+46075,toyota,aygo,4
+46385,toyota,camry,5
+46387,toyota,corolla,5
+46435,toyota,gr supra,2
+46438,toyota,gt86,4
+46490,toyota,land cruiser,5
+46500,toyota,land cruiser,7
+46547,toyota,prius,5
+46560,toyota,prius,4
+46569,toyota,prius,7
+46596,toyota,proace city verso,9
+46612,toyota,proace city verso,8
+46624,toyota,proace city verso,7
+46626,toyota,rav4,5
+46744,toyota,yaris,4
+46746,toyota,yaris,5
+46850,toyota,auris,7
+46853,toyota,avensis,5
+47312,toyota,avensis verso,7
+47443,toyota,carina e,5
+47503,toyota,celica,4
+47529,toyota,corolla,7
+47767,toyota,iq,4
+47812,toyota,land cruiser,8
+47848,toyota,land cruiser amazon,7
+47851,toyota,land cruiser amazon,6
+47858,toyota,land cruiser colorado,5
+47859,toyota,land cruiser colorado,7
+47860,toyota,land cruiser colorado,8
+47873,toyota,land cruiser v8,7
+47878,toyota,mr2,4
+47882,toyota,mr2,2
+47889,toyota,paseo,4
+47892,toyota,picnic,7
+47895,toyota,picnic,6
+47902,toyota,previa,8
+47905,toyota,previa,7
+48014,toyota,rav4,4
+48132,toyota,starlet,5
+48153,toyota,supra,4
+48155,toyota,urban cruiser,5
+48163,toyota,verso,5
+48164,toyota,verso,7
+48995,tvr,cerbera,4
+48998,tvr,chimaera,2
+49003,tvr,griffith,2
+49004,tvr,sagaris,2
+49005,tvr,t350,2
+49007,tvr,t400,2
+49008,tvr,t440,2
+49009,tvr,tamora,2
+49010,tvr,tuscan,2
+49014,tvr,tuscan,4
+49015,tvr,typhon,2
+49016,vauxhall,adam,4
+49163,vauxhall,astra,5
+49419,vauxhall,combo,5
+49425,vauxhall,combo,7
+49442,vauxhall,corsa,5
+49473,vauxhall,crossland x,5
+49588,vauxhall,grandland x,5
+49659,vauxhall,insignia,5
+49840,vauxhall,mokka,5
+49930,vauxhall,viva,5
+49943,vauxhall,vivaro life,3
+49946,vauxhall,vivaro life,5
+49951,vauxhall,vivaro tourer,7
+49976,vauxhall,agila,5
+50005,vauxhall,agila,4
+50014,vauxhall,ampera,4
+50017,vauxhall,antara,5
+50785,vauxhall,astra,4
+50976,vauxhall,astra,2
+51201,vauxhall,calibra,4
+51217,vauxhall,carlton,5
+51218,vauxhall,cascada,4
+51230,vauxhall,combo tour,5
+52245,vauxhall,frontera,4
+52246,vauxhall,frontera,5
+53157,vauxhall,meriva,5
+53402,vauxhall,monaro,4
+53406,vauxhall,monterey,4
+53411,vauxhall,omega,5
+53724,vauxhall,signum,5
+53799,vauxhall,sintra,7
+53803,vauxhall,tigra,2
+53833,vauxhall,tigra,4
+53847,vauxhall,vectra,5
+54732,vauxhall,vectra,4
+54945,vauxhall,vivaro,9
+54946,vauxhall,vx220,2
+54950,vauxhall,vxr8,5
+54962,vauxhall,zafira,7
+55264,vauxhall,zafira,5
+55296,volkswagen,arteon,5
+55362,volkswagen,caddy life,5
+55371,volkswagen,caddy maxi life,7
+55378,volkswagen,california,4
+55379,volkswagen,california,5
+55409,volkswagen,caravelle,7
+55442,volkswagen,golf,5
+55651,volkswagen,grand california,4
+55655,volkswagen,id.3,5
+55656,volkswagen,passat,5
+55873,volkswagen,polo,5
+55908,volkswagen,sharan,7
+55950,volkswagen,sharan,6
+55964,volkswagen,tiguan,5
+56038,volkswagen,tiguan,7
+56086,volkswagen,touareg,5
+56103,volkswagen,touran,7
+56155,volkswagen,up,4
+56256,volkswagen,beetle,4
+56358,volkswagen,beetle,5
+56398,volkswagen,beetle dune,4
+56406,volkswagen,bora,5
+56456,volkswagen,caddy maxi camper,5
+56460,volkswagen,caddy maxi life,5
+56557,volkswagen,cc,5
+56596,volkswagen,corrado,4
+56601,volkswagen,eos,4
+56656,volkswagen,fox,4
+56912,volkswagen,golf,2
+56937,volkswagen,golf,4
+57435,volkswagen,jetta,5
+57514,volkswagen,lupo,5
+57726,volkswagen,passat,4
+58071,volkswagen,phaeton,5
+58079,volkswagen,phaeton,4
+58528,volkswagen,scirocco,4
+58930,volkswagen,touran,5
+58998,volvo,s60,5
+59007,volvo,s90,5
+59046,volvo,v40,5
+59341,volvo,v60,5
+59423,volvo,v90,5
+59501,volvo,xc40,5
+59590,volvo,xc40 electric,5
+59592,volvo,xc60,5
+59675,volvo,xc90,7
+59732,volvo,440,5
+59753,volvo,460,5
+59777,volvo,480,5
+59781,volvo,850,5
+59899,volvo,940,5
+59938,volvo,960,5
+59975,volvo,c30,4
+60118,volvo,c70,4
+60295,volvo,c70,5
+60311,volvo,s40,5
+61204,volvo,s70,5
+61283,volvo,s80,5
+61780,volvo,v50,5
+62421,volvo,v70,5
+63423,volvo,xc70,5
+63689,westfield,sei,2

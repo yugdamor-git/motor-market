@@ -1,0 +1,70 @@
+version: '2'
+
+services:
+  consumertest:
+    build:
+      context: ./tests
+      dockerfile: Dockerfile.consumer
+
+    depends_on:
+      - pulsar
+  
+  producertest:
+    build:
+      context: ./tests
+      dockerfile: Dockerfile.producer
+
+    depends_on:
+      - pulsar
+
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+
+    ports:
+      - ${MONGO_PORT}:27017
+    volumes:
+      - .services/mongodb/database:/data/db
+
+  autotrader:
+    build:
+      context: ./services/scrapers/autotrader
+      dockerfile: Dockerfile.listing
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+  
+  makemodel-prediction:
+    build:
+      context: ./services/machine-learning/make-model
+      dockerfile: Dockerfile.makemodel
+
+  pulsar:
+    build: ./services/pulsar
+    volumes:
+      - ./services/pulsar/pulsardata:/pulsar/data
+    
+    command: "bin/pulsar standalone"
+  
+  transform:
+    build: ./services/transform
+
+  
+  seat-prediction:
+    build:
+      context: ./services/machine-learning/seats
+      dockerfile: Dockerfile.seats
+  
+  validation:
+    build: ./services/validation
+  
+  imagemodeltest:
+    build:
+      context: ./tests
+      dockerfile: Dockerfile.imagemodel
+  

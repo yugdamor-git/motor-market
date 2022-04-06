@@ -1,0 +1,2 @@
+scrapy
+pulsar-client==2.9.1

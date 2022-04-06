@@ -1,10 +1,11 @@
 from flask import Flask,jsonify,request
 import os
 
-from graphql import graphql
+from autotrader import autotrader
+
 app = Flask(__name__)
 
-app.register_blueprint(graphql, url_prefix='/autotrader')
+app.register_blueprint(autotrader, url_prefix='/autotrader')
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))

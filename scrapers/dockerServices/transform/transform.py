@@ -1,22 +1,8 @@
-import pulsar
-import json
 
 
-class transform:
+class Transform:
     def __init__(self):
         print(f'transform init')
-        
-        self.topicTransform = 'motormarket.scrapers.autotrader.listing.transform'
-        
-        self.topicValidate = 'motormarket.scrapers.autotrader.listing.predict.makemodel'
-        
-        self.uri = 'pulsar://pulsar'
-        
-        self.client = pulsar.Client(self.uri)
-        
-        self.producer = self.client.create_producer(self.topicValidate)
-        
-        self.consumer = self.client.subscribe(self.topicTransform, 'Transform-subscription')
         
         self.transmissionCode = {
             "automatic":1,
@@ -496,35 +482,6 @@ class transform:
                 break
         
         return margin
-            
-        
-        
-
-    def consume(self):
-        
-        while True:
-            message = self.consumer.receive()
-            
-            try:
-                data = json.loads(message.data)
-                
-                self.consumer.acknowledge(message)
-                
-                transformedData = self.transformData(data["data"])
-                
-                self.produce(transformedData)
-                
-            except Exception as e:
-                print(f'error : {str(e)}')
-    
-    def produce(self,data):
-        
-        self.producer.send(
-            json.dumps(data).encode("utf-8")
-        )
-        
-    def __del__(self):
-        self.client.close()
     
     def transformData(self,data):
         

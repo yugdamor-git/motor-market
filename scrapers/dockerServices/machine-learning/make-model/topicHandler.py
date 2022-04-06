@@ -1,4 +1,4 @@
-from app import MakeModelPrediction
+from MakeModelPredictor import MakeModelPredictor
 from redisHandler import redisHandler
 import pulsar
 import json
@@ -8,11 +8,11 @@ class topicHandler:
     def __init__(self):
         print("make model topic handler init")
         
-        self.topicSubscribe = 'motormarket.scrapers.autotrader.listing.predict.makemodel'
+        self.topicSubscribe = 'motormarket.scraper.autotrader.listing.predict.makemodel'
         
-        self.topicPublish = 'motormarket.scrapers.autotrader.listing.predict.seats'
+        self.topicPublish = 'motormarket.scraper.autotrader.listing.predict.seat'
         
-        self.mmp = MakeModelPrediction()
+        self.mmp = MakeModelPredictor()
         
         self.redis = redisHandler()
         
@@ -34,9 +34,17 @@ class topicHandler:
                 
                 self.consumer.acknowledge(message)
                 
+                title = data["data"].get("title")
                 
+                if title == None:
+                    pass
+                    # log error here
                 
-                self.produce()
+                prediction = self.mmp.predict(title)
+                
+                data["data"].update(prediction)
+                
+                self.produce(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')

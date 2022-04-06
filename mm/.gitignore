@@ -1,0 +1,7 @@
+tests
+
+# pulsar
+services/pulsar/pulsardata/*
+
+# env
+.env

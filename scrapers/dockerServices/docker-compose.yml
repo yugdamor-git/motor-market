@@ -44,4 +44,13 @@ services:
       dockerfile: Dockerfile.listing
     environment:
       - RESIDENTIAL_PROXY=http://${RESIDENTIAL_PROXY_USERNAME}:${RESIDENTIAL_PROXY_PASSWORD}@gate.smartproxy.com:${RESIDENTIAL_PROXY_PORT}
-
+    
+    depends_on:
+      - pulsar
+      - redis
+  
+  transform:
+    build:
+      context: ./transform
+      dockerfile: Dockerfile
+  
