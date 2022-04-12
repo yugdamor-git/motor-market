@@ -10,7 +10,12 @@ services:
     volumes:
       - /var/www/html/files:/usr/src/app/files
     
+    environment:
+      - PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
+
     network_mode: host
+
+
   consumertest:
     build:
       context: ./tests
@@ -139,10 +144,9 @@ services:
     restart: on-failure
     
     environment:
-      - FTP_USER=root
-      - FTP_PASSWORD=Y454m121ss#da48596fsdfsS131woh6I0f5yM5w
-      - IMAGES_STORE=ftp://185.59.221.77:21/var/www/html/files/test
-      - IMAGE_PATH_PREFIX=/var/www/html/files/test
+      PRODUCTION_SERVER_FTP_USERNAME: ${PRODUCTION_SERVER_FTP_USERNAME}
+      PRODUCTION_SERVER_FTP_PASSWORD : ${PRODUCTION_SERVER_FTP_PASSWORD}
+      PRODUCTION_SERVER_IMAGE_DIR_PREFIX : ${PRODUCTION_SERVER_IMAGE_DIR_PREFIX}
     
     volumes:
       - ./services/imageGenerator/images:/usr/src/app/images
