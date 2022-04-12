@@ -5,7 +5,6 @@
 
 
 # useful for handling different item types with a single interface
-
 import hashlib
 from io import BytesIO
 import mimetypes
@@ -46,8 +45,6 @@ WEBSITE_IMAGE_DIR =  os.path.join(IMAGE_DIR_PATH,WEBSITE_ID)
 PROXY = "http://sp638d4858_2:mysecret007@gate.dc.smartproxy.com:20000"
 
 
-from itemadapter import ItemAdapter
-
 class CustomImagePipeLine(ImagesPipeline):
     
     def is_car_image(self,img,path):
@@ -76,7 +73,6 @@ class CustomImagePipeLine(ImagesPipeline):
         orig_image = self._Image.open(BytesIO(response.body))
 
         width, height = orig_image.size
-        
         # if width < self.min_width or height < self.min_height:
         #     raise ImageException("Image too small "
         #                          f"({width}x{height} < "
@@ -85,8 +81,8 @@ class CustomImagePipeLine(ImagesPipeline):
         image, buf = self.convert_image(orig_image)
         if self.is_car_image(orig_image,path) == 0:
             raise ImageException("this is not car image")
-        else:
-            yield path, image, buf
+        
+        yield path, image, buf
 
         for thumb_id, size in self.thumbs.items():
             thumb_path = self.thumb_path(request, thumb_id, response=response, info=info,item=item)
@@ -110,7 +106,8 @@ class CustomImagePipeLine(ImagesPipeline):
         thumb_guid = hashlib.sha1(to_bytes(request.url)).hexdigest()
         return f'ad{item["ID"]}/{thumb_id}_{thumb_guid}.jpg'
 
-class DealerScraper1Pipeline:
+    
+class DealerScraperPipeline:
     def __init__(self):
         master = Master()
         self.obj_master = master
@@ -131,6 +128,9 @@ class DealerScraper1Pipeline:
         return {"guid":media_guid,"ext":media_ext}
     
     def process_images(self,item):
+        print("############################################################################")
+        print(item)
+        print("############################################################################")
         all_images = []
         car_img_count = 1
         for img in item["images"]:
@@ -158,8 +158,6 @@ class DealerScraper1Pipeline:
                 #     temp["Position"] = 100
                 #     temp["delete_banner_flag"] = 1
                 #     all_images.append(temp)
-        # print(all_images)
-        # print(item)
         self.push_redis({"type":"insert_images","data":all_images})
         return car_img_count,all_images
     
@@ -176,11 +174,12 @@ class DealerScraper1Pipeline:
             json_listing["images_removed"] = 0
             
         json_listing["status"] = status
-        # print(json_listing)
+        
+         
         self.push_redis({"type":"insert_listing","data":json_listing,"ID":item["ID"]})
 
     def process_item(self, item, spider):
+        print("################################## IMAGE #####################################################")
         car_img_count,all_images = self.process_images(item)
         self.process_listing(item,car_img_count,all_images)
-        # print(item)
         return item

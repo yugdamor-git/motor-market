@@ -1,6 +1,16 @@
 version: '2'
 
 services:
+
+  numberplate-prediction:
+    build:
+      context: ./services/machine-learning/numberplate-prediction
+      dockerfile: Dockerfile.image
+
+    volumes:
+      - /var/www/html/files:/usr/src/app/files
+    
+    network_mode: host
   consumertest:
     build:
       context: ./tests
@@ -8,8 +18,11 @@ services:
 
     depends_on:
       - pulsar
+    
+    deploy:
+      replicas: 30
   
-  producertest:
+  producertest1:
     build:
       context: ./tests
       dockerfile: Dockerfile.producer
@@ -27,10 +40,11 @@ services:
       - ${MONGO_PORT}:27017
     volumes:
       - .services/mongodb/database:/data/db
+    restart: on-failure
 
   autotrader:
     build:
-      context: ./services/scrapers/autotrader
+      context: ./services/scrapers/autotrader1
       dockerfile: Dockerfile.listing
 
     depends_on:
@@ -38,11 +52,19 @@ services:
     
     environment:
       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+    
+    deploy:
+      replicas: 5
   
   makemodel-prediction:
     build:
       context: ./services/machine-learning/make-model
       dockerfile: Dockerfile.makemodel
+    
+    restart: on-failure
+
+    deploy:
+      replicas: 5
 
   pulsar:
     build: ./services/pulsar
@@ -50,21 +72,156 @@ services:
       - ./services/pulsar/pulsardata:/pulsar/data
     
     command: "bin/pulsar standalone"
+
+    restart: on-failure
   
   transform:
     build: ./services/transform
+
+    restart: on-failure
+
+    deploy:
+      replicas: 2
+  
+  calculation:
+    build: ./services/calculation
+
+    restart: on-failure
+  
+  logs:
+    build: ./services/logs
+
+    restart: on-failure
 
   
   seat-prediction:
     build:
       context: ./services/machine-learning/seats
       dockerfile: Dockerfile.seats
+
+    restart: on-failure
+
+    deploy:
+      replicas: 2
   
   validation:
     build: ./services/validation
+
+    restart: on-failure
+
+    
   
-  imagemodeltest:
+  video-id:
+    build: ./services/videoId
+
+    restart: on-failure
+
+    deploy:
+      replicas: 2
+
+  image-prediction:
     build:
-      context: ./tests
-      dockerfile: Dockerfile.imagemodel
+      context: ./services/machine-learning/image
+      dockerfile: Dockerfile.image
+    restart: on-failure
+
+    volumes:
+      - ./services/machine-learning/image/images:/usr/src/app/images
+
+    deploy:
+      replicas: 2
+
+  image-generation:
+    build: 
+      context: ./services/imageGenerator
+      dockerfile: Dockerfile.image
+
+    restart: on-failure
+    
+    environment:
+      - FTP_USER=root
+      - FTP_PASSWORD=Y454m121ss#da48596fsdfsS131woh6I0f5yM5w
+      - IMAGES_STORE=ftp://185.59.221.77:21/var/www/html/files/test
+      - IMAGE_PATH_PREFIX=/var/www/html/files/test
+    
+    volumes:
+      - ./services/imageGenerator/images:/usr/src/app/images
+    
+    stdin_open: true
+    tty: true
+
+  db:
+    image: mariadb:10.3
+
+    environment:
+      MYSQL_ROOT_PASSWORD: 9076b974c31e4678f
+    volumes:
+      - ./services/database/production/mysql:/var/lib/mysql
+
+    ports:
+      - "3306:3306"
+    
+    restart: on-failure
+
+  phpmyadmin:
+    image: phpmyadmin
+
+    ports:
+      - 8090:80
+    environment:
+      - PMA_ARBITRARY=1
+    depends_on:
+      - db
+    
+    restart: on-failure
   
+  # ftps:
+  #   image: bfren/ftps
+
+  #   restart: on-failure
+
+  #   volumes:
+  #     - ./services/ftp/files:/files
+  #     - ./services/ftp/ssl:/ssl
+    
+  #   ports:
+  #     - "${FTPS_PORT}:21"
+  #     - "5026:990"
+  #     - "18700-18710:18700-18710"
+    
+  #   environment:
+  #     - FTPS_USER=${FTPS_USERNAME}
+  #     - FTPS_PASS=${FTPS_PASSWORD}
+  #     - FTPS_EXTERNAL_URI=${FTPS_IP}
+  
+  local-db-handler:
+    build:
+      context: ./services/database/local
+      dockerfile : Dockerfile.local
+    
+    restart: on-failure
+    
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+  
+  production-db-handler:
+    build:
+      context: ./services/database/production
+      dockerfile : Dockerfile.production
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+  
+  pulsar-manager:
+    image: apachepulsar/pulsar-manager:v0.2.0
+
+    ports:
+      - "9527:9527"
+      - "7750:7750"
+    
+    environment:
+      - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties

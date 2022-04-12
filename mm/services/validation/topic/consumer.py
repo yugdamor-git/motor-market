@@ -16,7 +16,7 @@ class Consumer:
         
         self.client = pulsar.Client(self.uri)
         
-        self.consumer = self.client.subscribe(self.topic,str(uuid.uuid4()))
+        self.consumer = self.client.subscribe(self.topic,f'{self.topic.split(".")[-1]}-subscription',consumer_type=pulsar.ConsumerType.Shared)
     
     def consume(self):
         

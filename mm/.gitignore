@@ -5,3 +5,11 @@ services/pulsar/pulsardata/*
 
 # env
 .env
+
+.services/*
+
+services/database/production/mysql/*
+
+*.pyc
+
+services/ftp/*

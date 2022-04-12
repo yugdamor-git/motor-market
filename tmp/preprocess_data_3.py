@@ -454,16 +454,16 @@ def apply_location_condition(car_data_1):
         pass
     return temp
 
-def check_if_registration_exists_in_db(account_id,registration_num):
+def check_if_registration_exists_in_db(account_id,product_url):
     status = False
     row = None
 
     dict_where = {
         'account_id': account_id,
-        'product_website_id': registration_num
+        'product_url': product_url
     }
     fl_listings_rows = []
-    fl_listings_rows_temp = db[PREPROCESSED_DATA_3].find({"product_website_id":registration_num})
+    fl_listings_rows_temp = db[PREPROCESSED_DATA_3].find({"product_url":product_url})
     for rw in fl_listings_rows_temp:
         fl_listings_rows.append(rw)
 
@@ -480,13 +480,13 @@ def handle_previous_active_listings(all_car_data):
   all_cur_reg = obj_master.obj_db.recSelect("fl_listings")
   all_car_reg = []
   for car in all_cur_reg:
-    all_car_reg.append(car["registration"])
+    all_car_reg.append(car["product_url"])
 
   all_reg_num = []
   
   for index,car in enumerate(all_car_data):
-    all_reg_num.append(car["registration"])
-    if car["registration"] in all_car_reg:
+    all_reg_num.append(car["product_url"])
+    if car["product_url"] in all_car_reg:
       temp.insert(-1,car)
     else:
       temp.insert(0,car)
@@ -499,11 +499,11 @@ def handle_previous_active_listings(all_car_data):
     query_index += 1
     if query_index > 1000:
       query_index = 0
-      query = "UPDATE `fl_listings` SET Status='active' WHERE `registration` IN("+ all_reg_num_str.strip(",")+") AND Status='expired' AND mannual_expire=0 AND images_removed=0"
+      query = "UPDATE `fl_listings` SET Status='active' WHERE `product_url` IN("+ all_reg_num_str.strip(",")+") AND Status='expired' AND mannual_expire=0 AND images_removed=0"
       sql_queries.append(query)
       all_reg_num_str = ""
   if query_index < 1000:
-    query = "UPDATE `fl_listings` SET Status='active' WHERE `registration` IN("+ all_reg_num_str.strip(",")+") AND Status='expired' AND mannual_expire=0 AND images_removed=0"
+    query = "UPDATE `fl_listings` SET Status='active' WHERE `product_url` IN("+ all_reg_num_str.strip(",")+") AND Status='expired' AND mannual_expire=0 AND images_removed=0"
     sql_queries.append(query)
     
   # obj_master.obj_db.connect()
@@ -579,7 +579,7 @@ def process_upsert_data_into_db(all_car_data):
           dict_product["approved_from_dashboard"] = 0
           # dict_product["custom_price_enable"] =  0
 
-          output = check_if_registration_exists_in_db(ACCOUNT_ID,temp_single['registration'])
+          output = check_if_registration_exists_in_db(ACCOUNT_ID,temp_single['product_url'])
           fl_listing_row = output['row']
           if output['status'] == False:
               inserted = inserted + 1
@@ -587,6 +587,7 @@ def process_upsert_data_into_db(all_car_data):
               dict_product['why'] = "to_parse because i am new listing.recently scraped from website."
               dict_product['engine_cylinders'] = temp_single['engine_cylinders']
               dict_product['reference_number'] = temp_single['registration']
+              dict_product['registration'] = temp_single['registration']
               # title = str(temp_single['title']).replace("-"," ")
               # ttt = " ".join(custom_tokenizer(title))
               # sig,lab,acc = predict_car_model_and_make(ttt,vectorizer,labels,vectors)
@@ -659,6 +660,11 @@ def process_upsert_data_into_db(all_car_data):
                 # dict_product["price"] = dict_product["price"] + 200
                 # dict_product["temp_200"] = 1
 
+                if "*" in temp_single["registration"]:
+                  dict_product["number_plate_flag"] = 1
+                else:
+                  dict_product["number_plate_flag"] = 0
+                
                 pa_price = int(temp_single["price"])
                 
                 
@@ -675,6 +681,9 @@ def process_upsert_data_into_db(all_car_data):
                   
                   if at_price != None:
                     if at_price < 10000:
+                      
+                      # predict reg number.
+                      
                       glass_price = price_ap.check_database_DealerForecourt_response(temp_single["registration"],temp_single["mileage"],17)
                       po.apply_difference_check_operation(dict_product,glass_price)
                     else:
@@ -766,6 +775,11 @@ def process_upsert_data_into_db(all_car_data):
 
               if "body_style" in temp_single.keys():
                   insert_actual["body_style"] = temp_single["body_style"]
+              
+              if "*" in temp_single["registration"]:
+                insert_actual["number_plate_flag"] = 1
+              else:
+                insert_actual["number_plate_flag"] = 0
 
               insert_actual['Pay_date'] = {'func': "now()"}
               insert_actual['error_count'] = 0
@@ -798,8 +812,9 @@ def process_upsert_data_into_db(all_car_data):
                   at_price = po.to_int(temp_single["cal_price_from_file"] + temp_single["admin_fees"])
                   if at_price != None:
                     if at_price < 10000:
-                      glass_price = price_ap.check_database_DealerForecourt_response(temp_single["registration"],temp_single["mileage"],17)
-                      po.apply_difference_check_operation(modified_data,glass_price)
+                      if not "*" in temp_single["registration"]:
+                        glass_price = price_ap.check_database_DealerForecourt_response(temp_single["registration"],temp_single["mileage"],17)
+                        po.apply_difference_check_operation(modified_data,glass_price)
                     else:
                       po.apply_default_values(modified_data)
               except Exception as e:
@@ -1238,17 +1253,11 @@ car_types_dict = {'alfa romeo_stelvio quadrifoglio': {'make': 'alfa romeo',
 
 def get_margin_value(make,model,cc,price):
     make_4x4 = ["cadillac","jeep"]
-    
     make_luxury = ["caterham","hummer","infiniti","jaguar","morgan","lotus"]
-    
     cc = cc * 1000
-    
     make = str(make).strip()
-    
     model = str(model).strip()
-    
     cc = int(cc)
-    
     car_key = f'{make};{model}'
 
     car_cat = None
@@ -1264,7 +1273,6 @@ def get_margin_value(make,model,cc,price):
     final_price = 0
     margin = 0
     margin_cc = margin_cc_dict[car_cat["category"]]
-    
     for item in margin_cc.items():
       data_item = item[1]
       if cc >= data_item["min"] and cc < data_item["max"]:
@@ -1297,9 +1305,7 @@ def apply_price_condition(car_data_9):
     global vectors
     #apply any price related conditions over here...
     temp = car_data_9.copy()
-    
     print(temp["price"])
-    
     if temp['price'] <= 25000:
         admin_fees = temp['admin_fees']
         scraper_price_ = temp['price']
@@ -1321,7 +1327,6 @@ def apply_price_condition(car_data_9):
 
         #################suv############################
         suv_pred = bsm.predict_bodystyle_suv(make,model)
-        
         if suv_pred != None:
             temp['body_style'] = suv_pred
         #################suv############################

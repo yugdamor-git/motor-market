@@ -9,6 +9,10 @@ class topicHandler:
         self.subscribe = 'motormarket.scraper.autotrader.listing.predict.makemodel'
         
         self.publish = 'motormarket.scraper.autotrader.listing.predict.seat'
+        
+        logsTopic = "motormarket.scraper.logs"
+    
+        self.logsProducer = producer.Producer(logsTopic)
 
         self.predictor = Predictor()
         
@@ -21,6 +25,8 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
+                
+                meta = data["meta"]
                 
                 title = data["data"].get("title")
                 
@@ -40,6 +46,11 @@ class topicHandler:
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                log = {}
+                log["errorMessage"] = str(e)
+                log["service"] = "services.machine.learning.makemodel"
+                log["sourceUrl"] = meta["sourceUrl"]
+                self.logsProducer.produce(log)
                 
                 
 if __name__ == "__main__":

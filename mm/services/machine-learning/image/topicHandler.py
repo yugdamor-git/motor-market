@@ -1,16 +1,22 @@
 from topic import producer,consumer
 
-from MakeModelPredictor import MakeModelPredictor
+from predictor import Predictor
+
+import traceback
 
 class topicHandler:
     def __init__(self):
-        print("transform topic handler init")
+        print("image prediction handler init")
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.predict.image'
         
         self.publish = 'motormarket.scraper.autotrader.listing.validation'
 
-        self.predictor = MakeModelPredictor()
+        logsTopic = "motormarket.scraper.logs"
+        
+        self.predictor = Predictor()
+            
+        self.logsProducer = producer.Producer(logsTopic)
         
         self.producer = producer.Producer(self.publish)
         
@@ -22,15 +28,26 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                title = data["data"].get("title")
+                meta = data["meta"]
                 
-                if title == None:
-                    print('title not found')
-                    # log error here
+                images = data["data"]["images"]
                 
-                prediction = self.predictor.predict(title)
+                if len(images) == 0:
+                    print(f'this listing does not have any images')
+                    
+                    log = {}
+                    
+                    log["errorMessage"] = "this listing does not have any images."
+                    log["service"] = "services.machine.learning.image"
+                    log["sourceUrl"] = meta["sourceUrl"]
+                    
+                    self.logsProducer.produce(log)
+                    
+                    continue
                 
-                data["data"].update(prediction)
+                predictions = self.predictor.predict(images)
+                
+                data["data"]["images"] = predictions
                 
                 print(data)
                 
@@ -40,6 +57,15 @@ class topicHandler:
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                
+                traceback.print_exc()
+                
+                log = {}
+                log["errorMessage"] = str(e)
+                log["service"] = "services.machine.learning.image"
+                log["sourceUrl"] = meta["sourceUrl"]
+                
+                self.logsProducer.produce(log)
                 
                 
 if __name__ == "__main__":

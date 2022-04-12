@@ -1,7 +1,5 @@
-from transform import Transform
-
+from calculation import Calculation
 from topic import producer,consumer
-
 
 class topicHandler:
     def __init__(self):
@@ -9,9 +7,13 @@ class topicHandler:
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.calculation'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.predict.image'
+        self.publish = 'motormarket.scraper.autotrader.listing.videoid'
 
-        self.transform = Transform()
+        logsTopic = "motormarket.scraper.logs"
+    
+        self.logsProducer = producer.Producer(logsTopic)
+        
+        self.calculation = Calculation()
         
         self.producer = producer.Producer(self.publish)
         
@@ -23,9 +25,11 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                transformedData = self.transform.transformData(data["data"])
+                meta = data["meta"]
                 
-                data["data"] = transformedData
+                pcpapr = self.calculation.calculatePcpApr(data["data"])
+                
+                data["data"]["pcpapr"] = pcpapr
                 
                 print(data)
                 
@@ -33,6 +37,12 @@ class topicHandler:
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                log = {}
+                log["errorMessage"] = str(e)
+                log["service"] = "services.calculation"
+                log["sourceUrl"] = meta["sourceUrl"]
+                
+                self.logsProducer.produce(log)
                 
                 
 if __name__ == "__main__":

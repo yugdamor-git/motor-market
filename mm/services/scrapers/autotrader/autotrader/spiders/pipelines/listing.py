@@ -8,26 +8,30 @@ class ListingSpiderPipeline:
     def __init__(self):  
         self.topic = 'motormarket.scraper.autotrader.listing.transform'
         
+        logsTopic = "motormarket.scraper.logs"
+    
+        self.logsProducer = producer.Producer(logsTopic)
+        
         self.producer = producer.Producer(self.topic)
         
     def process_item(self, item, spider):
-        print("---------------------------------- pipeline ----------------------------------")
-        data = item["data"]
-        
-        scraped = item["scraped"]
-        
-        data["data"].update(scraped)
-        
-        if not "event" in data:
-            data["event"] = []
-        
-        data["event"].append({
-            "topic":self.topic,
-            "timestamp":str(datetime.now())
-        })
-        
-        print(data)
-        
-        self.producer.produce(data)
+        try:
+            data = item["data"]
+            
+            meta = data["meta"]
+            
+            scraped = item["scraped"]
+            
+            data["data"].update(scraped)
+            
+            self.producer.produce(data)
+            
+        except Exception as e:
+            log = {}
+            log["errorMessage"] = str(e)
+            log["service"] = "services.scrapers.autotrader.listing.pipeline"
+            log["sourceUrl"] = meta["sourceUrl"]
+            
+            self.logsProducer.produce(log)
         
         return item

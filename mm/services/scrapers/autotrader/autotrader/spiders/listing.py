@@ -6,7 +6,10 @@ import json
 
 from .pipelines import listing
 
-from .topic import consumer
+from .topic import consumer,producer
+
+
+
 
 class ListingSpider(scrapy.Spider):
     name = 'listing'
@@ -15,12 +18,16 @@ class ListingSpider(scrapy.Spider):
     
     consumer = consumer.Consumer(topic)
     
+    logsTopic = "motormarket.scraper.logs"
+    
+    logsProducer = producer.Producer(logsTopic)
+    
     graphql = graphql.Graphql()
     
     proxy = graphql.proxy["http"]
     
     custom_settings = {
-         "ROBOTSTXT_OBEY":False,
+         "ROBOTSTXT_OBEY":True,
          "RETRY_ENABLED":True,
          "CONCURRENT_REQUESTS":16,
          "COOKIES_ENABLED":False,
@@ -35,9 +42,13 @@ class ListingSpider(scrapy.Spider):
         while True:
             
             try:
-                data = self.consumer.consume()
+                # self.crawler.pause()
+                # data = self.consumer.consume()
+                # self.crawler.resume()
+                data = {'data': {}, 'meta': {'uniqueId': '202203253932273', 'sourceUrl': 'https://www.autotrader.co.uk/car-details/202203253932273', 'websiteId': 's21'}}
+                meta = data["meta"]
                 
-                id = data["meta"]["autoTraderId"]
+                id = meta["uniqueId"]
                 
                 if id == None:
                     continue
@@ -54,23 +65,42 @@ class ListingSpider(scrapy.Spider):
                     callback = self.parseListing,
                     meta = {
                         "proxy":self.proxy,
-                        "data":data
+                        "data":data,
+                        'download_timeout': 5
                     },
                     dont_filter=True
                 )
                 
+                break
+                
             except Exception as e:
-                print(f'invalid message : {str(e)} ')
+                print(f'invalid message : {str(e)}')
+                log = {}
+                log["errorMessage"] = str(e)
+                log["service"] = "services.scrapers.autotrader.listing.spider"
+                log["sourceUrl"] = meta["sourceUrl"]
+                
+                self.logsProducer.produce(log)
+                
 
     def parseListing(self,response):
         
-        data = response.meta["data"]
+        try:
         
-        jsonData = response.json()
-        
-        listingData = self.graphql.extractDataFromJson(jsonData)
-        
-        yield {
-            "scraped":listingData,
-            "data":data
-        }
+            data = response.meta["data"]
+            meta = data["meta"]
+            jsonData = response.json()
+            
+            listingData = self.graphql.extractDataFromJson(jsonData)
+            
+            yield {
+                "scraped":listingData,
+                "data":data
+            }
+        except Exception as e:
+            log = {}
+            log["errorMessage"] = str(e)
+            log["service"] = "services.scrapers.autotrader.listing.spider"
+            log["sourceUrl"] = meta["sourceUrl"]
+            
+            self.logsProducer.produce(log)
