@@ -7,11 +7,14 @@ services:
       context: ./services/machine-learning/numberplate-prediction
       dockerfile: Dockerfile.image
 
+    # volumes:
+    #   - /var/www/html/files:/usr/src/app/files
+
     volumes:
-      - /var/www/html/files:/usr/src/app/files
+      - ./media/images:/usr/src/app/images
     
     environment:
-      - PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
+      PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
 
     network_mode: host
 
@@ -25,7 +28,7 @@ services:
       - pulsar
     
     deploy:
-      replicas: 30
+      replicas: 1
   
   producertest1:
     build:
@@ -47,7 +50,7 @@ services:
       - .services/mongodb/database:/data/db
     restart: on-failure
 
-  autotrader:
+  autotrader-scraper:
     build:
       context: ./services/scrapers/autotrader1
       dockerfile: Dockerfile.listing
@@ -59,7 +62,9 @@ services:
       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
     
     deploy:
-      replicas: 5
+      replicas: 1
+    
+    stdin_open: true
   
   makemodel-prediction:
     build:
@@ -69,7 +74,7 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 5
+      replicas: 1
 
   pulsar:
     build: ./services/pulsar
@@ -86,10 +91,10 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 2
+      replicas: 1
   
-  calculation:
-    build: ./services/calculation
+  post-calculation:
+    build: ./services/postCalculation
 
     restart: on-failure
   
@@ -107,7 +112,7 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 2
+      replicas: 1
   
   validation:
     build: ./services/validation
@@ -122,7 +127,7 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 2
+      replicas: 1
 
   image-prediction:
     build:
@@ -131,10 +136,10 @@ services:
     restart: on-failure
 
     volumes:
-      - ./services/machine-learning/image/images:/usr/src/app/images
+      - ./media/images:/usr/src/app/images
 
     deploy:
-      replicas: 2
+      replicas: 1
 
   image-generation:
     build: 
@@ -147,9 +152,11 @@ services:
       PRODUCTION_SERVER_FTP_USERNAME: ${PRODUCTION_SERVER_FTP_USERNAME}
       PRODUCTION_SERVER_FTP_PASSWORD : ${PRODUCTION_SERVER_FTP_PASSWORD}
       PRODUCTION_SERVER_IMAGE_DIR_PREFIX : ${PRODUCTION_SERVER_IMAGE_DIR_PREFIX}
+      PRODUCTION_SERVER_FTP_PORT : ${PRODUCTION_SERVER_FTP_PORT}
+      PRODUCTION_SERVER_IP_ADDRESS : ${PRODUCTION_SERVER_IP_ADDRESS}
     
     volumes:
-      - ./services/imageGenerator/images:/usr/src/app/images
+      - ./media/images:/usr/src/app/images
     
     stdin_open: true
     tty: true
@@ -220,12 +227,4 @@ services:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
   
-  pulsar-manager:
-    image: apachepulsar/pulsar-manager:v0.2.0
-
-    ports:
-      - "9527:9527"
-      - "7750:7750"
-    
-    environment:
-      - SPRING_CONFIGURATION_FILE=/pulsar-manager/pulsar-manager/application.properties
+  

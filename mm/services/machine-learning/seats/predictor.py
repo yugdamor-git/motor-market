@@ -68,8 +68,7 @@ class Predictor:
         score = max_row['cosim'].to_list()[0]
         
         return {
-            "predictedSeats":seats,
-            "seatsPredictionScore":score
+            "seats":seats,
         }
     
     def load(self):

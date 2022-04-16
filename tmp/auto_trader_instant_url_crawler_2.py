@@ -566,13 +566,27 @@ def process_upsert_data_into_db(all_car_data):
             insert_actual['Priority'] = PRIORITY
             insert_actual['sale_location'] = insert_dict_temp['sale_location']
             
+            
+            insert_actual["number_plate_flag"] = 0
+            
             if "*" in temp_single["registration"]:
-              if "*" in fl_listing_row["registration"]:
-                insert_actual["number_plate_flag"] = 1
-              else:
-                insert_actual["number_plate_flag"] = 0  
+              insert_actual["number_plate_flag"] = 1
             else:
-              insert_actual["number_plate_flag"] = 0
+              insert_actual["registration"] = temp_single["registration"]
+              insert_actual["reference_number"] = temp_single["registration"]
+            
+            if "*" in fl_listing_row["registration"]:
+              insert_actual["number_plate_flag"] = 1
+            else:
+              insert_actual["registration"] = temp_single["registration"]
+              insert_actual["reference_number"] = temp_single["registration"]
+              
+            
+            if "*" in fl_listing_row["reference_number"]:
+              insert_actual["number_plate_flag"] = 1
+            else:
+              insert_actual["registration"] = temp_single["registration"]
+              insert_actual["reference_number"] = temp_single["registration"]
             
             if fl_listing_row['custom_price_enable'] == 2:
               insert_actual['price'] = fl_listing_row['price']
@@ -585,6 +599,7 @@ def process_upsert_data_into_db(all_car_data):
               pass
             
             insert_actual['expired_flag'] = 0
+            
             try:
               insert_actual['cal_price_from_api'] = insert_dict_temp['cal_price_from_api']
             except:
@@ -614,6 +629,7 @@ def process_upsert_data_into_db(all_car_data):
             #################suv############################
 
             insert_actual['is_parsed'] = 1
+            
             if int(fl_listing_row['mannual_expire']) == 0 and fl_listing_row['approved_from_dashboard'] == 1:
                 insert_actual['status'] = 'active'
                 insert_actual['why'] = "active because approved from dashboard(was active and again found in scraped data.)"
@@ -622,16 +638,21 @@ def process_upsert_data_into_db(all_car_data):
             if fl_listing_row['approved_from_dashboard'] == -1:
                 insert_actual['status'] = 'expired'
                 insert_actual['why'] = "expired because it was rejected from dashboard"
+            
             if temp_category_id == 0 or temp_photo_count == 0:
                 insert_actual['Status'] = 'to_parse'
-                insert_actual["scrapy_instance_id"] = 1
-                insert_actual['why'] = "expired because temp_category_id == 0 or temp_photo_count == 0"
+                insert_actual["scrapy_instance_id"] = 3
+                insert_actual['why'] = "new listing. it was already added by dealer scraper and again added via at url"
+            
             if fl_listing_row['Status'] == "image_parsed":
                 insert_actual['status'] = 'image_parsed'
                 insert_actual['why'] = "image_parsed because yesterday they did not approved me from dashboard"
+            
             if fl_listing_row['Status'] == "to_prase":
                 insert_actual['status'] = 'to_parse'
                 insert_actual['why'] = "to_parse because maybe i am new listing."
+                insert_actual["scrapy_instance_id"] = 3
+                
             # if fl_listing_row["Category_ID"]
             insert_actual['Pay_date'] = {'func': "now()"}
             insert_actual['error_count'] = 0
@@ -650,7 +671,9 @@ def process_upsert_data_into_db(all_car_data):
               insert_actual['discount'] = temp_single['discount']
               
             modified_data = insert_actual
+            
             obj_master.obj_db.recUpdate('fl_listings', modified_data,{'id': fl_listing_row['ID']})
+            
             obj_master.obj_db.recUpdate("AT_urls",{"listing_status":"active","listing_id":fl_listing_row['ID']},{"url":fl_listing_row['product_url']})
             
             if fl_listing_row['custom_price_enable'] == 2:

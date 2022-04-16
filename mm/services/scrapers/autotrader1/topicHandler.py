@@ -27,20 +27,18 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                meta = data["meta"]
-                
-                id = meta["uniqueId"]
+                id = data["data"]["sourceId"]
                 
                 scrapedData = self.scraper.scrapeById(id)
                 
                 if scrapedData["status"] == False:
                     # log message here
-                    print(f'requestNo : {meta["requestId"]} - failed')
+                    # expire listing if present
                     continue
                 
-                print(f'requestNo : {meta["requestId"]} - success')
+                data["rawData"] = scrapedData["data"]
                 
-                data["data"].update(scrapedData["data"])
+                print(data)
                 
                 self.producer.produce(data)
                 

@@ -25,11 +25,9 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
-                
-                meta = data["meta"]
-                
-                make = data["data"]["predictedMake"]
-                model = data["data"]["predictedModel"]
+                                
+                make = data["data"]["make"]
+                model = data["data"]["model"]
                 
                 prediction = self.predictor.predict(make,model)
                 
@@ -38,8 +36,6 @@ class topicHandler:
                 print(data)
                 
                 self.producer.produce(data)
-                
-                # break
                 
             except Exception as e:
                 print(f'error : {str(e)}')

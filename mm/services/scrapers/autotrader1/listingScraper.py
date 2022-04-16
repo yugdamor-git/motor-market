@@ -8,7 +8,7 @@ class listingScraper:
     def __init__(self) -> None:
         self.graphql = graphql.Graphql()
         self.proxy = self.graphql.proxy
-        self.maxRetry = 5
+        self.maxRetry = 20
     
     def scrapeById(self,id):
         

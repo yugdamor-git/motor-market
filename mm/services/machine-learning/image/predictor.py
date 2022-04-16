@@ -14,29 +14,31 @@ class Predictor:
         
         self.downloader = ImageDownloader()
         
-    def predict(self,urls):
+    def predict(self,urls,websiteId,sourceId):
         
         predicted = []
         
-        downloadedImages = self.prepare_images(urls)
+        downloadedImages = self.prepare_images(urls,websiteId,sourceId)
         
         for image in downloadedImages:
             
+            if image["status"] == False:
+                # log image failed to download
+                continue
+            
             tmp = image.copy()
             
-            img = open_image(image["filePath"])
+            del tmp["status"]
             
-            os.remove(image["filePath"])
+            img = open_image(tmp["path"])
             
             pred_class,pred_idx,outputs = self.model.predict(img)
             
             if not str(pred_class) in ["cars"]:
-                print(f'this is not car image : {image["url"]}')
+                print(f'this is not car image : {tmp["url"]}')
                 continue
             
-            tmp["imageClass"] = str(pred_class)
-            
-            predicted.append(image["url"])
+            predicted.append(tmp)
             
         return predicted
     
@@ -46,6 +48,6 @@ class Predictor:
         
         return base64str
     
-    def prepare_images(self,urls):
-        downloadedImages = self.downloader.download_multiple_images(urls)
+    def prepare_images(self,urls,websiteId,sourceId):
+        downloadedImages = self.downloader.download_multiple_images(urls,websiteId,sourceId)
         return downloadedImages

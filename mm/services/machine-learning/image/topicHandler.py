@@ -28,32 +28,21 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                meta = data["meta"]
+                websiteId = data["data"]["websiteId"]
                 
-                images = data["data"]["images"]
+                sourceId = data["data"]["sourceId"]
                 
-                if len(images) == 0:
-                    print(f'this listing does not have any images')
-                    
-                    log = {}
-                    
-                    log["errorMessage"] = "this listing does not have any images."
-                    log["service"] = "services.machine.learning.image"
-                    log["sourceUrl"] = meta["sourceUrl"]
-                    
-                    self.logsProducer.produce(log)
-                    
-                    continue
+                rawData = data["rawData"]
                 
-                predictions = self.predictor.predict(images)
+                images = rawData["images"]
+                
+                predictions = self.predictor.predict(images,websiteId,sourceId)
                 
                 data["data"]["images"] = predictions
                 
                 print(data)
                 
                 self.producer.produce(data)
-                
-                # break
                 
             except Exception as e:
                 print(f'error : {str(e)}')

@@ -9,7 +9,7 @@ class DealerScraperSpider(scrapy.Spider):
     root_url = 'https://m.atcdn.co.uk/a/media/67716aca08c0482f9d466749ceb1775d.jpg'
     obj_master = Master()
     max_images = 25
-    instance_id = 2
+    instance_id = 3
 
     def start_requests(self):
         yield scrapy.Request(self.root_url,callback=self.parse_images)

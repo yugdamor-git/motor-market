@@ -5,8 +5,9 @@ class Validation:
         
         self.logsProducer = logsProducer
         
-    def validate(self,data,meta):
-        sourceUrl = meta["sourceUrl"]
+    def validate(self,data):
+        
+        sourceUrl = data["sourceUrl"]
         
         price = data["price"]
         

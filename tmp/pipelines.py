@@ -144,7 +144,6 @@ class DealerScraperPipeline:
                 temp["Original"] = f'{WEBSITE_ID}/ad{item["ID"]}/org_{guid_ext["guid"]}{guid_ext["ext"]}'
                 temp["Type"] = "picture"
                 temp["create_ts"] = {"func":"now()"}
-                temp["plate_updated_flag"] = 0
                 temp["approved_from_dashboard"] = 101
                 # if self.is_car_image(img_path)==1:
                 img["car_image"] = True
@@ -172,6 +171,7 @@ class DealerScraperPipeline:
             status = "active"
             json_listing["Main_photo"] = all_images[0]["Thumbnail"]
             json_listing["images_removed"] = 0
+            
             
         json_listing["status"] = status
         

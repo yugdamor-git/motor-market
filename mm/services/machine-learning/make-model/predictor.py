@@ -47,9 +47,8 @@ class Predictor:
         model = label.split(";")[1]
         
         return {
-            "predictedMake":make,
-            "predictedModel":model,
-            "makeModelPredictionScore":cosim.max()
+            "make":make,
+            "model":model
         }
 
     def load(self):

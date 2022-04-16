@@ -11,7 +11,7 @@ class topicHandler:
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.validation'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.calculation'
+        self.publish = 'motormarket.scraper.autotrader.listing.predict.numberplate'
         
         logsTopic = "motormarket.scraper.logs"
         
@@ -29,9 +29,9 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                print(data)
+                rawData = data["data"]
                 
-                if self.validator.validate(data["data"],data["meta"]) == False:
+                if self.validator.validate(data["data"]) == False:
                     print('we are not taking this listing')
                     
                 self.producer.produce(data)

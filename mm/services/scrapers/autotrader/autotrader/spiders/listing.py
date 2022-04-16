@@ -27,7 +27,7 @@ class ListingSpider(scrapy.Spider):
     proxy = graphql.proxy["http"]
     
     custom_settings = {
-         "ROBOTSTXT_OBEY":True,
+         "ROBOTSTXT_OBEY":False,
          "RETRY_ENABLED":True,
          "CONCURRENT_REQUESTS":16,
          "COOKIES_ENABLED":False,
@@ -42,10 +42,8 @@ class ListingSpider(scrapy.Spider):
         while True:
             
             try:
-                # self.crawler.pause()
-                # data = self.consumer.consume()
-                # self.crawler.resume()
-                data = {'data': {}, 'meta': {'uniqueId': '202203253932273', 'sourceUrl': 'https://www.autotrader.co.uk/car-details/202203253932273', 'websiteId': 's21'}}
+                data = self.consumer.consume()
+                # data = {'data': {}, 'meta': {'uniqueId': '202203253932273', 'sourceUrl': 'https://www.autotrader.co.uk/car-details/202203253932273', 'websiteId': 's21'}}
                 meta = data["meta"]
                 
                 id = meta["uniqueId"]
@@ -70,8 +68,6 @@ class ListingSpider(scrapy.Spider):
                     },
                     dont_filter=True
                 )
-                
-                break
                 
             except Exception as e:
                 print(f'invalid message : {str(e)}')

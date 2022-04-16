@@ -545,12 +545,12 @@ def process_upsert_data_into_db(all_car_data):
 
 
     # obj_master.obj_db.recCustomQuery('UPDATE `fl_listings` SET approved_from_dashboard = -1 WHERE Website_ID = 17 AND dealer_scraper_listing = 1 AND Status = "expired" AND Category_ID IS NOT NULL')
-    obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET Status='expired',why='expired because listing was not found in scraped data' where Website_ID="+ str(WEBSITE_ID)+ " AND Status='active' AND dealer_scraper_listing=1")
-    obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET is_parsed=0 where account_id="+str(ACCOUNT_ID)+" AND status='active' AND updated_at<DATE(NOW())")
-    obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET expired_flag=1 where Website_ID=17 AND dealer_scraper_listing=1")
-    time.sleep(10)
-    for sql_query in handle_previous_active_query:
-      obj_master.obj_db.recCustomQuery(sql_query)
+    # obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET Status='expired',why='expired because listing was not found in scraped data' where Website_ID="+ str(WEBSITE_ID)+ " AND Status='active' AND dealer_scraper_listing=1")
+    # obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET is_parsed=0 where account_id="+str(ACCOUNT_ID)+" AND status='active' AND updated_at<DATE(NOW())")
+    # obj_master.obj_db.recCustomQuery("UPDATE fl_listings SET expired_flag=1 where Website_ID=17 AND dealer_scraper_listing=1")
+    # time.sleep(10)
+    # for sql_query in handle_previous_active_query:
+    #   obj_master.obj_db.recCustomQuery(sql_query)
     time.sleep(10)
     sync_mysql_to_mongo()
     time.sleep(120)
@@ -577,6 +577,7 @@ def process_upsert_data_into_db(all_car_data):
           dict_product['expired_flag'] = 0
           dict_product["Category_ID"] = 0
           dict_product["approved_from_dashboard"] = 0
+          dict_product["registration"] = temp_single["registration"]
           # dict_product["custom_price_enable"] =  0
 
           output = check_if_registration_exists_in_db(ACCOUNT_ID,temp_single['product_url'])
@@ -587,7 +588,6 @@ def process_upsert_data_into_db(all_car_data):
               dict_product['why'] = "to_parse because i am new listing.recently scraped from website."
               dict_product['engine_cylinders'] = temp_single['engine_cylinders']
               dict_product['reference_number'] = temp_single['registration']
-              dict_product['registration'] = temp_single['registration']
               # title = str(temp_single['title']).replace("-"," ")
               # ttt = " ".join(custom_tokenizer(title))
               # sig,lab,acc = predict_car_model_and_make(ttt,vectorizer,labels,vectors)
@@ -677,13 +677,10 @@ def process_upsert_data_into_db(all_car_data):
                 # glass_price = price_ap.check_database_DealerForecourt_response(temp_single["registration"],temp_single["mileage"],17)
                
                 try:
-                  at_price = po.to_int(temp_single["cal_price_from_file"] + temp_single["admin_fees"])
+                  at_price = po.to_int(float(temp_single["cal_price_from_file"]) + float(temp_single["admin_fees"]))
                   
                   if at_price != None:
-                    if at_price < 10000:
-                      
-                      # predict reg number.
-                      
+                    if at_price < 10000 and not "*" in temp_single["registration"]:
                       glass_price = price_ap.check_database_DealerForecourt_response(temp_single["registration"],temp_single["mileage"],17)
                       po.apply_difference_check_operation(dict_product,glass_price)
                     else:
@@ -703,6 +700,7 @@ def process_upsert_data_into_db(all_car_data):
                 dict_product["ID"] = ID
                 db[PREPROCESSED_DATA_3].insert_one(dict_product)
           else:
+              continue
               updated = updated + 1
               insert_dict_temp = temp_single.copy()
               insert_actual = {}
@@ -720,7 +718,7 @@ def process_upsert_data_into_db(all_car_data):
               insert_actual['built'] = insert_dict_temp['built']
               insert_actual['Priority'] = PRIORITY
               insert_actual['sale_location'] = insert_dict_temp['sale_location']
-              insert_actual['reference_number'] = insert_dict_temp['registration']
+              # insert_actual['reference_number'] = insert_dict_temp['registration']
               
               insert_actual["wheelbase"] = temp_single["wheelbase"]
               insert_actual["cabtype"] = temp_single["cabtype"]
@@ -775,11 +773,6 @@ def process_upsert_data_into_db(all_car_data):
 
               if "body_style" in temp_single.keys():
                   insert_actual["body_style"] = temp_single["body_style"]
-              
-              if "*" in temp_single["registration"]:
-                insert_actual["number_plate_flag"] = 1
-              else:
-                insert_actual["number_plate_flag"] = 0
 
               insert_actual['Pay_date'] = {'func': "now()"}
               insert_actual['error_count'] = 0

@@ -17,7 +17,7 @@ class ImageSpiderPipeline:
     
         self.logsProducer = producer.Producer(logsTopic)
         
-        self.imagePathPrefix = os.environ.get("IMAGE_PATH_PREFIX","/var/www/html/files")
+        self.imagePathPrefix = os.environ.get("PRODUCTION_SERVER_IMAGE_DIR_PREFIX","/var/www/html/files")
         
         self.imageTypes = [
             "org",

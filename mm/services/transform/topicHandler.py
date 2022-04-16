@@ -28,13 +28,13 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                meta = data["meta"]
+                rawData = data["rawData"]
                 
-                transformedData = self.transform.transformData(data["data"])
+                transformedData = self.transform.transformData(rawData)
                 
-                data["data"] = transformedData
+                data["rawData"] = transformedData
                 
-                print(data["meta"])
+                data["data"].update(rawData)
                 
                 self.producer.produce(data)
                 

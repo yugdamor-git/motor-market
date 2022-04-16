@@ -2,7 +2,7 @@ from pathlib import Path
 from Database  import Database
 from predictor import Predictor
 from PlateRecognizer import PlateRecognizer
-import time
+
 
 class Handler:
     def __init__(self) -> None:
@@ -60,78 +60,44 @@ class Handler:
         
         return True,regNo
     
-    
-    def main(self):
-        while True:
-            listings = self.getPendingListings()
+    def getRegistrationFromImages(self,images,rawRegistration):
+        
+        registration = None
+        
+        status = False
+        
+        for image in images:
             
-            if len(listings) == 0:
-                print(f'there is no listing with number_plate_flag=1')
-                time.sleep(30)
+            imgPath = Path(image["path"])
+            
+            if imgPath.exists() == False:
                 continue
             
-            for listing in listings:
-                images = self.getListingImages(listing["ID"])
-                
-                registration = None
-                status = None
-                
-                for image in images:
-                    
-                    imgPath = self.pathPrefix.joinpath(image["Original"])
-                    
-                    image["filePath"] = imgPath
-                    
-                    prediction = self.predictor.predict(image)
-                    
-                    if prediction["status"] == False:
-                        continue
-                    
-                    if imgPath.exists() == False:
-                        continue
-                    
-                    result = None
-                    
-                    with open(imgPath,"rb") as f:
-                        result = self.PlateRecognizer.fetchRegistrationNumber(f)
+            isNumberPlateVisible = self.predictor.predict(imgPath)
+            
+            if isNumberPlateVisible == False:
+                continue
+            
+            
+            with open(imgPath,"rb") as f:
+                result = self.PlateRecognizer.fetchRegistrationNumber(f)
 
-                    if result["status"] == False:
-                        continue
+            if result["status"] == False:
+                continue
+            
+            status,regno = self.validateRegistration(result["registration"],rawRegistration)
+            
+            if status == True:
+                registration = regno
+                break
+            else:
+                registration = regno
+                
+        return {
+            "registration":registration,
+            "registrationStatus":status
+        }   
                     
-                    status,regno = self.validateRegistration(result["registration"],listing["registration"])
-                    
-                    if status == True:
-                        registration = regno
-                        break
-                    else:
-                        registration = regno
-                
-                tmp = {}
-                
-                if status == True:
-                    tmp = {
-                        "registration":registration,
-                        "reference_number":registration,
-                        "number_plate_flag":0
-                    }
-                else:
-                    tmp = {
-                        "registration":registration,
-                        "reference_number":registration,
-                        "number_plate_flag":2
-                    }
-                
-                print(tmp)
-                
-                self.database.connect()
-                try:
-                    pass
-                    self.database.recUpdate("fl_listings",tmp,{"ID":listing["ID"]})
-                    self.database.recUpdate("AT_urls",{"number_plate_flag":tmp["number_plate_flag"]},{"url":listing["product_url"]})
-                except Exception as e:
-                    print(f'error : {str(e)}')
-                self.database.disconnect()
-                
 if __name__ == "__main__":
     h = Handler()
     h.main()

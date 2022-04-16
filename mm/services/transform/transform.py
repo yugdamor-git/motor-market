@@ -306,6 +306,12 @@ class Transform:
         # margin
         margin = self.calculateMargin(data["make"],data["model"],data["engineCylindersCC"])
         
-        data["margin"] = margin    
+        data["margin"] = margin
+        
+        # mm price
+        data["mmPrice"] = data.get("price") + margin
+        
+        # at price
+        data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
         
         return data

@@ -32,8 +32,15 @@ class ImageSpider(scrapy.Spider):
         'accept-language': 'en-US,en;q=0.9,ca;q=0.8,cs;q=0.7,fr;q=0.6,hi;q=0.5'
         }
     
+    ip = os.environ.get("PRODUCTION_SERVER_IP_ADDRESS")
+    port = os.environ.get("PRODUCTION_SERVER_FTP_PORT")
+    imageDir = os.environ.get("PRODUCTION_SERVER_IMAGE_DIR_PREFIX")
+    
+    
+    IMAGES_STORE = f'ftp://{ip}:{port}{imageDir}'
+    
     custom_settings = {
-         "ROBOTSTXT_OBEY":True,
+         "ROBOTSTXT_OBEY":False,
          "RETRY_ENABLED":True,
          "CONCURRENT_REQUESTS":32,
          "COOKIES_ENABLED":False,
@@ -48,9 +55,9 @@ class ImageSpider(scrapy.Spider):
                         'large': (900, 600),
                             },
          "MEDIA_ALLOW_REDIRECTS":True,
-         "FTP_USER":os.environ.get("FTP_USER"),
-         "FTP_PASSWORD":os.environ.get("FTP_PASSWORD"),
-         "IMAGES_STORE":os.environ.get("IMAGES_STORE"),
+         "FTP_USER":os.environ.get("PRODUCTION_SERVER_FTP_USERNAME"),
+         "FTP_PASSWORD":os.environ.get("PRODUCTION_SERVER_FTP_PASSWORD"),
+         "IMAGES_STORE":IMAGES_STORE,
          "DEFAULT_REQUEST_HEADERS":headers,
          "DOWNLOADER_MIDDLEWARES":{
              'imageGenerator.middlewares.ImagegeneratorDownloaderMiddleware': 543
@@ -91,6 +98,7 @@ class ImageSpider(scrapy.Spider):
                     "websiteId":websiteId
                 }
                 
+                break
                 
                 
             except Exception as e:

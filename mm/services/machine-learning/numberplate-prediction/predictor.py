@@ -11,32 +11,13 @@ class Predictor:
         
         self.cwd = Path.cwd()
         
-    def predict(self,image):
-            
-        tmp = image.copy()
+    def predict(self,path):
         
-        img = open_image(image["filePath"])
+        img = open_image(path)
         
         pred_class,pred_idx,outputs = self.model.predict(img)
         
         if not str(pred_class) in ["plate_number"]:
-            tmp["imageClass"] = None
-            tmp["status"] = False
+            return False
         else:
-            tmp["imageClass"] = str(pred_class)
-            tmp["status"] = True
-            
-        return tmp
-    
-    
-    def encode_image_base64(self,imagePath):
-        
-        base64str = base64.b64encode(imagePath.read_bytes()).decode("utf-8")
-        
-        return base64str
-    
-    def prepare_images(self,urls):
-        
-        downloadedImages = self.downloader.download_multiple_images(urls)
-        
-        return downloadedImages
+            return True

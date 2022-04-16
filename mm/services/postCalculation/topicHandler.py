@@ -5,9 +5,9 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.calculation'
+        self.subscribe = 'motormarket.scraper.autotrader.listing.post.calculation'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.videoid'
+        self.publish = 'motormarket.scraper.autotrader.listing.database.production'
 
         logsTopic = "motormarket.scraper.logs"
     
@@ -25,11 +25,25 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                meta = data["meta"]
-                
+                # pcp apr
                 pcpapr = self.calculation.calculatePcpApr(data["data"])
-                
                 data["data"]["pcpapr"] = pcpapr
+                
+                
+                # ltv
+                ltv = self.calculation.calculateLtv(data["data"])
+                data["data"]["ltv"] = ltv
+                
+                # categoryId
+                categoryId = self.calculation.calculateCategoryId(data["data"])
+                if categoryId == None:
+                    continue
+                    # log this event
+                data["data"]["categoryId"] = categoryId
+                
+                # video id
+                videoId = self.calculation.calculateVideoId(data["data"])
+                data["data"]["videoId"] = videoId
                 
                 print(data)
                 

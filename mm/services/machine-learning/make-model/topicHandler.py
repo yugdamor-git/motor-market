@@ -26,19 +26,18 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                meta = data["meta"]
+                rawData = data["rawData"]
                 
-                title = data["data"].get("title")
+                title = rawData.get("title")
                 
                 if title == None:
                     print('title not found')
+                    continue
                     # log error here
                 
                 prediction = self.predictor.predict(title)
                 
                 data["data"].update(prediction)
-                
-                print(data)
                 
                 self.producer.produce(data)
                 

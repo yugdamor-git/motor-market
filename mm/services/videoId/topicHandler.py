@@ -9,7 +9,7 @@ class topicHandler:
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.videoid'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.predict.test'
+        self.publish = "motormarket.scraper.autotrader.listing.image.generator"
 
         logsTopic = "motormarket.scraper.logs"
     
