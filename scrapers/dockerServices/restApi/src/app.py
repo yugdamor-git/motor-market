@@ -5,7 +5,7 @@ from autotrader import autotrader
 
 app = Flask(__name__)
 
-app.register_blueprint(autotrader, url_prefix='/autotrader')
+app.register_blueprint(autotrader)
 
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
