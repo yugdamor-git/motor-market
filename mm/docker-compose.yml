@@ -2,6 +2,15 @@ version: '2'
 
 services:
 
+  api:
+    build: ./services/api
+    environment:
+      - RESIDENTIAL_PROXY=http://${RESIDENTIAL_PROXY_USERNAME}:${RESIDENTIAL_PROXY_PASSWORD}@gate.smartproxy.com:${RESIDENTIAL_PROXY_PORT}
+      - FLASK_AUTH_TOKEN=${FLASK_AUTH_TOKEN}
+
+    ports:
+      - ${API_PORT}:5000
+
   numberplate-prediction:
     build:
       context: ./services/machine-learning/numberplate-prediction
