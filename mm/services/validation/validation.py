@@ -1,9 +1,13 @@
 
+from Database import Database
+
 class Validation:
     def __init__(self,logsProducer) -> None:
         print("validation init")
         
         self.logsProducer = logsProducer
+        
+        self.database = Database()
         
     def validate(self,data):
         
@@ -19,46 +23,89 @@ class Validation:
         
         mileage = data["mileage"]
         
+        dealerId = data["dealerId"]
+        
         images = data["images"]
         
         log = {}
-        log["service"] = "services.validation"
+        log["service"] = "motormarket.scraper.autotrader.listing.validation"
         log["sourceUrl"] = sourceUrl
         
         status,message = self.priceValidation(price)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
         
         status,message = self.engineCCValidation(cc)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
         
         status,message = self.marginValidation(margin)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
         
         status,message = self.builtValidation(built)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
         
         status,message = self.mileageValidation(mileage)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
 
         status,message = self.imageValidation(images)
         if status == False:
             log["errorMessage"] = message
-            self.logsProducer.produce(log)
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
+            return False
+        
+        status,message = self.isBlackListedDealer(dealerId)
+        if status == True:
+            log["errorMessage"] = message
+            
+            self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+            
             return False
         
         return True
@@ -123,22 +170,25 @@ class Validation:
             return True,None
         else:
             return False,f'mileage({mileage}) is more than maxMileage({maxMileage})'
-    
-    # def isManuallyExpired(self,status):
-    #     pass
-    
-    # def isSoldOut(self,status):
-    #     pass
-    
-    # def isBlackListedDealer(self,dealerId):
         
-    #     if dealerId == None:
-    #         return False
+    def isBlackListedDealer(self,dealerId):
         
-    #     dealers = list(self.db.blacklistedDealers.find({"dealerId":dealerId}))
+        if dealerId == None:
+            return False,f'dealerId is None'
         
-    #     if len(dealers) > 0:
-    #         return True
-    #     else:
-    #         return False
+        self.database.connect()
+        
+        try:
+            dealers = self.database.recSelect("fl_dealer_blacklist",{
+                "dealer_id":str(dealerId)
+            })
+        except Exception as e:
+            dealers = None
+        
+        self.database.disconnect()
+        
+        if len(dealers) > 0:
+            return True,f'dealerId ({dealerId}) is blacklisted.'
+        else:
+            return False,None
         

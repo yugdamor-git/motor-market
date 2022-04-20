@@ -2,6 +2,7 @@ from transform import Transform
 
 from topic import producer,consumer
 
+import traceback
 
 
 class topicHandler:
@@ -36,15 +37,23 @@ class topicHandler:
                 
                 data["data"].update(rawData)
                 
+                print(data)
+                
                 self.producer.produce(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                
                 log = {}
-                log["errorMessage"] = str(e)
-                log["service"] = "services.transform"
-                log["sourceUrl"] = meta["sourceUrl"]
-                self.logsProducer.produce(log)
+                
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
                 
                 
                 

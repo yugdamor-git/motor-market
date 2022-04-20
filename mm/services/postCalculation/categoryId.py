@@ -145,4 +145,4 @@ class categoryId:
 
         self.db.disconnect()
 
-        return categoryId
+        return int(categoryId)

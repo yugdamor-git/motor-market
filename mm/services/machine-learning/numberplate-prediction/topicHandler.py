@@ -17,8 +17,6 @@ class topicHandler:
         self.predictor = Handler()
         
         self.redis = redisHandler()
-    
-        self.logsProducer = producer.Producer(logsTopic)
         
         self.producer = producer.Producer(self.publish)
         
@@ -39,21 +37,19 @@ class topicHandler:
                 registrationData = self.redis.get(f'numberplate.predict.{sourceId}')
                 
                 if registrationData != None:
-                    registrationData = json.load(registrationData)
+                    registrationData = json.loads(registrationData)
                 
                 if registrationData == None:
                     registrationData = self.predictor.getRegistrationFromImages(images,rawRegistration)
                     self.redis.set(f'numberplate.predict.{sourceId}',json.dumps(registrationData))
-                    
+                
+                print(registrationData)
+                data["data"].update(registrationData)
+                  
                 self.producer.produce(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')
-                log = {}
-                log["errorMessage"] = str(e)
-                log["service"] = "services.calculation"
-                
-                self.logsProducer.produce(log)
                 
                 
 if __name__ == "__main__":

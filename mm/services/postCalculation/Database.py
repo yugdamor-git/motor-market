@@ -3,12 +3,11 @@ import pymysql
 import re
 import os
 
-      
 class Database:
   def __init__(self):
-    self.host = os.environ.get("MYSQL_HOST","185.59.221.77")
-    self.user = os.environ.get("MYSQL_USERNAME","scraper_server")
-    self.password= os.environ.get("MYSQL_PASSWORD","W@tn%6YuWpQiy")
+    self.host = os.environ.get("MYSQL_HOST","db")
+    self.user = os.environ.get("MYSQL_USERNAME","root")
+    self.password= os.environ.get("MYSQL_PASSWORD","9076b974c31e4678f")
     self.database = os.environ.get("MYSQL_DATABASE","motormar_flynax")
     self.charset = "utf8"
     self.cursor = None

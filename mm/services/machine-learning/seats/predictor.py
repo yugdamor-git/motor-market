@@ -63,7 +63,7 @@ class Predictor:
         
         max_row = df[df['cosim'] == df['cosim'].max()]
         
-        seats = max_row["labels"].to_list()[0].split(";")[-1]
+        seats = int(float(max_row["labels"].to_list()[0].split(";")[-1]))
         
         score = max_row['cosim'].to_list()[0]
         
@@ -99,7 +99,7 @@ class Predictor:
 
 
 if __name__ == "__main__":
-    mmp = SeatsPrediction()
+    mmp = Predictor()
     
     # 76,abarth,punto evo,4
     

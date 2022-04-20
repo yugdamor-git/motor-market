@@ -254,6 +254,9 @@ class Transform:
         if data["adminFee"] != None:
             adminFee = int(data["adminFee"])
             data["adminFee"] = adminFee
+        else:
+            adminFee = 0
+            data["adminFee"] = adminFee
         
         # trim
         if data["trim"] != None:
@@ -312,6 +315,7 @@ class Transform:
         data["mmPrice"] = data.get("price") + margin
         
         # at price
+        
         data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
         
         return data

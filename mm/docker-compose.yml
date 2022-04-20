@@ -11,13 +11,14 @@ services:
     #   - /var/www/html/files:/usr/src/app/files
 
     volumes:
-      - ./media/images:/usr/src/app/images
+      - ./media:/usr/src/app/media
     
     environment:
       PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
 
-    network_mode: host
-
+  redis:
+    image: "redis:alpine"
+    hostname: redis
 
   consumertest:
     build:
@@ -101,6 +102,10 @@ services:
   logs:
     build: ./services/logs
 
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+
     restart: on-failure
 
   
@@ -136,7 +141,7 @@ services:
     restart: on-failure
 
     volumes:
-      - ./media/images:/usr/src/app/images
+      - ./media:/usr/src/app/media
 
     deploy:
       replicas: 1
@@ -156,7 +161,7 @@ services:
       PRODUCTION_SERVER_IP_ADDRESS : ${PRODUCTION_SERVER_IP_ADDRESS}
     
     volumes:
-      - ./media/images:/usr/src/app/images
+      - ./media:/usr/src/app/media
     
     stdin_open: true
     tty: true
@@ -226,5 +231,19 @@ services:
     environment:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
+    
+  
+  production-db-photos:
+    build:
+      context: ./services/database/production
+      dockerfile : Dockerfile.production.photos
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+  
+  
   
   

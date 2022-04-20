@@ -47,14 +47,16 @@ class topicHandler:
             except Exception as e:
                 print(f'error : {str(e)}')
                 
-                traceback.print_exc()
-                
                 log = {}
-                log["errorMessage"] = str(e)
-                log["service"] = "services.machine.learning.image"
-                log["sourceUrl"] = meta["sourceUrl"]
                 
-                self.logsProducer.produce(log)
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
                 
                 
 if __name__ == "__main__":

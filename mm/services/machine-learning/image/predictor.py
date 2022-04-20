@@ -38,6 +38,8 @@ class Predictor:
                 print(f'this is not car image : {tmp["url"]}')
                 continue
             
+            tmp["path"] = str(tmp["path"])
+            
             predicted.append(tmp)
             
         return predicted

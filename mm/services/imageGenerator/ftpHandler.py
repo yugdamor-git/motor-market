@@ -8,11 +8,11 @@ from posixpath import dirname
 
 class ftpHandler:
     def __init__(self) -> None:
-        self.username = os.environ.get("PRODUCTION_SERVER_FTP_USERNAME","root")
-        self.password = os.environ.get("PRODUCTION_SERVER_FTP_PASSWORD","Y454m121ss#da48596fsdfsS131woh6I0f5yM5w")
-        self.host = os.environ.get("PRODUCTION_SERVER_IP_ADDRESS","185.59.221.77")
-        self.port = os.environ.get("PRODUCTION_SERVER_FTP_PORT",21)
-        self.imageDir = os.environ.get("PRODUCTION_SERVER_IMAGE_DIR_PREFIX","/var/www/html/files/test")
+        self.username = os.environ.get("PRODUCTION_SERVER_FTP_USERNAME")
+        self.password = os.environ.get("PRODUCTION_SERVER_FTP_PASSWORD")
+        self.host = os.environ.get("PRODUCTION_SERVER_IP_ADDRESS")
+        self.port = int(os.environ.get("PRODUCTION_SERVER_FTP_PORT"))
+        self.imageDir = os.environ.get("PRODUCTION_SERVER_IMAGE_DIR_PREFIX")
         
         self.uri = f'ftp://{self.host}:{self.port}{self.imageDir}'
         
@@ -30,9 +30,14 @@ class ftpHandler:
         if not "220" in response:
             return False
         
+        print(self.username)
+        print(self.password)
         response = self.connection.login(self.username,self.password)
         
         if not "230" in response:
+            return False
+        
+        if not "530" in response:
             return False
         
         return True
@@ -62,6 +67,7 @@ class ftpHandler:
                 'lastModified':lastModified,
                 "checksum":m.hexdigest()
             }
+            
         except Exception as e:
             return {
                 'exists':False
@@ -85,14 +91,10 @@ class ftpHandler:
         
         file.seek(0)
         
-        dirname, filename = posixpath.split(filePath)
-        
         if self.isConnected() == False:
             self.connect()
-
-        self.createDirectory(dirname)
         
-        self.connection.storbinary(f'{self.overwrite} {filename}',file)
+        self.connection.storbinary(f'{self.overwrite} {filePath}',file)
         
         file.close()
 

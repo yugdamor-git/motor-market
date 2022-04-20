@@ -118,6 +118,15 @@ class imageGenerator:
         
         threads = []
         
+        ftp = ftpHandler()
+        
+        dirname = f'{websiteId}/ad{listingId}'
+        
+        if ftp.isConnected() == False:
+            ftp.connect()
+
+        ftp.createDirectory(dirname)
+        
         with ThreadPoolExecutor(max_workers=30) as executor:
             for item in images:
                 

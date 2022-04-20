@@ -36,21 +36,13 @@ class ImageDownloader:
         'accept-language': 'en-US,en;q=0.9,ca;q=0.8,cs;q=0.7,fr;q=0.6,hi;q=0.5'
         }
         
-    def download_image(self,url,websiteId,sourceId,position):
+    def download_image(self,url,websiteId,sourceId,position,websiteDir,listingDir):
         
         imageId = hashlib.sha1(
                 url.encode("utf-8")
             ).hexdigest()
         
-        websiteDir = self.media.joinpath(websiteId)
         
-        if not websiteDir.exists():
-            websiteDir.mkdir()
-        
-        listingDir = websiteDir.joinpath(sourceId)
-        
-        if not listingDir.exists():
-            listingDir.mkdir()
         
         filePath = listingDir.joinpath(f'{imageId}.png')
         
@@ -102,9 +94,19 @@ class ImageDownloader:
         
         threads = []
         
+        websiteDir = self.media.joinpath(websiteId)
+        
+        if not websiteDir.exists():
+            websiteDir.mkdir()
+        
+        listingDir = websiteDir.joinpath(sourceId)
+        
+        if not listingDir.exists():
+            listingDir.mkdir()
+        
         with ThreadPoolExecutor(max_workers=30) as executor:
             for position,url in enumerate(urls):
-                threads.append(executor.submit(self.download_image,url,websiteId,sourceId,position))
+                threads.append(executor.submit(self.download_image,url,websiteId,sourceId,position,websiteDir,listingDir))
         
             for task in as_completed(threads):
                 data = task.result()

@@ -1,5 +1,8 @@
 from calculation import Calculation
 from topic import producer,consumer
+import json
+
+import traceback
 
 class topicHandler:
     def __init__(self):
@@ -27,22 +30,38 @@ class topicHandler:
                 
                 # pcp apr
                 pcpapr = self.calculation.calculatePcpApr(data["data"])
+                
                 data["data"]["pcpapr"] = pcpapr
                 
                 
                 # ltv
                 ltv = self.calculation.calculateLtv(data["data"])
+                
                 data["data"]["ltv"] = ltv
                 
                 # categoryId
                 categoryId = self.calculation.calculateCategoryId(data["data"])
+                
                 if categoryId == None:
+                    
+                    log = {}
+                
+                    log["sourceUrl"] = data["data"]["sourceUrl"]
+                    log["service"] = self.subscribe
+                    log["errorMessage"] = "categoryId is None."
+                    
+                    self.logsProducer.produce({
+                        "eventType":"insertLog",
+                        "data":log
+                    })
+                    
                     continue
                     # log this event
                 data["data"]["categoryId"] = categoryId
                 
                 # video id
                 videoId = self.calculation.calculateVideoId(data["data"])
+                
                 data["data"]["videoId"] = videoId
                 
                 print(data)
@@ -52,11 +71,15 @@ class topicHandler:
             except Exception as e:
                 print(f'error : {str(e)}')
                 log = {}
-                log["errorMessage"] = str(e)
-                log["service"] = "services.calculation"
-                log["sourceUrl"] = meta["sourceUrl"]
                 
-                self.logsProducer.produce(log)
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
                 
                 
 if __name__ == "__main__":

@@ -67,7 +67,7 @@ class PlateRecognizer:
             plate = jsonDict["results"][0]["plate"]
             
             return {
-                "registration":plate,
+                "registration":self.replaceLeadingZero(plate),
                 "status":True,
                 "message":""
             }
@@ -79,7 +79,26 @@ class PlateRecognizer:
                     "registration":None,
                     "status":False,
                     "message":str(e)
-                }        
+                }
+    
+    def replaceLeadingZero(self,reg):
+    
+        if len(reg) != 7 :
+            return reg
+        
+        part1 = reg[0:2]
+        
+        if "0" in part1:
+            part1 = part1.replace("0","O")
+        
+        part2 = reg[2:4]
+        
+        part3 = reg[4:]
+        
+        if "0" in part3:
+            part3 = part3.replace("0","O")
+        
+        return f'{part1}{part2}{part3}'
 
 
 if __name__ == "__main__":

@@ -2,6 +2,8 @@ from topic import producer,consumer
 
 from predictor import Predictor
 
+import traceback
+
 class topicHandler:
     def __init__(self):
         print("transform topic handler init")
@@ -39,6 +41,8 @@ class topicHandler:
                 
                 data["data"].update(prediction)
                 
+                print(data)
+                
                 self.producer.produce(data)
                 
                 # break
@@ -46,10 +50,15 @@ class topicHandler:
             except Exception as e:
                 print(f'error : {str(e)}')
                 log = {}
-                log["errorMessage"] = str(e)
-                log["service"] = "services.machine.learning.makemodel"
-                log["sourceUrl"] = meta["sourceUrl"]
-                self.logsProducer.produce(log)
+                
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
                 
                 
 if __name__ == "__main__":

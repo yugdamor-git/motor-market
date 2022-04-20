@@ -19,7 +19,18 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                self.logsHandler.insert(data)
+                print(data)
+                
+                eventType = data["eventType"]
+                
+                if eventType == "insertLog":
+                    self.logsHandler.insertLog(data["data"])
+                elif eventType == "listingCount":
+                    self.logsHandler.increaseListingCount(data["data"]["countFor"])
+                elif eventType == "errorCount":
+                    self.logsHandler.increaseErrorCount(data["data"]["countFor"])
+                else:
+                    print(f'unkown event Type')
                 
             except Exception as e:
                 print(f'error : {str(e)}')

@@ -29,18 +29,28 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                rawData = data["data"]
-                
                 if self.validator.validate(data["data"]) == False:
                     print('we are not taking this listing')
-                    
+                
+                print(data)
+                
                 self.producer.produce(data)
                 
                 # break
                 
             except Exception as e:
                 print(f'error : {str(e)}')
-                traceback.print_exc()
+                
+                log = {}
+                
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
                 
 if __name__ == "__main__":
     th = topicHandler()

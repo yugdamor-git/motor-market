@@ -37,18 +37,23 @@ class Calculation:
     def calculateLtv(self,data):
         ltv = {}
         
-        mmPrice = data.get("price") + data.get("margin",0)
-        sourcePrice = data.get("price") + data.get("adminFee",0)
+        mmPrice = data.get("mmPrice")
+        sourcePrice = data.get("sourcePrice")
+        
         registrationStatus = data.get("registrationStatus")
         
-        if sourcePrice < 10000:
-            if registrationStatus == True:
-                glassPrice = self.calculateDealerForecourt(data)
-                
-                ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
+        try:
+            if sourcePrice < 10000:
+                if registrationStatus == True:
+                    glassPrice = self.calculateDealerForecourt(data)
+                    
+                    ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
+                else:
+                    ltv = self.ltvCalc.getDefaultValues()
             else:
                 ltv = self.ltvCalc.getDefaultValues()
-        else:
+        except Exception as e:
+            print(f'error : {str(e)}')
             ltv = self.ltvCalc.getDefaultValues()
         
         return ltv

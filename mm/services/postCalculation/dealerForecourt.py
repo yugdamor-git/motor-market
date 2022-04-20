@@ -43,6 +43,7 @@ class dealerForecourt:
             rows = self.db.recSelect(
                 "ukvehicledata_ValuationData", {"VRM": reg_no}
             )
+            
             if len(rows) > 0:
                 if self.check_response_older_than_x_days(rows[0]["updated_at"]):
                     print("new api call for price : data is 30 days older")
