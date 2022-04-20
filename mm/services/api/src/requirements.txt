@@ -1,3 +1,4 @@
 Flask
 requests
 uwsgi
+pulsar-client==2.9.1
