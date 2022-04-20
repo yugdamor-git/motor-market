@@ -63,37 +63,37 @@ def addManualEntry():
     })
     
 
-@autotrader.route("/listing/manual-entry")
-def addManualEntry():
-    jsonData = request.json
+# @autotrader.route("/listing/manual-entry")
+# def addManualEntry():
+#     jsonData = request.json
     
-    url = jsonData.get("url",None)
+#     url = jsonData.get("url",None)
     
-    if url == None:
-        return jsonify({
-            "status":False,
-            "data":None,
-            "message":"please include url in json body."
-        })
+#     if url == None:
+#         return jsonify({
+#             "status":False,
+#             "data":None,
+#             "message":"please include url in json body."
+#         })
     
-    data = {}
-    meta = {
-        "url":url,
-        "manualEntry":True
-    }
+#     data = {}
+#     meta = {
+#         "url":url,
+#         "manualEntry":True
+#     }
     
-    pulsar.produce(
-        {
-            "data":data,
-            "meta":meta
-        }
-    )
+#     pulsar.produce(
+#         {
+#             "data":data,
+#             "meta":meta
+#         }
+#     )
     
-    return jsonify({
-        "status":True,
-        "data":meta,
-        "message":"listing will be added in website soon. you can track status on /track endpoint"
-    })
+#     return jsonify({
+#         "status":True,
+#         "data":meta,
+#         "message":"listing will be added in website soon. you can track status on /track endpoint"
+#     })
         
 
 
