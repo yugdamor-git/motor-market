@@ -97,6 +97,12 @@ services:
   post-calculation:
     build: ./services/postCalculation
 
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
     restart: on-failure
   
   logs:
@@ -122,17 +128,13 @@ services:
   validation:
     build: ./services/validation
 
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
     restart: on-failure
-
-    
-  
-  video-id:
-    build: ./services/videoId
-
-    restart: on-failure
-
-    deploy:
-      replicas: 1
 
   image-prediction:
     build:
@@ -170,7 +172,7 @@ services:
     image: mariadb:10.3
 
     environment:
-      MYSQL_ROOT_PASSWORD: 9076b974c31e4678f
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
       - ./services/database/production/mysql:/var/lib/mysql
 
@@ -191,24 +193,24 @@ services:
     
     restart: on-failure
   
-  # ftps:
-  #   image: bfren/ftps
+  ftps:
+    image: bfren/ftps
 
-  #   restart: on-failure
+    restart: on-failure
 
-  #   volumes:
-  #     - ./services/ftp/files:/files
-  #     - ./services/ftp/ssl:/ssl
+    volumes:
+      - ./services/ftp/files:/files
+      - ./services/ftp/ssl:/ssl
     
-  #   ports:
-  #     - "${FTPS_PORT}:21"
-  #     - "5026:990"
-  #     - "18700-18710:18700-18710"
+    ports:
+      - "${FTPS_PORT}:21"
+      - "5026:990"
+      - "18700-18710:18700-18710"
     
-  #   environment:
-  #     - FTPS_USER=${FTPS_USERNAME}
-  #     - FTPS_PASS=${FTPS_PASSWORD}
-  #     - FTPS_EXTERNAL_URI=${FTPS_IP}
+    environment:
+      - FTPS_USER=${FTPS_USERNAME}
+      - FTPS_PASS=${FTPS_PASSWORD}
+      - FTPS_EXTERNAL_URI=${FTPS_IP}
   
   local-db-handler:
     build:
@@ -231,6 +233,10 @@ services:
     environment:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     
   
   production-db-photos:
@@ -243,6 +249,10 @@ services:
     environment:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
   
   
   
