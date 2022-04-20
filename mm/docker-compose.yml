@@ -5,7 +5,7 @@ services:
   api:
     build: ./services/api
     environment:
-      - RESIDENTIAL_PROXY=http://${RESIDENTIAL_PROXY_USERNAME}:${RESIDENTIAL_PROXY_PASSWORD}@gate.smartproxy.com:${RESIDENTIAL_PROXY_PORT}
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
       - FLASK_AUTH_TOKEN=${FLASK_AUTH_TOKEN}
 
     ports:
