@@ -27,11 +27,13 @@ class categoryId:
 
         category_temp = self.redis.get("categoryId-" + temp_mk_model)
 
+        print(category_temp)
+        
         if category_temp != None:
             categoryId = category_temp
         else:
             temp_cat_rows = self.db.recSelect("fl_categories", {"Key": temp_mk_model})
-
+            print(temp_cat_rows)
             if len(temp_cat_rows) == 0:
                 temp_make_model_path = make
 
