@@ -1,11 +1,12 @@
 
 from flask import Blueprint,request,jsonify
 import os
-from graphqlUtils import graphqlUtils
+
+from listingScraper import listingScraper
 
 from pulsarHandler import pulsarHandler
 
-gutils = graphqlUtils()
+scraper = listingScraper()
 
 pulsar = pulsarHandler()
 
@@ -116,6 +117,7 @@ def graphqlEndpoint():
     if token != auth_token:
         response["status"] = False
         response["message"] = "the token is invalid."
+        response["auth"]
         return jsonify(response)
     
     
@@ -123,7 +125,7 @@ def graphqlEndpoint():
     message = "200"
     status = False
     try:
-        data = gutils.fetch(listing_id,query_type)
+        data = scraper.scrapeById(listing_id)
         status = True
     except Exception as e:
         data = None

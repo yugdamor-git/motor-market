@@ -71,3 +71,10 @@ class price_api():
         DealerForecourt = price
         self.obj_master.obj_db.recInsert("ukvehicledata_ValuationData",data)
       return DealerForecourt
+
+# obj_master.obj_db.connect()
+# reg_no = "hvla"
+# mileage = "50000"
+# price = check_database_DealerForecourt_response(reg_no,mileage)
+# print(price)
+# obj_master.obj_db.disconnect()

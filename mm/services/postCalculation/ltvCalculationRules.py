@@ -34,6 +34,7 @@ class ltvCalculationRules:
         
         for item in self.personalized_percentage:
             max_lend = glassPrice * item["percentage"]
+            
             diff = max_lend - self.to_int(sourcePrice)
             
             tmp[item["name"]] = int(diff)
