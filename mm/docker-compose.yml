@@ -178,7 +178,7 @@ services:
     tty: true
 
   db:
-    image: mysql:5.7
+    image: mysql:latest
     container_name: db
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
