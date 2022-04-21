@@ -271,10 +271,10 @@ class topicHandler:
     def main(self):
         print("listening for new messages")
         while True:
+            
+            data =  self.consumer.consume()
+            
             try:
-                data =  self.consumer.consume()
-                
-                self.db.connect()
                 
                 event = data.get("event",None)
                 
@@ -291,7 +291,9 @@ class topicHandler:
                     "product_url":sourceUrl
                 }
                 
+                self.db.connect()
                 records = self.db.recSelect("fl_listings",where)
+                self.db.disconnect()
                 
                 id = None
                 
@@ -310,6 +312,7 @@ class topicHandler:
                     
                     status = records[0]["Status"]
                     
+                    self.db.connect()
                     if status == "sold":
                         continue
                     elif status == "pending":
@@ -324,12 +327,16 @@ class topicHandler:
                         self.db.recUpdate("fl_listings",mappedData,where)
                     data["data"]["status"] = status
                     upsert = "update"
+                    self.db.disconnect()
                 else:
                     # insert
                     mappedData = self.mapColumnsInsert(data)
                     mappedData["Status"] = "to_parse"
                     mappedData["product_url"] = mappedData["sourceUrl"]
+                    
+                    self.db.connect()
                     id = self.db.recInsert("fl_listings",mappedData)
+                    self.db.disconnect()
                     
                     make = mappedData["make"]
                     model = mappedData["model"]
@@ -344,8 +351,6 @@ class topicHandler:
                     upsert = "insert"
                 
                 data["data"]["upsert"] = upsert
-                
-                self.db.disconnect()
                 
                 data["data"]["id"] = id
                         
