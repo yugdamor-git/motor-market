@@ -189,6 +189,9 @@ services:
       - "6034:3306"
     volumes:
       - ./services/mysql/data:/var/lib/mysql
+    
+    cap_add:
+      - SYS_NICE
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
