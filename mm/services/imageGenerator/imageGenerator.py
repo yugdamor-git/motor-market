@@ -124,7 +124,7 @@ class imageGenerator:
 
         ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
-        with ThreadPoolExecutor(max_workers=30) as executor:
+        with ThreadPoolExecutor(max_workers=15) as executor:
             for item in images:
                 
                 imageId = item["id"]
