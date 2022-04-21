@@ -50,14 +50,14 @@ class imageGenerator:
             img = Image.open(BytesIO(f.read()))  
         return img
     
-    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position):
+    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position,ftp):
         processedImages = {}
         processedImages["id"] = imageId
         processedImages["url"] = imageUrl
         processedImages["position"] = position
         processedImages["status"] = False
         
-        ftp = ftpHandler()
+        # ftp = ftpHandler()
         
         try:
             rawImage = self.read_image(imagePath)
@@ -109,7 +109,7 @@ class imageGenerator:
         except Exception as e:
             print(f'error : {str(e)}')
         
-        ftp.disconnect()
+        # ftp.disconnect()
         
         return processedImages
         
@@ -127,8 +127,6 @@ class imageGenerator:
 
         ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
-        ftp.disconnect()
-        
         with ThreadPoolExecutor(max_workers=30) as executor:
             for item in images:
                 
@@ -140,12 +138,14 @@ class imageGenerator:
                 
                 position = item["position"]
                 
-                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position))
+                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position,ftp))
         
             for task in as_completed(threads):
                 data = task.result()
                 
                 processedImages.append(data)
+        
+        ftp.disconnect()
         
         return processedImages
 
