@@ -266,6 +266,9 @@ class topicHandler:
             eventData = data["eventData"]
             what = eventData["what"]
             where = eventData["where"]
+            
+            print(eventData)
+            
             self.db.recUpdate("fl_listings",what,where)
     
     def main(self):
@@ -279,7 +282,9 @@ class topicHandler:
                 print(f'event : {event}')
                 
                 if event != None:
+                    self.db.connect()
                     self.handleEvent(event,data)
+                    self.db.disconnect()
                     continue
                 print(f'normal execution')
                 websiteId = data["data"]["websiteId"]
