@@ -1,0 +1,55 @@
+{
+  "BillingAccount": {
+    "AccountType": "",
+    "AccountBalance": null,
+    "TransactionCost": null,
+    "ExtraInformation": {}
+  },
+  "TechnicalSupport": {
+    "ServerId": "UK1",
+    "RequestId": "655a2dccb40f47ccb8c325cad8446589",
+    "QueryDurationMs": 51,
+    "SupportDate": "20/04/2022",
+    "SupportTime": "15:11:46",
+    "SupportCode": "655a2dcc",
+    "SupportInformationList": ["B2B-R1"]
+  },
+  "Request": {
+    "RequestGuid": "655a2dcc-b40f-47cc-b8c3-25cad8446589",
+    "PackageId": "ebf61e4e-e6a6-499b-9324-eec52ed8d92f",
+    "PackageVersion": 2,
+    "ResponseVersion": 2,
+    "DataKeys": { "Vrm": "BP19LWK", "Mileage": "56210" }
+  },
+  "Response": {
+    "StatusCode": "Success",
+    "StatusMessage": "Success",
+    "StatusInformation": {
+      "Lookup": {
+        "StatusCode": "Success",
+        "StatusMessage": "Success",
+        "AdviceTextList": []
+      }
+    },
+    "DataItems": {
+      "Vrm": "BP19LWK",
+      "Mileage": "56,210",
+      "PlateYear": "2019-19",
+      "ValuationList": {
+        "OTR": "18280",
+        "DealerForecourt": "10500",
+        "TradeRetail": "10230",
+        "PrivateClean": "9310",
+        "PrivateAverage": "9310",
+        "PartExchange": "7420",
+        "Auction": "7820",
+        "TradeAverage": "8240",
+        "TradePoor": "7820"
+      },
+      "ValuationTime": "2022-04-20T16:11:46.303",
+      "VehicleDescription": "CITROEN C3 FLAIR BLUEHDI S/S",
+      "ValuationBook": "UkvdValuations",
+      "ExtractNumber": 316
+    }
+  }
+}
