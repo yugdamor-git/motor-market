@@ -8,7 +8,7 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.post.calculation'
+        self.subscribe = 'motormarket.scraper.autotrader.listing.postcalculation'
         
         self.publish = 'motormarket.scraper.autotrader.listing.database.production'
 
