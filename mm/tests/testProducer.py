@@ -28,4 +28,5 @@ if __name__ == "__main__":
     #     p.produce(data)
     for i in range(0,1):
         p.produce(data)
+        print(i)
     print("data produced")

@@ -320,6 +320,8 @@ class topicHandler:
                         self.db.recUpdate("fl_listings",mappedData,where)
                     elif status == "active":
                         self.db.recUpdate("fl_listings",mappedData,where)
+                    elif status == "expired":
+                        self.db.recUpdate("fl_listings",mappedData,where)
                     data["data"]["status"] = status
                     upsert = "update"
                 else:
