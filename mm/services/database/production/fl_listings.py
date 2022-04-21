@@ -271,17 +271,17 @@ class topicHandler:
     def main(self):
         print("listening for new messages")
         while True:
-            
-            data =  self.consumer.consume()
-            
             try:
+                data =  self.consumer.consume()
                 
                 event = data.get("event",None)
+                
+                print(f'event : {event}')
                 
                 if event != None:
                     self.handleEvent(event,data)
                     continue
-                
+                print(f'normal execution')
                 websiteId = data["data"]["websiteId"]
                 
                 sourceUrl = data["data"]["sourceUrl"]
