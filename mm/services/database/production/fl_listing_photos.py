@@ -15,6 +15,10 @@ class topicHandler:
         
         self.db = Database()
         
+        logsTopic = "motormarket.scraper.logs"
+    
+        self.logsProducer = producer.Producer(logsTopic)
+        
         self.consumer = consumer.Consumer(self.subscribe)
         
     def main(self):

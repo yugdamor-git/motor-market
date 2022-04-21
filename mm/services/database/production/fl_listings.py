@@ -19,6 +19,10 @@ class topicHandler:
         
         self.urlGenerator = MMUrlGenerator()
         
+        logsTopic = "motormarket.scraper.logs"
+    
+        self.logsProducer = producer.Producer(logsTopic)
+        
         self.producer = producer.Producer(self.publish)
         
         self.consumer = consumer.Consumer(self.subscribe)
