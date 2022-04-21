@@ -50,14 +50,14 @@ class imageGenerator:
             img = Image.open(BytesIO(f.read()))  
         return img
     
-    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position,ftp):
+    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position):
         processedImages = {}
         processedImages["id"] = imageId
         processedImages["url"] = imageUrl
         processedImages["position"] = position
         processedImages["status"] = False
         
-        # ftp = ftpHandler()
+        ftp = ftpHandler()
         
         try:
             rawImage = self.read_image(imagePath)
@@ -109,8 +109,6 @@ class imageGenerator:
         except Exception as e:
             print(f'error : {str(e)}')
         
-        # ftp.disconnect()
-        
         return processedImages
         
     def processListing(self,images,websiteId,listingId):
@@ -121,13 +119,10 @@ class imageGenerator:
         ftp = ftpHandler()
         
         dirname = f'{websiteId}/ad{listingId}'
-        
-        if ftp.isConnected() == False:
-            ftp.connect()
 
         ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
-        with ThreadPoolExecutor(max_workers=30) as executor:
+        with ThreadPoolExecutor(max_workers=10) as executor:
             for item in images:
                 
                 imageId = item["id"]
@@ -138,14 +133,12 @@ class imageGenerator:
                 
                 position = item["position"]
                 
-                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position,ftp))
+                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position))
         
             for task in as_completed(threads):
                 data = task.result()
                 
                 processedImages.append(data)
-        
-        ftp.disconnect()
         
         return processedImages
 
