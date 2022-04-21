@@ -21,6 +21,8 @@ class Consumer:
         
         message = self.consumer.receive()
         
+        print(f'message id : {message.message_id()}')
+        
         data = json.loads(message.data())
             
         self.consumer.acknowledge(message)
