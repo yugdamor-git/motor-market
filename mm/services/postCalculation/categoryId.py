@@ -27,7 +27,7 @@ class categoryId:
 
         category_temp = self.redis.get("categoryId-" + temp_mk_model)
 
-        if category_temp:
+        if category_temp != None:
             categoryId = category_temp
         else:
             temp_cat_rows = self.db.recSelect("fl_categories", {"Key": temp_mk_model})
