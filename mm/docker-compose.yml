@@ -29,16 +29,16 @@ services:
     image: "redis:alpine"
     hostname: redis
 
-  consumertest:
-    build:
-      context: ./tests
-      dockerfile: Dockerfile.consumer
+  # consumertest:
+  #   build:
+  #     context: ./tests
+  #     dockerfile: Dockerfile.consumer
 
-    depends_on:
-      - pulsar
+  #   depends_on:
+  #     - pulsar
     
-    deploy:
-      replicas: 1
+  #   deploy:
+  #     replicas: 1
   
   producertest1:
     build:
@@ -263,7 +263,3 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-  
-  
-  
-  
