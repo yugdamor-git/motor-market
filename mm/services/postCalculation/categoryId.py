@@ -34,7 +34,9 @@ class categoryId:
         else:
             temp_cat_rows = self.db.recSelect("fl_categories", {"Key": temp_mk_model})
             print(temp_cat_rows)
-            if len(temp_cat_rows) == 0:
+            if len(temp_cat_rows) != 0:
+                categoryId = temp_cat_rows[0]["ID"]
+            else:
                 temp_make_model_path = make
 
                 if model:
