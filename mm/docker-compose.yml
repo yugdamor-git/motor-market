@@ -194,17 +194,19 @@ services:
       - SYS_NICE
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    image: phpmyadmin/phpmyadmin:fpm-alpine
     container_name: pma
     links:
       - db
     environment:
       PMA_HOST: db
       PMA_PORT: 3306
-      PMA_ARBITRARY: 1
+      PMA_ARBITRARY: 0
     restart: always
     ports:
       - 8090:80
+    volumes:
+      -
   
   ftps:
     image: bfren/ftps
