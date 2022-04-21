@@ -1,7 +1,6 @@
 import os
 import json
 
-from requests import request
 
 class Graphql:
     def __init__(self):

@@ -1,12 +1,12 @@
 import json
-from graphql import graphql
+from graphql import Graphql
 import requests
 
 
 class listingScraper:
     
     def __init__(self) -> None:
-        self.graphql = graphql.Graphql()
+        self.graphql = Graphql()
         self.proxy = self.graphql.proxy
         self.maxRetry = 20
     
