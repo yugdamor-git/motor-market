@@ -86,8 +86,6 @@ class topicHandler:
                     
                     if upsert == "insert":
                         
-                        data["event"] = "update"
-                        
                         what["Main_photo"] = mainPhoto
                         
                         what["mm_product_url"] = data["data"]["mmUrl"]
@@ -100,6 +98,7 @@ class topicHandler:
                             "where":where
                         }
                         
+                        data["event"] = "update"
                         data["eventData"] = eventData
                         
                         self.producerFlListings.produce(data)
@@ -119,7 +118,7 @@ class topicHandler:
                                 "what":what,
                                 "where":where
                             }
-                            
+                            data["event"] = "update"
                             data["eventData"] = eventData
                             
                             self.producerFlListings.produce(data)
@@ -133,7 +132,7 @@ class topicHandler:
                                 "what":what,
                                 "where":where
                             }
-                            
+                        data["event"] = "update"
                         data["eventData"] = eventData
                         
                         self.producerFlListings.produce(data)
