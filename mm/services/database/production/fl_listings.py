@@ -33,7 +33,7 @@ class topicHandler:
                 'accountId':'Account_ID', 
                 'sourceId': 'sourceId',
                 'sourceUrl': 'sourceUrl',
-                'sourceUrl':'product_url',
+                'product_url':'product_url',
                 'websiteId': 'Website_ID',
                 'dealerName': 'dealer_name',
                 'dealerNumber': 'dealer_number',
@@ -149,7 +149,7 @@ class topicHandler:
                 'accountId':'Account_ID', 
                 'sourceId': 'sourceId',
                 'sourceUrl': 'sourceUrl',
-                'sourceUrl':'product_url',
+                'product_url':'product_url',
                 'websiteId': 'Website_ID',
                 'dealerName': 'dealer_name',
                 'dealerNumber': 'dealer_number',
@@ -301,7 +301,7 @@ class topicHandler:
                     # update
                     id = records[0]["ID"]
                     mappedData = self.mapColumnsInsert(data)
-                    
+                    mappedData["product_url"] = mappedData["sourceUrl"]
                     mappedData["updated_at"] = {"func":"now()"}
                     
                     where = {
@@ -326,6 +326,7 @@ class topicHandler:
                     # insert
                     mappedData = self.mapColumnsInsert(data)
                     mappedData["Status"] = "to_parse"
+                    mappedData["product_url"] = mappedData["sourceUrl"]
                     id = self.db.recInsert("fl_listings",mappedData)
                     
                     make = mappedData["make"]
