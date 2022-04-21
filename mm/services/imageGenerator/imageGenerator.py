@@ -125,7 +125,7 @@ class imageGenerator:
         if ftp.isConnected() == False:
             ftp.connect()
 
-        ftp.createDirectory(dirname)
+        ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
         with ThreadPoolExecutor(max_workers=30) as executor:
             for item in images:
