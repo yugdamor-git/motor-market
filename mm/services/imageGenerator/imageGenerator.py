@@ -109,6 +109,8 @@ class imageGenerator:
         except Exception as e:
             print(f'error : {str(e)}')
         
+        ftp.disconnect()
+        
         return processedImages
         
     def processListing(self,images,websiteId,listingId):
@@ -122,7 +124,7 @@ class imageGenerator:
 
         ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
-        with ThreadPoolExecutor(max_workers=10) as executor:
+        with ThreadPoolExecutor(max_workers=30) as executor:
             for item in images:
                 
                 imageId = item["id"]
@@ -139,6 +141,8 @@ class imageGenerator:
                 data = task.result()
                 
                 processedImages.append(data)
+        
+        ftp.disconnect()
         
         return processedImages
 

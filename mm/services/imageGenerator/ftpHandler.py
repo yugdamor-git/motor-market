@@ -20,6 +20,10 @@ class ftpHandler:
         
         self.connection = FTP()
         
+        self.connect()
+        
+        self.connection.cwd(self.imageDir)
+        
     def connect(self):
         response = self.connection.connect(self.host,self.port)
         
@@ -36,15 +40,10 @@ class ftpHandler:
         if not "530" in response:
             return False
         
-        self.connection.cwd(self.imageDir)
-        
         return True
     
-    
     def disconnect(self):
-        
-        if self.isConnected() == True:
-            self.connection.quit()
+        self.connection.quit()
     
     def isConnected(self):
         try:
@@ -55,9 +54,6 @@ class ftpHandler:
             return False
     
     def getFileStats(self,filePath):
-        
-        self.connect()
-        
         try:
             if self.isConnected() == False:
                 self.connect()
@@ -76,13 +72,9 @@ class ftpHandler:
             return {
                 'exists':False
             }
-        finally:
-            self.disconnect()
             
     def createDirectory(self,path,firstCall=True):
-        
-        self.connect()
-        
+        self.connection.cwd(self.imageDir)
         try:
             self.connection.cwd(path)
         except error_perm:
@@ -94,26 +86,17 @@ class ftpHandler:
             
             if firstCall:
                 self.connection.cwd(path)
-        finally:
-            self.disconnect()
                 
     def uploadFile(self,filePath:Path,file:BufferedIOBase):
-        self.connect()
         
-        try:
-            file.seek(0)
-            
-            if self.isConnected() == False:
-                self.connect()
-            
-            self.connection.storbinary(f'{self.overwrite} {filePath}',file)
-            
-            file.close()
-            return True
-        except Exception as e:
-            return False
-        finally:
-            self.disconnect()
+        file.seek(0)
+        
+        if self.isConnected() == False:
+            self.connect()
+        
+        self.connection.storbinary(f'{self.overwrite} {filePath}',file)
+        
+        file.close()
 
 
 if __name__ == "__main__":
