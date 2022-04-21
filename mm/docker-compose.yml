@@ -178,29 +178,30 @@ services:
     tty: true
 
   db:
-    image: mariadb:10.3
-
+    image: mysql:5.7
+    container_name: db
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - ./services/database/production/mysql:/var/lib/mysql
-
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - "3307:3306"
-    
-    restart: on-failure
+      - "6034:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
 
   phpmyadmin:
-    image: phpmyadmin
-
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: always
     ports:
       - 8090:80
-    environment:
-      - PMA_ARBITRARY=1
-    depends_on:
-      - db
-    
-    restart: on-failure
   
   ftps:
     image: bfren/ftps
