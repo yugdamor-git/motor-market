@@ -19,50 +19,48 @@ auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 def addManualEntry():
     jsonData = request.json
     
-    url = jsonData.get("url",None)
+    # url = jsonData.get("url",None)
     
-    if url == None:
-        return jsonify({
-            "status":False,
-            "data":None,
-            "message":"please include url in json body."
-        })
+    # if url == None:
+    #     return jsonify({
+    #         "status":False,
+    #         "data":None,
+    #         "message":"please include url in json body."
+    #     })
     
-    sourceId = url.strip().strip("/").split("/")[-1]
+    # sourceId = url.strip().strip("/").split("/")[-1]
     
-    if sourceId.isdigit() == False:
-        return jsonify({
-            "status":False,
-            "data":None,
-            "message":"please recheck the url.autoTraderId can't be extracted."
-        })
+    # if sourceId.isdigit() == False:
+    #     return jsonify({
+    #         "status":False,
+    #         "data":None,
+    #         "message":"please recheck the url.autoTraderId can't be extracted."
+    #     })
     
-    customPrice = jsonData.get("customPrice",None)
+    # customPrice = jsonData.get("customPrice",None)
     
     
     
-    data = {
-        "sourceUrl":url,
-        "sourceId":sourceId,
-        "customPrice":customPrice,
-        "scraperType":"normal"
-    }
+    # data = {
+    #     "sourceUrl":url,
+    #     "sourceId":sourceId,
+    #     "customPrice":customPrice,
+    #     "scraperType":"normal"
+    # }
     
-    if customPrice != None:
-        data["customPriceEnabled"] = True
-    else:
-        data["customPriceEnabled"] = False
+    # if customPrice != None:
+    #     data["customPriceEnabled"] = True
+    # else:
+    #     data["customPriceEnabled"] = False
     
     pulsar.produce(
-        {
-            "data":data,
-        },
+        jsonData,
         pulsar.topicScrape
     )
     
     return jsonify({
         "status":True,
-        "data":data,
+        "data":jsonData,
         "message":"listing will be added in website soon. you can track status on /track endpoint"
     })
     
