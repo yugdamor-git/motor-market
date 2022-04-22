@@ -25,10 +25,9 @@ class topicHandler:
                 
                 if eventType == "insertLog":
                     self.logsHandler.insertLog(data["data"])
+                    self.logsHandler.increaseErrorCount(data["data"]["service"])
                 elif eventType == "listingCount":
                     self.logsHandler.increaseListingCount(data["data"]["countFor"])
-                elif eventType == "errorCount":
-                    self.logsHandler.increaseErrorCount(data["data"]["countFor"])
                 else:
                     print(f'unkown event Type')
                 

@@ -30,20 +30,29 @@ class topicHandler:
                 
                 images = data["data"]["images"]
                 
-                rawRegistration = data["data"]["registration"]
+                rawRegistration = data["data"]["orignalRegistration"]
                 
-                sourceId = data["data"]["sourceId"]
+                if "*" in rawRegistration:
                 
-                registrationData = self.redis.get(f'numberplate.predict.{sourceId}')
-                
-                if registrationData != None:
-                    registrationData = json.loads(registrationData)
-                
-                if registrationData == None:
-                    registrationData = self.predictor.getRegistrationFromImages(images,rawRegistration)
-                    self.redis.set(f'numberplate.predict.{sourceId}',json.dumps(registrationData))
-                
+                    sourceId = data["data"]["sourceId"]
+                    
+                    registrationData = self.redis.get(f'numberplate.predict.{sourceId}')
+                    
+                    if registrationData != None:
+                        registrationData = json.loads(registrationData)
+                    
+                    if registrationData == None:
+                        registrationData = self.predictor.getRegistrationFromImages(images,rawRegistration)
+                        self.redis.set(f'numberplate.predict.{sourceId}',json.dumps(registrationData))
+                else:
+                    registrationData = {
+                        "registration":rawRegistration,
+                        "registrationStatus":True,
+                        "predictedRegistration":rawRegistration
+                    }
+                        
                 print(registrationData)
+                
                 data["data"].update(registrationData)
                   
                 self.producer.produce(data)

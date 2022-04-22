@@ -13,7 +13,7 @@ class Validation:
         
         sourceUrl = data["sourceUrl"]
         
-        price = data["price"]
+        price = data["sourcePrice"]
         
         cc = data["engineCylindersCC"]
         
@@ -114,6 +114,7 @@ class Validation:
     def imageValidation(self,images):
         if len(images) == 0:
             return False,"there are no images."
+        
         return True,None
     
     def priceValidation(self,price):

@@ -28,41 +28,55 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                # pcp apr
-                pcpapr = self.calculation.calculatePcpApr(data["data"])
+                scraperType = data["data"].get("scraperType")
                 
-                data["data"]["pcpapr"] = pcpapr
-                
-                
-                # ltv
-                ltv = self.calculation.calculateLtv(data["data"])
-                
-                data["data"]["ltv"] = ltv
-                
-                # categoryId
-                categoryId = self.calculation.calculateCategoryId(data["data"])
-                
-                if categoryId == None:
+                if scraperType == "validator":
+                    # pcp apr
+                    pcpapr = self.calculation.calculatePcpApr(data["data"])
                     
-                    log = {}
-                
-                    log["sourceUrl"] = data["data"]["sourceUrl"]
-                    log["service"] = self.subscribe
-                    log["errorMessage"] = "categoryId is None."
+                    data["data"]["pcpapr"] = pcpapr
                     
-                    self.logsProducer.produce({
-                        "eventType":"insertLog",
-                        "data":log
-                    })
+                    # ltv
+                    ltv = self.calculation.calculateLtv(data["data"])
                     
-                    continue
-                    # log this event
-                data["data"]["categoryId"] = categoryId
+                    data["data"]["ltv"] = ltv
+                    
+                else:
                 
-                # video id
-                videoId = self.calculation.calculateVideoId(data["data"])
+                    # pcp apr
+                    pcpapr = self.calculation.calculatePcpApr(data["data"])
+                    
+                    data["data"]["pcpapr"] = pcpapr
+                    
+                    # ltv
+                    ltv = self.calculation.calculateLtv(data["data"])
+                    
+                    data["data"]["ltv"] = ltv
+                    
+                    # categoryId
+                    categoryId = self.calculation.calculateCategoryId(data["data"])
+                    
+                    if categoryId == None:
+                        
+                        log = {}
+                    
+                        log["sourceUrl"] = data["data"]["sourceUrl"]
+                        log["service"] = self.subscribe
+                        log["errorMessage"] = "categoryId is None."
+                        
+                        self.logsProducer.produce({
+                            "eventType":"insertLog",
+                            "data":log
+                        })
+                        
+                        continue
+                        # log this event
+                    data["data"]["categoryId"] = categoryId
+                    
+                    # video id
+                    videoId = self.calculation.calculateVideoId(data["data"])
                 
-                data["data"]["videoId"] = videoId
+                    data["data"]["videoId"] = videoId
                 
                 print(data)
                 

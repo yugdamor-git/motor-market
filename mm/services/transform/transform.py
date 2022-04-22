@@ -135,6 +135,31 @@ class Transform:
 
         return margin
     
+    def transformValidatorData(self,data):
+        if data["price"] != None:
+            price = int(data["price"])
+            data["price"] = price
+        
+        # adminFee
+        if data["adminFee"] != None:
+            adminFee = int(data["adminFee"])
+            data["adminFee"] = adminFee
+        else:
+            adminFee = 0
+            data["adminFee"] = adminFee
+
+        margin = self.calculateMargin(data["make"],data["model"],data["engineCylindersCC"])
+        
+        data["margin"] = margin
+        
+        # at price
+        
+        data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
+        
+        data["mmPrice"] = data["sourcePrice"] + margin
+        
+        return data
+    
     def transformData(self,data):
         
         # dealer Name
@@ -172,12 +197,12 @@ class Transform:
         # make
         if data["make"] != None:
             make = str(data["make"]).lower().strip()
-            data["make"] = make
+            data["OrignalMake"] = make
         
         # model
         if data["model"] != None:
             model = str(data["model"]).lower().strip()
-            data["model"] = model
+            data["OrignalModel"] = model
         
         # engineCylinders
         if data["engineCylinders"] != None:
@@ -190,14 +215,14 @@ class Transform:
         # registration
         if data["registration"] != None:
             registration = str(data["registration"]).strip().upper()
-            data["registration"] = registration
+            data["OrignalRegistration"] = registration
         
         # built
         if data["built"] != None:
             built = int(data["built"])
             data["built"] = built
         else:
-            code = [str(char) for char in data["registration"] if char.isdigit()]
+            code = [str(char) for char in data["OrignalRegistration"] if char.isdigit()]
             code = "".join(code)
             
             if code in self.builtCode:
@@ -232,12 +257,12 @@ class Transform:
         # bodyStyle
         if data["bodyStyle"] != None:
             bodyStyle = str(data["bodyStyle"]).strip().lower()
-            data["bodyStyle"] = bodyStyle
-            data["bodyStylePredicted"] = None
+            data["OrignalBodyStyle"] = bodyStyle
+            data["PredictedBodyStyle"] = None
             
             for bs in self.bodyStyles:
                 if bodyStyle in bs["from"].lower():
-                    data["bodyStylePredicted"] = bs["to"]
+                    data["PredictedBodyStyle"] = bs["to"]
                     break
         
         # price
@@ -292,7 +317,7 @@ class Transform:
         # add / calc new fields
         # title
         
-        data["title"] = f'{data["make"]} {data["model"]} {data["trim"]}'.replace("None","").title()
+        data["title"] = f'{data["OrignalMake"]} {data["OrignalModel"]} {data["trim"]}'.replace("None","").title()
         
         # transmissionCode
         if data["transmission"] in self.transmissionCode:
@@ -311,11 +336,19 @@ class Transform:
         
         data["margin"] = margin
         
-        # mm price
-        data["mmPrice"] = data.get("price") + margin
-        
         # at price
         
         data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
+        
+        # mm price
+        
+        customPriceEnabled = data.get("customPriceEnabled",None)
+        
+        if customPriceEnabled == True:
+            customPrice =  data.get("customPrice")
+            data["mmPrice"] =customPrice
+            data["margin"] = customPrice - data["sourcePrice"]
+        else:
+            data["mmPrice"] = data.get("price") + margin
         
         return data

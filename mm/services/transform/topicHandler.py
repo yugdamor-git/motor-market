@@ -12,6 +12,8 @@ class topicHandler:
         self.subscribe = 'motormarket.scraper.autotrader.listing.transform'
         
         self.publish = 'motormarket.scraper.autotrader.listing.predict.makemodel'
+        
+        self.postCalculationTopic = 'motormarket.scraper.autotrader.listing.post.calculation'
 
         logsTopic = "motormarket.scraper.logs"
     
@@ -23,19 +25,26 @@ class topicHandler:
         
         self.consumer = consumer.Consumer(self.subscribe,)
         
+        self.postCalculationProducer = producer.Producer(self.postCalculation)
+        
     def main(self):
         print("listening for new messages")
         while True:
             try:
                 data =  self.consumer.consume()
                 
-                rawData = data["rawData"]
+                scraperType = data["data"].get("scraperType")
                 
-                transformedData = self.transform.transformData(rawData)
+                if scraperType == "validator":
+                    transformedData = self.transform.transformValidatorData(data["data"])
+                    data["data"].update(transformedData)
+                    self.postCalculationProducer.produce(data)
+                    continue
                 
-                data["rawData"] = transformedData
+                elif scraperType == "normal":
+                    transformedData = self.transform.transformData(data)
                 
-                data["data"].update(rawData)
+                    data["data"].update(transformedData)
                 
                 print(data)
                 

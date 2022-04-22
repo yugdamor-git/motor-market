@@ -9,11 +9,16 @@ class listingScraper:
         self.graphql = graphql.Graphql()
         self.proxy = self.graphql.proxy
         self.maxRetry = 20
+        
+        self.accountId=24898
     
-    def scrapeById(self,id):
+    def scrapeById(self,id,scraperType):
         
-        query = self.graphql.requiredFieldsQuery
-        
+        if scraperType == "normal":
+            query = self.graphql.requiredFieldsQuery
+        elif scraperType == "validator":
+            query = self.graphql.priceFieldQuery
+            
         payload = self.graphql.getPayload(id,query)
         
         for retry in range(0,self.maxRetry):
@@ -43,7 +48,11 @@ class listingScraper:
             }
         
         try:
-            data = self.graphql.extractDataFromJson(jsonData)
+            if scraperType == "normal":
+                data = self.graphql.extractDataFromJson(jsonData)
+            elif scraperType == "validator":
+                data = self.graphql.extractValidatorDataFromJson(jsonData)
+                
             message = "200"
         except Exception as e:
             print(f'error : {str(e)}')
@@ -57,8 +66,16 @@ class listingScraper:
                 "message":message
             }
         
+        data["accountId"] = self.accountId
+        
         return {
                 "status":True,
                 "data":data,
                 "message":message
             }
+        
+if __name__ == "__main__":
+    # testing
+    
+    s = listingScraper()
+    print(s.scrapeById("202104231702346","normal"))

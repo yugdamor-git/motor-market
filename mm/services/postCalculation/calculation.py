@@ -4,6 +4,7 @@ from Database import Database
 from dealerForecourt import dealerForecourt
 from categoryId import categoryId
 from videoId import videoId
+import json
 
 
 class Calculation:
@@ -24,7 +25,7 @@ class Calculation:
         
     def calculatePcpApr(self,data):
         
-        price = data["price"]
+        price = data["mmPrice"]
         
         mileage = data["mileage"]
         
@@ -38,6 +39,7 @@ class Calculation:
         ltv = {}
         
         mmPrice = data.get("mmPrice")
+        
         sourcePrice = data.get("sourcePrice")
         
         registrationStatus = data.get("registrationStatus")
@@ -45,23 +47,31 @@ class Calculation:
         try:
             if sourcePrice < 10000:
                 if registrationStatus == True:
-                    glassPrice = self.calculateDealerForecourt(data)
-                    
-                    ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
+                    glassPrice,dealerForecourtResponse = self.calculateDealerForecourt(data)
+                    if glassPrice == None:
+                        ltv = {}
+                        ltv["ltvStatus"] = 0
+                        ltv["dealerForecourtResponse"] = json.dumps(dealerForecourtResponse)
+                    else:
+                        ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
+                        ltv["dealerForecourtPrice"] = glassPrice
+                        ltv["ltvStatus"] = 1
                 else:
-                    ltv = self.ltvCalc.getDefaultValues()
+                    ltv = {}
+                    ltv["ltvStatus"] = 0
             else:
                 ltv = self.ltvCalc.getDefaultValues()
         except Exception as e:
             print(f'error : {str(e)}')
-            ltv = self.ltvCalc.getDefaultValues()
+            ltv = {}
+            ltv["ltvStatus"] = 0
         
         return ltv
         
     
     def calculateCategoryId(self,data):
-        make = data.get("make")
-        model = data.get("model")
+        make = data.get("predictedMake")
+        model = data.get("predictedModel")
         
         categoryId = self.categoryIdCalc.getCategoryId(make,model)
         
@@ -71,19 +81,19 @@ class Calculation:
         
         websiteId = data.get("websiteId")
         
-        registration = data.get("registration")
+        registration = data.get("predictedRegistration")
         
         mileage = data.get("mileage")
         
-        dealerForecourtPrice = self.dealerForecourtCalc.get_dealerforecourt_price(registration,mileage,websiteId)
+        dealerForecourtPrice,DealerForecourtResponse = self.dealerForecourtCalc.get_dealerforecourt_price(registration,mileage,websiteId)
         
-        return dealerForecourtPrice
+        return dealerForecourtPrice,DealerForecourtResponse
     
     def calculateVideoId(self,data):
         
-        make = data.get("make")
+        make = data.get("predictedMake")
         
-        model = data.get("model")
+        model = data.get("predictedModel")
         
         built = data.get("built",None)
         try:

@@ -28,10 +28,10 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
-                                
-                make = data["data"]["make"]
+                           
+                make = data["data"]["predictedMake"]
                 
-                model = data["data"]["model"]
+                model = data["data"]["predictedModel"]
                 
                 prediction = self.predictor.predict(make,model)
                 

@@ -21,7 +21,10 @@ if __name__ == "__main__":
             "sourceId":"202112200679657",
             "sourceUrl": "https://www.autotrader.co.uk/car-details/202112200679657",
             "websiteId":"S21",
-            "accountId":12345
+            "accountId":12345,
+            "customPrice":1234,
+            "customPriceEnabled":True,
+            "addedBy":"urlScraper"
             },
         }
     # for i in range(0,10):

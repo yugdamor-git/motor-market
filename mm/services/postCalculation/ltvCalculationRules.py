@@ -20,29 +20,23 @@ class ltvCalculationRules:
         ]
 
         self.default_value = 99999
-        
-    def to_int(self,value):
-        temp = None
-        try:
-            temp = int(str(value).strip())
-        except Exception as e:
-            print(f'PriceOperations : {str(e)}')
-        return temp
     
-    def calculate(self,sourcePrice,glassPrice):
+    def calculate(self,mmPrice,glassPrice):
         tmp = {}
         
         for item in self.personalized_percentage:
             max_lend = glassPrice * item["percentage"]
             
-            diff = max_lend - self.to_int(sourcePrice)
+            diff = max_lend - mmPrice
             
             tmp[item["name"]] = int(diff)
-        
+            
         return tmp
     
     def getDefaultValues(self):
+        
         tmp = {}
+        
         for item in self.personalized_percentage:
             tmp[item["name"]] = self.default_value
         return tmp

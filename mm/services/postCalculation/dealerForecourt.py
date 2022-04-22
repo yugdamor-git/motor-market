@@ -39,6 +39,7 @@ class dealerForecourt:
         self.db.connect()
         try:
             DealerForecourt = None
+            DealerForecourtResponse = {}
             
             rows = self.db.recSelect(
                 "ukvehicledata_ValuationData", {"VRM": reg_no}
@@ -48,6 +49,7 @@ class dealerForecourt:
                 if self.check_response_older_than_x_days(rows[0]["updated_at"]):
                     print("new api call for price : data is 30 days older")
                     new_call = self.get_vehicle_price_data(reg_no, mileage)
+                    DealerForecourtResponse = new_call
                     price = self.get_DealerForecourt_from_response(new_call)
                     updated_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     data = {}
@@ -68,6 +70,7 @@ class dealerForecourt:
                 
                 self.api_call_count = self.api_call_count + 1
                 new_call = self.get_vehicle_price_data(reg_no, mileage)
+                DealerForecourtResponse = new_call
                 price = self.get_DealerForecourt_from_response(new_call)
                 updated_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 data = {}
@@ -85,5 +88,5 @@ class dealerForecourt:
             
         self.db.disconnect()
         
-        return DealerForecourt
+        return DealerForecourt,DealerForecourtResponse
     

@@ -14,6 +14,10 @@ import pandas as pd
 
 from numpy.linalg import norm
 
+from redisHandler import redisHandler
+
+import json
+
 class Predictor:
     
     def __init__(self) -> None:
@@ -37,6 +41,8 @@ class Predictor:
         
         self.tfidfs = []
         
+        self.redis = redisHandler()
+        
         self.load()
     
     def cosine_similarity(self,list_1, list_2):
@@ -46,6 +52,17 @@ class Predictor:
         return cos_sim
   
     def predict(self,make,model):
+        redisKey = f'seats.{make}-{model}'
+        
+        cache = self.redis.get(redisKey)
+        
+        if cache != None:
+            cacheJson = json.loads(cache)
+            
+            return {
+                "seats":seats,
+                "predictedSeats":seats
+            }
         
         makeModel = f'{make.lower().strip()} {model.lower().strip()}'
         
@@ -67,8 +84,15 @@ class Predictor:
         
         score = max_row['cosim'].to_list()[0]
         
+        cacheVal  = {
+            "seats":seats
+        }
+        
+        self.redis.set(redisKey,json.dumps(cacheVal))
+           
         return {
             "seats":seats,
+            "predictedSeats":seats
         }
     
     def load(self):

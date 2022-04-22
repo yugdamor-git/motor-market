@@ -28,9 +28,7 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                rawData = data["rawData"]
-                
-                title = rawData.get("title")
+                title = data["data"].get("title")
                 
                 if title == None:
                     print('title not found')

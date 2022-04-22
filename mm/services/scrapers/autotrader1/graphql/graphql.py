@@ -17,6 +17,7 @@ class Graphql:
                 advert(advertId:$advertId,searchOptions:$searchOptions){
                 id
                 price
+                adminFee
                 }
             }
         }        
@@ -694,7 +695,21 @@ class Graphql:
         ]
         
         return payload
+    
+    def extractValidatorDataFromJson(self, response:json) -> dict:
+        
+        jsonData = response[0]["data"]["search"]["advert"]
+        
+        carData = {}
 
+        carData["price"] = jsonData.get("price",None)
+        
+        carData["adminFee"] = jsonData.get("adminFee",0)
+        
+        return carData
+        
+        
+        
     def extractDataFromJson(self, response:json) -> dict:
         
         jsonData = response[0]["data"]["search"]["advert"]

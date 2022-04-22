@@ -62,8 +62,9 @@ class Handler:
                 
         return {
             "registration":registration,
+            "predictedRegistration":registration,
             "registrationStatus":status
-        }   
+        }
                     
 if __name__ == "__main__":
     h = Handler()

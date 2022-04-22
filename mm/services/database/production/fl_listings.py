@@ -11,7 +11,6 @@ class topicHandler:
         print("transform topic handler init")
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.database.production'
-        # table name
         
         self.publish = 'motormarket.scraper.autotrader.listing.generate.image'
 
@@ -286,80 +285,113 @@ class topicHandler:
                     self.handleEvent(event,data)
                     self.db.disconnect()
                     continue
-                print(f'normal execution')
-                websiteId = data["data"]["websiteId"]
                 
-                sourceUrl = data["data"]["sourceUrl"]
                 
-                where = {
-                    "Website_ID":websiteId,
-                    "product_url":sourceUrl
-                }
+                scraperType = data["data"].get("scraperType")
                 
-                self.db.connect()
-                records = self.db.recSelect("fl_listings",where)
-                self.db.disconnect()
-                
-                id = None
-                
-                upsert = None
-                
-                if len(records) > 0:
-                    # update
-                    id = records[0]["ID"]
+                if scraperType == "validator":
                     mappedData = self.mapColumnsInsert(data)
-                    mappedData["product_url"] = mappedData["sourceUrl"]
                     mappedData["updated_at"] = {"func":"now()"}
                     
                     where = {
-                        "ID":id
+                            "ID":data["data"]["ID"]
                     }
                     
-                    status = records[0]["Status"]
                     
                     self.db.connect()
-                    if status == "sold":
-                        continue
-                    elif status == "pending":
-                        self.db.recUpdate("fl_listings",mappedData,where)
-                    elif status == "manual_expire":
-                        continue
-                    elif status == "to_parse":
-                        self.db.recUpdate("fl_listings",mappedData,where)
-                    elif status == "active":
-                        self.db.recUpdate("fl_listings",mappedData,where)
-                    elif status == "expired":
-                        self.db.recUpdate("fl_listings",mappedData,where)
-                    data["data"]["status"] = status
-                    upsert = "update"
+                    self.db.recUpdate("fl_listings",mappedData,where)
                     self.db.disconnect()
-                else:
-                    # insert
-                    mappedData = self.mapColumnsInsert(data)
-                    mappedData["Status"] = "to_parse"
-                    mappedData["product_url"] = mappedData["sourceUrl"]
+                    
+                    continue
+                
+                
+                elif scraperType == "normal":
+                    print(f'normal execution')
+                    websiteId = data["data"]["websiteId"]
+                    
+                    sourceUrl = data["data"]["sourceUrl"]
+                    
+                    where = {
+                        "Website_ID":websiteId,
+                        "product_url":sourceUrl
+                    }
                     
                     self.db.connect()
-                    id = self.db.recInsert("fl_listings",mappedData)
+                    records = self.db.recSelect("fl_listings",where)
                     self.db.disconnect()
                     
-                    make = mappedData["make"]
-                    model = mappedData["model"]
-                    title = mappedData["title"]
+                    id = None
                     
-                    mmUrl = self.urlGenerator.generateMMUrl(make,model,title,id)
+                    upsert = None
                     
-                    data["data"]["status"] = "to_parse"
-                    
-                    data["data"]["mmUrl"] = mmUrl
-                    
-                    upsert = "insert"
+                    if len(records) > 0:
+                        # update
+                        id = records[0]["ID"]
+                        mappedData = self.mapColumnsUpdate(data)
+                        mappedData["product_url"] = mappedData["sourceUrl"]
+                        mappedData["updated_at"] = {"func":"now()"}
+                        
+                        where = {
+                            "ID":id
+                        }
+                        
+                        status = records[0]["Status"]
+                        
+                        self.db.connect()
+                        if status == "sold":
+                            continue
+                        elif status == "pending":
+                            self.db.recUpdate("fl_listings",mappedData,where)
+                        elif status == "manual_expire":
+                            continue
+                        elif status == "to_parse":
+                            self.db.recUpdate("fl_listings",mappedData,where)
+                        elif status == "active":
+                            self.db.recUpdate("fl_listings",mappedData,where)
+                        elif status == "expired":
+                            self.db.recUpdate("fl_listings",mappedData,where)
+                        data["data"]["status"] = status
+                        upsert = "update"
+                        self.db.disconnect()
+                    else:
+                        # insert
+                        mappedData = self.mapColumnsInsert(data)
+                        mappedData["Status"] = "to_parse"
+                        mappedData["product_url"] = mappedData["sourceUrl"]
+                        
+                        self.db.connect()
+                        id = self.db.recInsert("fl_listings",mappedData)
+                        self.db.disconnect()
+                        
+                        make = mappedData["make"]
+                        model = mappedData["model"]
+                        title = mappedData["title"]
+                        
+                        mmUrl = self.urlGenerator.generateMMUrl(make,model,title,id)
+                        
+                        data["data"]["status"] = "to_parse"
+                        
+                        data["data"]["mmUrl"] = mmUrl
+                        
+                        upsert = "insert"
                 
-                data["data"]["upsert"] = upsert
-                
-                data["data"]["id"] = id
+                    data["data"]["upsert"] = upsert
+                    
+                    data["data"]["id"] = id
                         
                 print(data)
+                
+                # increase count
+                
+                self.logsProducer.produce(
+                 {
+                    "eventType":"listingCount",
+                    "data":{
+                            "countFor":upsert
+                        }
+                    }
+                )
+                # 
                 
                 self.producer.produce(data)
                 

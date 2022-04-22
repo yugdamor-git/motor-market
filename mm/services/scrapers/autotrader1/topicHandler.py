@@ -10,6 +10,8 @@ class topicHandler:
         self.subscribe = 'motormarket.scraper.autotrader.listing.scrape'
         
         self.publish = 'motormarket.scraper.autotrader.listing.transform'
+        
+        self.fl_listings = 'motormarket.scraper.autotrader.listing.database.production'
 
         logsTopic = "motormarket.scraper.logs"
         
@@ -19,8 +21,28 @@ class topicHandler:
         
         self.producer = producer.Producer(self.publish)
         
-        self.consumer = consumer.Consumer(self.subscribe)
+        self.fl_listings_producer = producer.Producer(self.fl_listings)
         
+        self.consumer = consumer.Consumer(self.subscribe)
+    
+    def expireListing(self,id):
+        event = "update"
+        what = {
+            "Status":"expired",
+        }
+        where = {
+            "sourceId":id
+        }
+        data = {
+            "event":event,
+            "eventData":{
+                "what":what,
+                "where":where
+            }
+        }
+        
+        self.fl_listings_producer.produce(data)
+    
     def main(self):
         
         print("listening for new messages")
@@ -28,16 +50,23 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
+                scraperType = data["data"].get("scraperType")
+                
                 id = data["data"]["sourceId"]
                 
-                scrapedData = self.scraper.scrapeById(id)
+                scrapedData = self.scraper.scrapeById(id,scraperType)
+                if scraperType == "validator":
+                    if scrapedData["status"] == False:
+                        # expire this listing , it is no longer active on source site.
+                        self.expireListing(id)
+                        continue
+                    
+                if scraperType == "normal":
+                    if scrapedData["status"] == False:
+                        # this listing was processed by normal scraper no need to update this kind of listings.
+                        continue
                 
-                if scrapedData["status"] == False:
-                    # log message here
-                    # expire listing if present
-                    continue
-                
-                data["rawData"] = scrapedData["data"]
+                data["data"].update(scrapedData["data"])
                 
                 print(data)
                 

@@ -8,6 +8,10 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 import re
 
+import json
+
+from redisHandler import redisHandler
+
 class Predictor:
     
     def __init__(self) -> None:
@@ -29,12 +33,27 @@ class Predictor:
         
         self.vectorizer = None
         
+        self.redis = redisHandler()
+        
         self.stop_words = ['cdti', '5dr', 'limited edition', 'limited', 'edition', 'tfsi', 'thp', 'gdi', 'cvt', 'tip',
                       'td', 'aircross', 'dci', 'sline', 'tgi', 'premium', 'quattro', 'sport', 'coupe', 'amg', 'motor uk']
         
         self.load()
     
     def predict(self,title):
+        
+        cache = self.redis.get(f'makemodel.{title}')
+        
+        if cache != None:
+            cacheJson = json.loads(cache)
+            make = cacheJson["make"]
+            model = cacheJson["model"]
+            return {
+            "make":make,
+            "model":model,
+            "predictedMake":make,
+            "predictedModel":model
+                }
         
         titleVector = self.vectorizer.transform([title])
         
@@ -46,9 +65,17 @@ class Predictor:
         
         model = label.split(";")[1]
         
-        return {
+        cacheVal = {
             "make":make,
             "model":model
+        }
+        self.redis.set(f'makemodel.{title}',json.dumps(cacheVal))
+        
+        return {
+            "make":make,
+            "model":model,
+            "predictedMake":make,
+            "predictedModel":model
         }
 
     def load(self):
