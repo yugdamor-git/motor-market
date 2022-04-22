@@ -2,15 +2,14 @@ import Layout from '../components/layout'
 import '../styles/globals.css'
 import NextNProgress from 'nextjs-progressbar';
 import Script from "next/script";
-
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
 
   return (
     <>
 
-      
-      <Script
+<Script
         id="gtag-script-1"
         strategy="lazyOnload"
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
@@ -26,6 +25,11 @@ function MyApp({ Component, pageProps }) {
             });
                 `}
       </Script>
+      <Head>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6967742946690048"
+     crossOrigin="anonymous"></script>
+      </Head>
+      
 
     <Layout>
     <NextNProgress
