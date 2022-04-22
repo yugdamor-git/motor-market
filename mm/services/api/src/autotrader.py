@@ -28,9 +28,9 @@ def addManualEntry():
             "message":"please include url in json body."
         })
     
-    autoTraderId = url.strip().strip("/").split("/")[-1]
+    sourceId = url.strip().strip("/").split("/")[-1]
     
-    if autoTraderId.isdigit() == False:
+    if sourceId.isdigit() == False:
         return jsonify({
             "status":False,
             "data":None,
@@ -39,27 +39,30 @@ def addManualEntry():
     
     customPrice = jsonData.get("customPrice",None)
     
-    data = {}
     
-    meta = {
-        "url":url,
-        "autoTraderId":autoTraderId,
-        "manualEntry":True,
-        "customPrice":customPrice
+    
+    data = {
+        "sourceUrl":url,
+        "sourceId":sourceId,
+        "customPrice":customPrice,
+        "scraperType":"normal"
     }
+    
+    if customPrice != None:
+        data["customPriceEnabled"] = True
+    else:
+        data["customPriceEnabled"] = False
     
     pulsar.produce(
         {
             "data":data,
-            "meta":meta,
-            "event":[]
         },
         pulsar.topicScrape
     )
     
     return jsonify({
         "status":True,
-        "data":meta,
+        "data":data,
         "message":"listing will be added in website soon. you can track status on /track endpoint"
     })
     
