@@ -37,6 +37,7 @@ class topicHandler:
                 predictions = self.predictor.predict(images,websiteId,sourceId)
                 
                 data["data"]["images"] = predictions
+                data["data"]["photosCount"] = len(predictions)
                 
                 print(data)
                 

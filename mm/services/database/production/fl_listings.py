@@ -144,7 +144,9 @@ class topicHandler:
                 'QCF_MB_T': 'QCF_MB_T',
                 'BMF': 'BMF',
                 'categoryId': 'Category_ID',
-                'videoId': 'video_id'}
+                'videoId': 'video_id',
+                'photosCount':'Photos_count'
+                }
         
         mappedData = {}
         
@@ -279,7 +281,9 @@ class topicHandler:
                 'QCF_MB_T': 'QCF_MB_T',
                 'BMF': 'BMF',
                 'categoryId': 'Category_ID',
-                'videoId': 'video_id'}
+                'videoId': 'video_id',
+                'photosCount':'Photos_count'
+                }
         
         mappedData = {}
         
