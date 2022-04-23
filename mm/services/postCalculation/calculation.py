@@ -62,7 +62,7 @@ class Calculation:
             else:
                 ltv = self.ltvCalc.getDefaultValues()
         except Exception as e:
-            print(f'error : {str(e)}')
+            print(f'error - calculation.py : {str(e)}')
             ltv = {}
             ltv["ltvStatus"] = 0
         
@@ -99,7 +99,7 @@ class Calculation:
         try:
             videoId = self.videoIdCalc.get_video_id(make,model,built)
         except Exception as e:
-            print(f'error : not able to get video id : {str(e)}')
+            print(f'error - calculation.py : not able to get video id : {str(e)}')
             videoId = None
             
         return videoId

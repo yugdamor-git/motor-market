@@ -21,7 +21,7 @@ class ltvCalculationRules:
 
         self.default_value = 99999
     
-    def calculate(self,mmPrice,glassPrice):
+    def calculate(self,mmPrice:int,glassPrice:int):
         tmp = {}
         
         for item in self.personalized_percentage:

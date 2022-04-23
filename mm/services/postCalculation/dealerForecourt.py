@@ -84,7 +84,7 @@ class dealerForecourt:
                 DealerForecourt = int(float(price))
                 self.db.recInsert("ukvehicledata_ValuationData", data)
         except Exception as e:
-            print(f'error : {str(e)}')
+            print(f'error - dealerForecourt.py : {str(e)}')
             
         self.db.disconnect()
         
