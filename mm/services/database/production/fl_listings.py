@@ -157,6 +157,7 @@ class topicHandler:
             val = item["value"]
             if key in dataTmp:
                 mappedData[val] = dataTmp[key]
+                
         print(mappedData)  
         return mappedData
     
