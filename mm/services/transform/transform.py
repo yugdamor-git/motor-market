@@ -215,7 +215,7 @@ class Transform:
         # registration
         if data["registration"] != None:
             registration = str(data["registration"]).strip().upper()
-            data["OrignalRegistration"] = registration
+            data["orignalRegistration"] = registration
         
         # built
         if data["built"] != None:

@@ -3,6 +3,7 @@ from topic import producer,consumer
 from handler import Handler
 from redisHandler import redisHandler
 import json
+import traceback
 
 class topicHandler:
     def __init__(self):
@@ -59,6 +60,19 @@ class topicHandler:
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                
+                log = {}
+                
+                log["sourceUrl"] = data["data"]["sourceUrl"]
+                log["service"] = self.subscribe
+                log["errorMessage"] = traceback.format_exc()
+                
+                self.logsProducer.produce({
+                    "eventType":"insertLog",
+                    "data":log
+                })
+                
+                
                 
                 
 if __name__ == "__main__":
