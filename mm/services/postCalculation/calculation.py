@@ -37,34 +37,33 @@ class Calculation:
     
     def calculateLtv(self,data):
         ltv = {}
-        
-        mmPrice = data.get("mmPrice")
-        
-        sourcePrice = data.get("sourcePrice")
-        
-        registrationStatus = data.get("registrationStatus")
-        
-        # try:
-        if sourcePrice < 10000:
-            if registrationStatus == True:
-                glassPrice,dealerForecourtResponse = self.calculateDealerForecourt(data)
-                if glassPrice == None:
+        try:
+            mmPrice = data.get("mmPrice")
+            
+            sourcePrice = data.get("sourcePrice")
+            
+            registrationStatus = data.get("registrationStatus")
+            
+            if sourcePrice < 10000:
+                if registrationStatus == True:
+                    glassPrice,dealerForecourtResponse = self.calculateDealerForecourt(data)
+                    if glassPrice == None:
+                        ltv = {}
+                        ltv["ltvStatus"] = 0
+                        ltv["dealerForecourtResponse"] = json.dumps(dealerForecourtResponse)
+                    else:
+                        ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
+                        ltv["dealerForecourtPrice"] = glassPrice
+                        ltv["ltvStatus"] = 1
+                else:
                     ltv = {}
                     ltv["ltvStatus"] = 0
-                    ltv["dealerForecourtResponse"] = json.dumps(dealerForecourtResponse)
-                else:
-                    ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
-                    ltv["dealerForecourtPrice"] = glassPrice
-                    ltv["ltvStatus"] = 1
             else:
-                ltv = {}
-                ltv["ltvStatus"] = 0
-        else:
-            ltv = self.ltvCalc.getDefaultValues()
-        # except Exception as e:
-        #     print(f'error - calculation.py : {str(e)}')
-        #     ltv = {}
-        #     ltv["ltvStatus"] = 0
+                ltv = self.ltvCalc.getDefaultValues()
+        except Exception as e:
+            print(f'error - calculation.py : {str(e)}')
+            ltv = {}
+            ltv["ltvStatus"] = 0
         
         return ltv
         
