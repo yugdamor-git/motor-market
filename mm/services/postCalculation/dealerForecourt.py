@@ -56,7 +56,7 @@ class dealerForecourt:
                     data["Response"] = str(new_call)
                     data["updated_at"] = updated_time
                     data["DealerForecourt"] = price
-                    DealerForecourt = int(price)
+                    DealerForecourt = int(float(price))
                     self.api_call_count = self.api_call_count + 1
                     self.db.recUpdate(
                         "ukvehicledata_ValuationData", data, {"id": rows[0]["id"]}
@@ -81,7 +81,7 @@ class dealerForecourt:
                 data["VRM"] = reg_no
                 data["mileage"] = mileage
                 data["Website_ID"] = website_id
-                DealerForecourt = int(price)
+                DealerForecourt = int(float(price))
                 self.db.recInsert("ukvehicledata_ValuationData", data)
         except Exception as e:
             print(f'error : {str(e)}')
