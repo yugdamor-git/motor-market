@@ -25,7 +25,7 @@ class ltvCalculationRules:
         tmp = {}
         
         for item in self.personalized_percentage:
-            max_lend = glassPrice * item["percentage"]
+            max_lend = float(glassPrice) * item["percentage"]
             
             diff = max_lend - mmPrice
             
