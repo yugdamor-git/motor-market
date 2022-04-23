@@ -393,6 +393,7 @@ class topicHandler:
                         elif status == "expired":
                             self.db.recUpdate("fl_listings",mappedData,where)
                         data["data"]["status"] = status
+                        
                         upsert = "update"
                         self.db.disconnect()
                     else:
@@ -400,6 +401,10 @@ class topicHandler:
                         mappedData = self.mapColumnsInsert(data)
                         mappedData["updated_at"] = {"func":"now()"}
                         mappedData["Status"] = "to_parse"
+                        
+                        if data["data"]["registrationStatus"] == False:
+                            mappedData["Status"] = "pending"
+                        
                         
                         self.db.connect()
                         id = self.db.recInsert("fl_listings",mappedData)
