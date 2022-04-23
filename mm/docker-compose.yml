@@ -29,7 +29,7 @@ services:
     image: "redis:alpine"
     hostname: redis
     volumes:
-      -./services/redis/data:/data
+      - ./services/redis/data:/data
 
   # consumertest:
   #   build:
