@@ -59,8 +59,9 @@ class Predictor:
         if cache != None:
             cacheJson = json.loads(cache)
             
+            seats = cacheJson["seats"]
+            
             return {
-                "seats":seats,
                 "predictedSeats":seats
             }
         
@@ -91,7 +92,6 @@ class Predictor:
         self.redis.set(redisKey,json.dumps(cacheVal))
            
         return {
-            "orignalSeats":seats,
             "predictedSeats":seats
         }
     
