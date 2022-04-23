@@ -1,4 +1,5 @@
 
+from crypt import methods
 from flask import Blueprint,request,jsonify
 import os
 
@@ -15,9 +16,20 @@ autotrader = Blueprint("autotrader",__name__)
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
 
-@autotrader.route("/manual-entry")
+@autotrader.route("/manual-entry",methods=['POST'])
 def addManualEntry():
     jsonData = request.json
+    
+    pulsar.produce(
+        jsonData,
+        pulsar.topicScrape
+    )
+    
+    return jsonify({
+        "status":True,
+        "data":jsonData,
+        "message":"listing will be added in website soon. you can track status on /track endpoint"
+    })
     
     # url = jsonData.get("url",None)
     
@@ -53,16 +65,7 @@ def addManualEntry():
     # else:
     #     data["customPriceEnabled"] = False
     
-    pulsar.produce(
-        jsonData,
-        pulsar.topicScrape
-    )
     
-    return jsonify({
-        "status":True,
-        "data":jsonData,
-        "message":"listing will be added in website soon. you can track status on /track endpoint"
-    })
     
 
 # @autotrader.route("/listing/manual-entry")
