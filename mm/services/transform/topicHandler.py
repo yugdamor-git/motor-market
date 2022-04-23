@@ -25,7 +25,7 @@ class topicHandler:
         
         self.consumer = consumer.Consumer(self.subscribe,)
         
-        self.postCalculationProducer = producer.Producer(self.postCalculation)
+        self.postCalculationProducer = producer.Producer(self.postCalculationTopic)
         
     def main(self):
         print("listening for new messages")
