@@ -389,7 +389,6 @@ class topicHandler:
                         # insert
                         mappedData = self.mapColumnsInsert(data)
                         mappedData["Status"] = "to_parse"
-                        mappedData["product_url"] = mappedData["sourceUrl"]
                         
                         self.db.connect()
                         id = self.db.recInsert("fl_listings",mappedData)
