@@ -51,10 +51,12 @@ class topicHandler:
                         "predictedRegistration":rawRegistration
                     }
                         
-                print(registrationData)
+                
                 
                 data["data"].update(registrationData)
-                  
+                
+                print(data)
+                
                 self.producer.produce(data)
                 
             except Exception as e:
