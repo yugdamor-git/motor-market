@@ -15,7 +15,7 @@ autotrader = Blueprint("autotrader",__name__)
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
 
-@autotrader.route("/manual-entry",methods=[ 'POST'])
+@autotrader.route("/manual-entry")
 def addManualEntry():
     jsonData = request.json
     
