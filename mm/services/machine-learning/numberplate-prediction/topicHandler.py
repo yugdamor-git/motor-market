@@ -36,11 +36,11 @@ class topicHandler:
                 if "*" in rawRegistration:
                 
                     sourceId = data["data"]["sourceId"]
+                    registrationData = None
+                    # registrationData = self.redis.get(f'numberplate.predict.{sourceId}')
                     
-                    registrationData = self.redis.get(f'numberplate.predict.{sourceId}')
-                    
-                    if registrationData != None:
-                        registrationData = json.loads(registrationData)
+                    # if registrationData != None:
+                    #     registrationData = json.loads(registrationData)
                     
                     if registrationData == None:
                         registrationData = self.predictor.getRegistrationFromImages(images,rawRegistration)
