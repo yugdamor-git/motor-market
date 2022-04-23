@@ -62,7 +62,7 @@ class imageGenerator:
         try:
             rawImage = self.read_image(imagePath)
             
-            orgImagePath = f'{websiteId}/ad{listingId}/org_{imageId}.png'
+            orgImagePath = f'S{websiteId}/ad{listingId}/org_{imageId}.png'
             tmp = {}
             tmp["path"] = orgImagePath
             tmp["type"] = "org"
@@ -72,7 +72,7 @@ class imageGenerator:
             
             for size in self.sizes:
                 tmp = {}
-                imagePath = f'{websiteId}/ad{listingId}/{size["name"]}_{imageId}.png'
+                imagePath = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.png'
                 tmp['path'] = imagePath
                 tmp['type'] = size["name"]
                 tmp["size"] = size
@@ -97,7 +97,7 @@ class imageGenerator:
             
             for size in self.sizes:
                 _,buff = self.convert_image(rawImage,size)
-                imagePath = f'{websiteId}/ad{listingId}/{size["name"]}_{imageId}.png'
+                imagePath = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.png'
                 # upload image in server through ftp
                 ftp.uploadFile(imagePath,buff)
             
@@ -120,7 +120,7 @@ class imageGenerator:
         
         ftp = ftpHandler()
         
-        dirname = f'{websiteId}/ad{listingId}'
+        dirname = f'S{websiteId}/ad{listingId}'
 
         ftp.createDirectory(f'{ftp.imageDir}/{dirname}')
         
