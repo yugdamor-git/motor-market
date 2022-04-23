@@ -41,7 +41,7 @@ class topicHandler:
                     
                     data["data"]["ltv"] = ltv
                     
-                else:
+                elif scraperType == "normal":
                 
                     # pcp apr
                     pcpapr = self.calculation.calculatePcpApr(data["data"])
