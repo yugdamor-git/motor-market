@@ -317,7 +317,7 @@ class Transform:
         # add / calc new fields
         # title
         
-        data["title"] = f'{data["OrignalMake"]} {data["OrignalModel"]} {data["trim"]}'.replace("None","").title()
+        data["title"] = f'{data["orignalMake"]} {data["orignalModel"]} {data["trim"]}'.replace("None","").title()
         
         # transmissionCode
         if data["transmission"] in self.transmissionCode:
