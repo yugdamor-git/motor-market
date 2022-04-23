@@ -32,9 +32,7 @@ class topicHandler:
                 
                 sourceId = data["data"]["sourceId"]
                 
-                rawData = data["rawData"]
-                
-                images = rawData["images"]
+                images = data["data"]["images"]
                 
                 predictions = self.predictor.predict(images,websiteId,sourceId)
                 
