@@ -47,7 +47,6 @@ class topicHandler:
                         self.redis.set(f'numberplate.predict.{sourceId}',json.dumps(registrationData))
                 else:
                     registrationData = {
-                        "registration":rawRegistration,
                         "registrationStatus":True,
                         "predictedRegistration":rawRegistration
                     }

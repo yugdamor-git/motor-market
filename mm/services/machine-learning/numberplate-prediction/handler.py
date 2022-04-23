@@ -61,7 +61,6 @@ class Handler:
                 registration = regno
                 
         return {
-            "registration":registration,
             "predictedRegistration":registration,
             "registrationStatus":status
         }
