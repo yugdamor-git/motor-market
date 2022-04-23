@@ -257,12 +257,12 @@ class Transform:
         # bodyStyle
         if data["bodyStyle"] != None:
             bodyStyle = str(data["bodyStyle"]).strip().lower()
-            data["OrignalBodyStyle"] = bodyStyle
-            data["PredictedBodyStyle"] = None
+            data["orignalBodyStyle"] = bodyStyle
+            data["predictedBodyStyle"] = None
             
             for bs in self.bodyStyles:
                 if bodyStyle in bs["from"].lower():
-                    data["PredictedBodyStyle"] = bs["to"]
+                    data["predictedBodyStyle"] = bs["to"]
                     break
         
         # price
