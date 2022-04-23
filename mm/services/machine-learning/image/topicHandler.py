@@ -60,3 +60,4 @@ class topicHandler:
 if __name__ == "__main__":
     th = topicHandler()
     th.main()
+    
