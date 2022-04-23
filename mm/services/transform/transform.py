@@ -197,12 +197,12 @@ class Transform:
         # make
         if data["make"] != None:
             make = str(data["make"]).lower().strip()
-            data["OrignalMake"] = make
+            data["orignalMake"] = make
         
         # model
         if data["model"] != None:
             model = str(data["model"]).lower().strip()
-            data["OrignalModel"] = model
+            data["orignalModel"] = model
         
         # engineCylinders
         if data["engineCylinders"] != None:

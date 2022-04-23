@@ -27,7 +27,9 @@ class topicHandler:
         self.consumer = consumer.Consumer(self.subscribe)
     
     def mapColumnsInsert(self,data):
-        columnMapping =[{'key': 'status', 'value': 'Status'},
+        columnMapping =[
+        {'key':'ltvstatus','value':'ltvstatus'},
+        {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
         {'key': 'sourceId', 'value': 'sourceId'},
         {'key': 'sourceUrl', 'value': 'sourceUrl'},
@@ -162,7 +164,9 @@ class topicHandler:
         return mappedData
     
     def mapColumnsUpdate(self,data):
-        columnMapping =[{'key': 'status', 'value': 'Status'},
+        columnMapping =[
+        {'key':'ltvstatus','value':'ltvstatus'},
+        {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
         {'key': 'sourceId', 'value': 'sourceId'},
         {'key': 'sourceUrl', 'value': 'sourceUrl'},
