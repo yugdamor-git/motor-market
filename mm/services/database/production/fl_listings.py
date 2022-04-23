@@ -305,6 +305,7 @@ class topicHandler:
         if event == "update":
             eventData = data["eventData"]
             what = eventData["what"]
+            what["updated_at"] = {"func":"now()"}
             where = eventData["where"]
             
             print(eventData)
@@ -397,6 +398,7 @@ class topicHandler:
                     else:
                         # insert
                         mappedData = self.mapColumnsInsert(data)
+                        mappedData["updated_at"] = {"func":"now()"}
                         mappedData["Status"] = "to_parse"
                         
                         self.db.connect()
