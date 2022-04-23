@@ -91,7 +91,7 @@ class Predictor:
         self.redis.set(redisKey,json.dumps(cacheVal))
            
         return {
-            "seats":seats,
+            "orignalSeats":seats,
             "predictedSeats":seats
         }
     

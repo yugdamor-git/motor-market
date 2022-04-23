@@ -49,8 +49,6 @@ class Predictor:
             make = cacheJson["make"]
             model = cacheJson["model"]
             return {
-            "make":make,
-            "model":model,
             "predictedMake":make,
             "predictedModel":model
                 }
@@ -72,8 +70,6 @@ class Predictor:
         self.redis.set(f'makemodel.{title}',json.dumps(cacheVal))
         
         return {
-            "make":make,
-            "model":model,
             "predictedMake":make,
             "predictedModel":model
         }
