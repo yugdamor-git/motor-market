@@ -154,9 +154,11 @@ class topicHandler:
         dataTmp.update(data["data"]["pcpapr"])
         dataTmp.update(data["data"]["ltv"])
         
-        for key in columnMapping:
+        for item in columnMapping.items():
+            key = item[0]
+            val = item[1]
             if key in dataTmp:
-                mappedData[columnMapping[key]] = dataTmp[key]
+                mappedData[val] = dataTmp[key]
                 
         return mappedData
     
@@ -287,9 +289,11 @@ class topicHandler:
         dataTmp.update(data["data"]["pcpapr"])
         dataTmp.update(data["data"]["ltv"])
         
-        for key in columnMapping:
+        for item in columnMapping.items():
+            key = item[0]
+            val = item[1]
             if key in dataTmp:
-                mappedData[columnMapping[key]] = dataTmp[key]
+                mappedData[val] = dataTmp[key]
                 
         return mappedData
         
