@@ -74,7 +74,8 @@ services:
       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
     
     deploy:
-      replicas: 1
+      mode: replicated
+      replicas: 5
     
     stdin_open: true
   
@@ -86,7 +87,8 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 1
+      mode: replicated
+      replicas: 2
 
   pulsar:
     build: ./services/pulsar
@@ -103,7 +105,8 @@ services:
     restart: on-failure
 
     deploy:
-      replicas: 1
+      mode: replicated
+      replicas: 2
   
   post-calculation:
     build: ./services/postCalculation
@@ -157,7 +160,8 @@ services:
       - ./media:/usr/src/app/media
 
     deploy:
-      replicas: 1
+      mode: replicated
+      replicas: 5
 
   image-generation:
     build: 
@@ -178,6 +182,10 @@ services:
     
     stdin_open: true
     tty: true
+
+    deploy:
+      mode: replicated
+      replicas: 5
 
   db:
     image: mysql:latest
