@@ -47,17 +47,12 @@ class Database:
               db_value+=",%s"        
             else :
               sql_qry+=key+"`"
-              db_value+="%s"
-            v = records[key]
-            if v == None:
-              arr_values.append('NULL')
-            else:
-              arr_values.append(str(v))
+              db_value+="%s"            
+            arr_values.append(records[key])
+      
     
     sql_qry+=db_value+')'
-    sql_qry="INSERT INTO "+table+"(`"+sql_qry
-    print(sql_qry)
-    print(db_value)
+    sql_qry="INSERT INTO "+table+"(`"+sql_qry    
     self.cursor.execute(sql_qry,arr_values)    
     self.db.commit()
     last_insert_id = self.cursor.lastrowid
@@ -145,8 +140,7 @@ class Database:
       rec_value_count += 1
 
     sql_qry = "UPDATE " + table + " SET " + sql_qry
-    #print sql_qry
-    print(sql_qry)
+    #print sql_qry  
     self.cursor.execute(sql_qry,arr_values)  
     self.db.commit()
     #conn.close()
