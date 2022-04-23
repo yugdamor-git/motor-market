@@ -52,7 +52,8 @@ class Database:
       
     
     sql_qry+=db_value+')'
-    sql_qry="INSERT INTO "+table+"(`"+sql_qry    
+    sql_qry="INSERT INTO "+table+"(`"+sql_qry
+    print(sql_qry)
     self.cursor.execute(sql_qry,arr_values)    
     self.db.commit()
     last_insert_id = self.cursor.lastrowid
@@ -140,7 +141,8 @@ class Database:
       rec_value_count += 1
 
     sql_qry = "UPDATE " + table + " SET " + sql_qry
-    #print sql_qry  
+    #print sql_qry
+    print(sql_qry)
     self.cursor.execute(sql_qry,arr_values)  
     self.db.commit()
     #conn.close()
