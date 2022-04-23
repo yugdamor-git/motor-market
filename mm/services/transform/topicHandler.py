@@ -42,7 +42,7 @@ class topicHandler:
                     continue
                 
                 elif scraperType == "normal":
-                    transformedData = self.transform.transformData(data)
+                    transformedData = self.transform.transformData(data["data"])
                 
                     data["data"].update(transformedData)
                 
