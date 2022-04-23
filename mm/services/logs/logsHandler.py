@@ -43,7 +43,9 @@ class logsHandler:
         
         if len(result) > 0:
             self.database.listingCount.update_one(
-            {"timestamp": today,"type":countFor}, {"$inc": {"count": 1},"updatedAt":currentTime}
+            {"timestamp": today,"type":countFor}, {
+                "$set":{"$inc": {"count": 1},"updatedAt":currentTime}
+            }
             )
         else:
             self.database.listingCount.update_one(
@@ -51,7 +53,6 @@ class logsHandler:
                 {"$setOnInsert": {"type": countFor, "count": 0,"createdAt":currentTime,"updatedAt":currentTime}},
                 upsert=True,
             )
-            
     def increaseErrorCount(self, countFor):
 
         currentTime = datetime.now()
@@ -62,7 +63,9 @@ class logsHandler:
 
         if len(result) > 0:
             self.database.logCount.update_one(
-            {"timestamp": today,"type":countFor}, {"$inc": {"count": 1},"updatedAt":currentTime}
+            {"timestamp": today,"type":countFor}, {
+                "$set":{"$inc": {"count": 1},"updatedAt":currentTime}
+            }
             )
         else:
             self.database.logCount.update_one(
