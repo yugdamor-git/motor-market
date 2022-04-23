@@ -8,7 +8,7 @@ class pulsarHandler:
         
         self.uri = 'pulsar://pulsar'
         
-        self.topicScrape = "motormarket.scraper.autotrader.listing.scrape" 
+        self.topicScrape = "motormarket.scraper.autotrader.listing.scrape"
         
         self.client = pulsar.Client(self.uri)
         
