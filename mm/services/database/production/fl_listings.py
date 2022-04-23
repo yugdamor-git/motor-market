@@ -55,6 +55,7 @@ class topicHandler:
                 'predictedRegistration':'predictedRegistration',
                 'predictedRegistration':'product_website_id',
                 'predictedRegistration':'registration',
+                
                 'predictedRegistration':'reference_number',
                 'writeOffCategory': 'insurance_category',
                 'doors': 'doors',
