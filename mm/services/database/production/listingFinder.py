@@ -45,6 +45,7 @@ class topicHandler:
                 
                 self.db.disconnect()
                 
+                print(data)
                 
                 self.producer.produce(data)
                 
