@@ -28,6 +28,8 @@ class topicHandler:
     
     def mapColumnsInsert(self,data):
         columnMapping =[
+        {'key':'customPriceEnabled','value':'customPriceEnabled'},
+        {'key':'customPrice','value':'customPrice'},
         {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
@@ -166,6 +168,8 @@ class topicHandler:
     
     def mapColumnsUpdate(self,data):
         columnMapping =[
+        {'key':'customPriceEnabled','value':'customPriceEnabled'},
+        {'key':'customPrice','value':'customPrice'},
         {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
