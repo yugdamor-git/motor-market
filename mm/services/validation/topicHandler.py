@@ -31,6 +31,7 @@ class topicHandler:
                 
                 if self.validator.validate(data["data"]) == False:
                     print('we are not taking this listing')
+                    continue
                 
                 print(data)
                 
