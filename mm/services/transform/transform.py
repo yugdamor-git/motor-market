@@ -139,11 +139,11 @@ class Transform:
         if data["price"] != None:
             price = int(data["price"])
             data["price"] = price
-        
+
         # adminFee
         if data["adminFee"] != None:
-            adminFee = int(data["adminFee"])
-            data["adminFee"] = adminFee
+            adminFee = data["adminFee"].replace("£","").strip()
+            data["adminFee"] = int(adminFee)
         else:
             adminFee = 0
             data["adminFee"] = adminFee
