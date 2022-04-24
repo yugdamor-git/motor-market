@@ -28,7 +28,7 @@ class topicHandler:
     
     def mapColumnsInsert(self,data):
         columnMapping =[
-        {'key':'ltvstatus','value':'ltvstatus'},
+        {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
         {'key': 'sourceId', 'value': 'sourceId'},
@@ -144,6 +144,7 @@ class topicHandler:
         {'key': 'BMF', 'value': 'BMF'},
         {'key': 'categoryId', 'value': 'Category_ID'},
         {'key': 'videoId', 'value': 'video_id'},
+        {'key':'registrationStatus','value':'registrationStatus'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}
@@ -165,7 +166,7 @@ class topicHandler:
     
     def mapColumnsUpdate(self,data):
         columnMapping =[
-        {'key':'ltvstatus','value':'ltvstatus'},
+        {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
         {'key': 'accountId', 'value': 'Account_ID'},
         {'key': 'sourceId', 'value': 'sourceId'},
@@ -281,6 +282,7 @@ class topicHandler:
         {'key': 'BMF', 'value': 'BMF'},
         {'key': 'categoryId', 'value': 'Category_ID'},
         {'key': 'videoId', 'value': 'video_id'},
+        {'key':'registrationStatus','value':'registrationStatus'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}
