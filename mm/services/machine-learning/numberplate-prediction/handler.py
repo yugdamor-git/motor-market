@@ -40,7 +40,7 @@ class Handler:
             if imgPath.exists() == False:
                 continue
             
-            isNumberPlateVisible = self.predictor.predict(imgPath)
+            isNumberPlateVisible = self.predictor.predict(Path(image["predictionImagePath"]))
             
             if isNumberPlateVisible == False:
                 continue

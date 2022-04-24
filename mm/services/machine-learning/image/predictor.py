@@ -30,7 +30,7 @@ class Predictor:
             
             del tmp["status"]
             
-            img = open_image(tmp["path"])
+            img = open_image(tmp["predictionImagePath"])
             
             pred_class,pred_idx,outputs = self.model.predict(img)
             
@@ -39,6 +39,7 @@ class Predictor:
                 continue
             
             tmp["path"] = str(tmp["path"])
+            tmp["predictionImagePath"] = str(tmp["predictionImagePath"])
             
             predicted.append(tmp)
             

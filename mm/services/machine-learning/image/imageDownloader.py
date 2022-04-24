@@ -4,6 +4,8 @@ from pathlib import Path
 import os
 import requests
 
+from imageGenerator import imageGenerator
+
 class ImageDownloader:
     def __init__(self) -> None:
         print("image downloader init")
@@ -16,6 +18,8 @@ class ImageDownloader:
             self.media.mkdir()
             
         self.max_retry = 10
+        
+        self.imageGenerator = imageGenerator()
         
         self.proxy = {
             "http":os.environ.get("DATACENTER_PROXY"),
@@ -46,11 +50,14 @@ class ImageDownloader:
         
         filePath = listingDir.joinpath(f'{imageId}.png')
         
+        predictionImagePath = listingDir.joinpath(f'prediction_{imageId}.png')
+        
         if filePath.exists():
             return {
                 "status":True,
                 "url":url,
                 "path":filePath,
+                "predictionImagePath":predictionImagePath,
                 "id":imageId,
                 "position":position
                 }
@@ -70,11 +77,15 @@ class ImageDownloader:
                     
             
             filePath.write_bytes(response.content)
+                
+            self.imageGenerator.generatePredictionImage(filePath,predictionImagePath)
+            
             
             return {
                 "status":True,
                 "url":url,
                 "path":filePath,
+                "predictionImagePath":predictionImagePath,
                 "id":imageId,
                 "position":position
                 }
