@@ -1,28 +1,32 @@
 
-from crypt import methods
 from flask import Blueprint,request,jsonify
 import os
 
 from listingScraper import listingScraper
 
-from pulsarHandler import pulsarHandler
+from topic import producer,consumer
 
 scraper = listingScraper()
-
-pulsar = pulsarHandler()
 
 autotrader = Blueprint("autotrader",__name__)
 
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
+finderTopic = 'motormarket.scraper.autotrader.listing.database.finder'
 
-@autotrader.route("/manual-entry",methods=['POST'])
-def addManualEntry():
+dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
+
+finderProducer = producer.Producer(finderTopic)
+
+dealerScraperProducer = producer.Producer(dealerScraperTopic)
+
+
+@autotrader.route("/scrape-listing",methods=['POST'])
+def scrapeListing():
     jsonData = request.json
     
-    pulsar.produce(
-        jsonData,
-        pulsar.topicScrape
+    finderProducer.produce(
+        jsonData
     )
     
     return jsonify({
@@ -31,6 +35,23 @@ def addManualEntry():
         "message":"listing will be added in website soon. you can track status on /track endpoint"
     })
     
+    
+
+@autotrader.route("/scrape-dealer",methods=['POST'])
+def scrapeDealer():
+    jsonData = request.json
+    
+    dealerScraperProducer.produce(
+        jsonData
+    )
+    
+    return jsonify({
+        "status":True,
+        "data":jsonData,
+        "message":"listing will be added in website soon. you can track status on /track endpoint"
+    })
+    
+
     # url = jsonData.get("url",None)
     
     # if url == None:

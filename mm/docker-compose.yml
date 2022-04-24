@@ -70,10 +70,27 @@ services:
       - .services/mongodb/database:/data/db
     restart: on-failure
 
-  autotrader-scraper:
+  listing-scraper:
     build:
-      context: ./services/scrapers/autotrader1
+      context: ./services/scrapers/autotrader
       dockerfile: Dockerfile.listing
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+    
+    deploy:
+      mode: replicated
+      replicas: 5
+    
+    stdin_open: true
+  
+  dealer-scraper:
+    build:
+      context: ./services/scrapers/autotrader
+      dockerfile: Dockerfile.dealer
 
     depends_on:
       - pulsar
@@ -200,7 +217,6 @@ services:
       resources:
         limits:
           cpus: '2'
-
 
   db:
     image: mysql:latest

@@ -57,7 +57,6 @@ class ImageDownloader:
                 "status":True,
                 "url":url,
                 "path":filePath,
-                "predictionImagePath":predictionImagePath,
                 "id":imageId,
                 "position":position
                 }
@@ -77,15 +76,12 @@ class ImageDownloader:
                     
             
             filePath.write_bytes(response.content)
-                
-            self.imageGenerator.generatePredictionImage(filePath,predictionImagePath)
             
             
             return {
                 "status":True,
                 "url":url,
                 "path":filePath,
-                "predictionImagePath":predictionImagePath,
                 "id":imageId,
                 "position":position
                 }
