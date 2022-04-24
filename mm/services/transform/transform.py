@@ -175,6 +175,17 @@ class Transform:
                 built = self.builtCode[code]
                 data["built"] = built
         
+        # mm price
+        
+        customPriceEnabled = data.get("customPriceEnabled",None)
+        
+        if customPriceEnabled == True:
+            customPrice =  data.get("customPrice")
+            data["mmPrice"] =customPrice
+            data["margin"] = customPrice - data["sourcePrice"]
+        else:
+            data["mmPrice"] = data.get("price") + margin
+        
         
         return data
     
