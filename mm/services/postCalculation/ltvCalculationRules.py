@@ -40,3 +40,12 @@ class ltvCalculationRules:
         for item in self.personalized_percentage:
             tmp[item["name"]] = self.default_value
         return tmp
+    
+    def getNullValues(self):
+        
+        tmp = {}
+        
+        for item in self.personalized_percentage:
+            tmp[item["name"]] = None
+        return tmp
+    

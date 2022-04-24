@@ -51,6 +51,7 @@ class Calculation:
                         ltv = {}
                         ltv["ltvStatus"] = 0
                         ltv["dealerForecourtResponse"] = json.dumps(dealerForecourtResponse)
+                        ltv.update(self.ltvCalc.getNullValues())
                     else:
                         ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
                         ltv["dealerForecourtPrice"] = glassPrice
@@ -58,12 +59,14 @@ class Calculation:
                 else:
                     ltv = {}
                     ltv["ltvStatus"] = 0
+                    ltv.update(self.ltvCalc.getNullValues())
             else:
                 ltv = self.ltvCalc.getDefaultValues()
         except Exception as e:
             print(f'error - calculation.py : {str(e)}')
             ltv = {}
             ltv["ltvStatus"] = 0
+            ltv.update(self.ltvCalc.getNullValues())
         
         return ltv
         
