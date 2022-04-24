@@ -49,8 +49,8 @@ class Predictor:
             make = cacheJson["make"]
             model = cacheJson["model"]
             return {
-            "predictedMake":make,
-            "predictedModel":model
+            "predictedMake":make.title(),
+            "predictedModel":model.title()
                 }
         
         titleVector = self.vectorizer.transform([title])
