@@ -6,6 +6,8 @@ from categoryId import categoryId
 from videoId import videoId
 import json
 
+from marginCalculation import marginCalculation
+
 
 class Calculation:
     def __init__(self) -> None:
@@ -21,6 +23,8 @@ class Calculation:
         
         self.categoryIdCalc = categoryId(self.db)
         
+        self.marginCalc = marginCalculation()
+        
         self.videoIdCalc = videoId()
         
     def calculatePcpApr(self,data):
@@ -33,7 +37,34 @@ class Calculation:
         
         pcpapr = self.pcpaprCalc.calculate_apr_pcp(price,mileage,built)
         
-        return pcpapr
+        data["pcpapr"] = pcpapr
+    
+    def calculateMargin(self,data):
+        
+        make = data.get("predictedMake")
+        model = data.get("predictedModel")
+        engineCylindersCC = data.get("engineCylindersCC")
+        
+        margin = self.marginCalc.calculateMargin(make,model,engineCylindersCC)
+        
+        data["margin"] = margin
+    
+    def calculateMMprice(self,data):
+        # mm price
+        
+        customPriceEnabled = data.get("customPriceEnabled",None)
+        
+        margin = data.get("margin",0)
+        
+        if customPriceEnabled == True:
+            customPrice =  data.get("customPrice")
+            data["mmPrice"] =customPrice
+            data["margin"] = customPrice - data["sourcePrice"]
+            
+        else:
+            data["mmPrice"] = data.get("price") + margin
+            
+            
     
     def calculateLtv(self,data):
         ltv = {}
@@ -68,7 +99,7 @@ class Calculation:
             ltv["ltvStatus"] = 0
             ltv.update(self.ltvCalc.getNullValues())
         
-        return ltv
+        data["ltv"] = ltv
         
     
     def calculateCategoryId(self,data):
@@ -77,7 +108,7 @@ class Calculation:
         
         categoryId = self.categoryIdCalc.getCategoryId(make,model)
         
-        return categoryId
+        data["categoryId"] = categoryId
     
     def calculateDealerForecourt(self,data):
         
@@ -104,7 +135,8 @@ class Calculation:
             print(f'error - calculation.py : not able to get video id : {str(e)}')
             videoId = None
             
-        return videoId
+        if videoId != None:
+            data["videoId"] = videoId
     
 
     

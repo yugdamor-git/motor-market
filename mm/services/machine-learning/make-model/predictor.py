@@ -70,8 +70,8 @@ class Predictor:
         self.redis.set(f'makemodel.{title}',json.dumps(cacheVal))
         
         return {
-            "predictedMake":make,
-            "predictedModel":model
+            "predictedMake":make.title(),
+            "predictedModel":model.title()
         }
 
     def load(self):

@@ -31,30 +31,36 @@ class topicHandler:
                 scraperType = data["data"].get("scraperType")
                 
                 if scraperType == "validator":
-                    # pcp apr
-                    pcpapr = self.calculation.calculatePcpApr(data["data"])
+                    # margin
+                    self.calculation.calculateMargin(data["data"])
                     
-                    data["data"]["pcpapr"] = pcpapr
+                    # mmPrice
+                    self.calculation.calculateMMprice(data["data"])
+                    
+                    # pcp apr
+                    self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    ltv = self.calculation.calculateLtv(data["data"])
-                    
-                    data["data"]["ltv"] = ltv
+                    self.calculation.calculateLtv(data["data"])
                     
                 elif scraperType == "normal":
+                    
+                    # margin
+                    self.calculation.calculateMargin(data["data"])
+                    
+                    # mmPrice
+                    self.calculation.calculateMMprice(data["data"])
                 
                     # pcp apr
-                    pcpapr = self.calculation.calculatePcpApr(data["data"])
-                    
-                    data["data"]["pcpapr"] = pcpapr
+                    self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    ltv = self.calculation.calculateLtv(data["data"])
-                    
-                    data["data"]["ltv"] = ltv
+                    self.calculation.calculateLtv(data["data"])
                     
                     # categoryId
-                    categoryId = self.calculation.calculateCategoryId(data["data"])
+                    self.calculation.calculateCategoryId(data["data"])
+                    
+                    categoryId = data["data"].get("categoryId",None)
                     
                     if categoryId == None:
                         
@@ -71,12 +77,9 @@ class topicHandler:
                         
                         continue
                         # log this event
-                    data["data"]["categoryId"] = categoryId
                     
                     # video id
-                    videoId = self.calculation.calculateVideoId(data["data"])
-                
-                    data["data"]["videoId"] = videoId
+                    self.calculation.calculateVideoId(data["data"])
                 
                 print(data)
                 

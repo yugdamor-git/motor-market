@@ -1,5 +1,4 @@
 
-from carData import carTypeDict
 
 class Transform:
     def __init__(self):
@@ -66,44 +65,6 @@ class Transform:
                            {"from":"double cab pick-up","to":"Pickup"}
         ]
         
-        self.make4x4 = [
-            "cadillac",
-            "jeep"
-        ]
-        
-        self.makeLuxury = [
-            "caterham", 
-            "hummer", 
-            "infiniti", 
-            "jaguar", 
-            "morgan",
-            "lotus"
-        ]
-        
-        self.marginBasedOnCC = {
-
-            "4x4": {
-                0: {"margin": 1370, "min": 0, "max": 1001},
-                1: {"margin": 1370, "min": 1001, "max": 2001},
-                2: {"margin": 1420, "min": 2001, "max": 2501},
-                3: {"margin": 1545, "min": 2501, "max": 3001}
-            },
-            "luxury": {
-                0: {"margin": 1425, "min": 0, "max": 1001},
-                1: {"margin": 1425, "min": 1001, "max": 2001},
-                2: {"margin": 1499, "min": 2001, "max": 2501},
-                3: {"margin": 1599, "min": 2501, "max": 3001}
-            },
-            "others": {
-                0: {"margin": 1299, "min": 0, "max": 1001},
-                1: {"margin": 1299, "min": 1001, "max": 2001},
-                2: {"margin": 1355, "min": 2001, "max": 2501},
-                3: {"margin": 1415, "min": 2501, "max": 3001}
-            }
-        }
-        
-        self.carTypesDict = carTypeDict
-
     
     def calculateMargin(self,make,model,cc):
         
@@ -148,15 +109,11 @@ class Transform:
             adminFee = 0
             data["adminFee"] = adminFee
 
-        margin = self.calculateMargin(data["predictedMake"],data["predictedModel"],data["engineCylindersCC"])
-        
-        data["margin"] = margin
-        
+       
         # at price
         
         data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
         
-        data["mmPrice"] = data["sourcePrice"] + margin
         
         # mileage
         if data["mileage"] != None:
@@ -174,18 +131,6 @@ class Transform:
             if code in self.builtCode:
                 built = self.builtCode[code]
                 data["built"] = built
-        
-        # mm price
-        
-        customPriceEnabled = data.get("customPriceEnabled",None)
-        
-        if customPriceEnabled == True:
-            customPrice =  data.get("customPrice")
-            data["mmPrice"] =customPrice
-            data["margin"] = customPrice - data["sourcePrice"]
-        else:
-            data["mmPrice"] = data.get("price") + margin
-        
         
         return data
     
@@ -360,24 +305,7 @@ class Transform:
         else:
             data["fuelCode"] = 4
         
-        # margin
-        margin = self.calculateMargin(data["make"],data["model"],data["engineCylindersCC"])
-        
-        data["margin"] = margin
-        
         # at price
-        
         data["sourcePrice"] = data.get("price") + data.get("adminFee",0)
-        
-        # mm price
-        
-        customPriceEnabled = data.get("customPriceEnabled",None)
-        
-        if customPriceEnabled == True:
-            customPrice =  data.get("customPrice")
-            data["mmPrice"] =customPrice
-            data["margin"] = customPrice - data["sourcePrice"]
-        else:
-            data["mmPrice"] = data.get("price") + margin
         
         return data
