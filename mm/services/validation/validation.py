@@ -27,11 +27,13 @@ class Validation:
         
         images = data["images"]
         
+        customPriceEnabled = data.get("customPriceEnabled",0)
+        
         log = {}
         log["service"] = "motormarket.scraper.autotrader.listing.validation"
         log["sourceUrl"] = sourceUrl
         
-        status,message = self.priceValidation(price)
+        status,message = self.priceValidation(price,customPriceEnabled)
         if status == False:
             log["errorMessage"] = message
             
@@ -117,13 +119,15 @@ class Validation:
         
         return True,None
     
-    def priceValidation(self,price):
+    def priceValidation(self,price,customPriceEnabled):
         
         if price == None:
             return False,"price is empty."
         
-        maxPrice = 25000
+        if customPriceEnabled == 1:
+            return True,None
         
+        maxPrice = 25000
         if price <= maxPrice:
             return True,None
         
