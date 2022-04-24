@@ -55,7 +55,7 @@ class listingScraper:
                 
             message = "200"
         except Exception as e:
-            print(f'error : {str(e)}')
+            print(f'error {__file__} : {str(e)}')
             data = None
             message = str(e)
         
