@@ -15,10 +15,11 @@ class Producer:
         
         self.client = pulsar.Client(self.uri)
         
-        self.producer = self.client.create_producer(self.topic)
+        
     
     def produce(self,data):
-        
-        self.producer.send(
+        producer = self.client.create_producer(self.topic)
+        producer.send(
             json.dumps(data).encode("utf-8")
         )
+        self.client.close()

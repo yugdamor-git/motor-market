@@ -16,15 +16,15 @@ finderTopic = 'motormarket.scraper.autotrader.listing.database.finder'
 
 dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
-finderProducer = producer.Producer(finderTopic)
 
-dealerScraperProducer = producer.Producer(dealerScraperTopic)
+
+
 
 
 @autotrader.route("/scrape-listing",methods=['POST'])
 def scrapeListing():
     jsonData = request.json
-    
+    finderProducer = producer.Producer(finderTopic)
     finderProducer.produce(
         jsonData
     )
@@ -40,7 +40,7 @@ def scrapeListing():
 @autotrader.route("/scrape-dealer",methods=['POST'])
 def scrapeDealer():
     jsonData = request.json
-    
+    dealerScraperProducer = producer.Producer(dealerScraperTopic)
     dealerScraperProducer.produce(
         jsonData
     )
