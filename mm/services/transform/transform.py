@@ -158,6 +158,24 @@ class Transform:
         
         data["mmPrice"] = data["sourcePrice"] + margin
         
+        # mileage
+        if data["mileage"] != None:
+            mileage = int(data["mileage"])
+            data["mileage"] = mileage
+        
+        # built
+        if data["built"] != None:
+            built = int(data["built"])
+            data["built"] = built
+        else:
+            code = [str(char) for char in data["OrignalRegistration"] if char.isdigit()]
+            code = "".join(code)
+            
+            if code in self.builtCode:
+                built = self.builtCode[code]
+                data["built"] = built
+        
+        
         return data
     
     def transformData(self,data):
