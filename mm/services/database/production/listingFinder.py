@@ -10,7 +10,7 @@ class topicHandler:
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.database.finder'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.autotrader.scrape'
+        self.publish = 'motormarket.scraper.autotrader.listing.scrape'
 
         self.db = Database()
         
