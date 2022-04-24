@@ -24,6 +24,14 @@ services:
     
     environment:
       PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
+    
+    deploy:
+      mode: replicated
+      replicas: 2
+      resources:
+      limits:
+        cpus: '1'
+
 
   redis:
     image: "redis:alpine"
@@ -162,6 +170,9 @@ services:
     deploy:
       mode: replicated
       replicas: 5
+      resources:
+      limits:
+        cpus: '1'
 
   image-generation:
     build: 
@@ -186,6 +197,10 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+      resources:
+      limits:
+        cpus: '1'
+
 
   db:
     image: mysql:latest
@@ -246,10 +261,10 @@ services:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}
   
-  production-db-handler:
+  production-db-fllistings:
     build:
       context: ./services/database/production
-      dockerfile : Dockerfile.production
+      dockerfile : Dockerfile.flListings
     
     restart: on-failure
 
@@ -262,10 +277,25 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     
   
-  production-db-photos:
+  production-db-fllistingphotos:
     build:
       context: ./services/database/production
-      dockerfile : Dockerfile.production.photos
+      dockerfile : Dockerfile.flListingPhotos
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  
+  production-db-fllistings-finder:
+    build:
+      context: ./services/database/production
+      dockerfile : Dockerfile.flListings.finder
     
     restart: on-failure
 
