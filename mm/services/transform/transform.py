@@ -148,7 +148,7 @@ class Transform:
             adminFee = 0
             data["adminFee"] = adminFee
 
-        margin = self.calculateMargin(data["make"],data["model"],data["engineCylindersCC"])
+        margin = self.calculateMargin(data["predictedMake"],data["predictedodel"],data["engineCylindersCC"])
         
         data["margin"] = margin
         
