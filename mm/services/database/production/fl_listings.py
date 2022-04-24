@@ -378,31 +378,32 @@ class topicHandler:
                         mappedData = self.mapColumnsUpdate(data)
                         mappedData["product_url"] = mappedData["sourceUrl"]
                         mappedData["updated_at"] = {"func":"now()"}
-                        if data["data"]["registrationStatus"] == False:
-                            mappedData["Status"] = "pending"
+                        
                         where = {
                             "ID":id
                         }
                         
                         status = records[0]["Status"]
                         
+                        if status == "expired":
+                            mappedData["Status"] = "active"
+                        
+                        if data["data"]["registrationStatus"] == False:
+                            mappedData["Status"] = "pending"
+                        
+                        if status in ["sold","pending","to_parse","manual_expire"]:
+                            mappedData["Status"] = status
+                            
+                        
+                        if status in ["sold","pending","manual_expire"]:
+                            continue
+                        
                         self.db.connect()
-                        if status == "sold":
-                            continue
-                        elif status == "pending":
-                            self.db.recUpdate("fl_listings",mappedData,where)
-                        elif status == "manual_expire":
-                            continue
-                        elif status == "to_parse":
-                            self.db.recUpdate("fl_listings",mappedData,where)
-                        elif status == "active":
-                            self.db.recUpdate("fl_listings",mappedData,where)
-                        elif status == "expired":
-                            self.db.recUpdate("fl_listings",mappedData,where)
-                        data["data"]["status"] = status
+                        self.db.recUpdate("fl_listings",mappedData,where)
+                        self.db.disconnect()
                         
                         upsert = "update"
-                        self.db.disconnect()
+                        
                     else:
                         # insert
                         mappedData = self.mapColumnsInsert(data)
