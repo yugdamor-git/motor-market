@@ -93,6 +93,9 @@ class topicHandler:
                         if status in ["to_parse","expired"]:
                             what["Status"] = "active"
                         
+                        if data["data"]["registrationStatus"] == False:
+                            what["status"] = "pending"
+                        
                         eventData = {
                             "what":what,
                             "where":where
@@ -113,6 +116,9 @@ class topicHandler:
                             what = {
                                 "Status":"active"
                             }
+                            
+                            if data["data"]["registrationStatus"] == False:
+                                what["status"] = "pending"
                             
                             eventData = {
                                 "what":what,
