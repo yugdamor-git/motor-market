@@ -345,6 +345,20 @@ class topicHandler:
                             "ID":data["data"]["ID"]
                     }
                     
+                    status = data["data"]["Status"]
+                    
+                    if status == "expired":
+                        mappedData["Status"] = "active"
+                        
+                    if data["data"]["registrationStatus"] == False:
+                        mappedData["Status"] = "pending"
+                    
+                    if status in ["sold","pending","to_parse","manual_expire"]:
+                        mappedData["Status"] = status
+                        
+                    
+                    if status in ["sold","pending","manual_expire"]:
+                        continue
                     
                     self.db.connect()
                     self.db.recUpdate("fl_listings",mappedData,where)

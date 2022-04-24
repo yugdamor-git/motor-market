@@ -35,7 +35,7 @@ class topicHandler:
                 
                 self.db.connect()
                 
-                result = self.db.recCustomQuery(f'SELECT ID,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM fl_listings WHERE sourceId="{sourceId}"')
+                result = self.db.recCustomQuery(f'SELECT ID,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM fl_listings WHERE sourceId="{sourceId}"')
                 
                 if len(result) > 0:
                     data["data"]["scraperType"] = "validator"
