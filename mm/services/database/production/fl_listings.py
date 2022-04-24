@@ -372,7 +372,8 @@ class topicHandler:
                         mappedData = self.mapColumnsUpdate(data)
                         mappedData["product_url"] = mappedData["sourceUrl"]
                         mappedData["updated_at"] = {"func":"now()"}
-                        
+                        if data["data"]["registrationStatus"] == False:
+                            mappedData["Status"] = "pending"
                         where = {
                             "ID":id
                         }
