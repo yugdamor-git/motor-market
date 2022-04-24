@@ -17,8 +17,6 @@ class Validation:
         
         cc = data["engineCylindersCC"]
         
-        margin = data["margin"]
-        
         built = data["built"]
         
         mileage = data["mileage"]
@@ -45,17 +43,6 @@ class Validation:
             return False
         
         status,message = self.engineCCValidation(cc)
-        if status == False:
-            log["errorMessage"] = message
-            
-            self.logsProducer.produce({
-                    "eventType":"insertLog",
-                    "data":log
-                })
-            
-            return False
-        
-        status,message = self.marginValidation(margin)
         if status == False:
             log["errorMessage"] = message
             
@@ -144,13 +131,6 @@ class Validation:
             return True,None
         else:
             return False,f'engineCC({cc}) is more than maxEngineCC({maxCC}).'
-    
-    def marginValidation(self,margin):
-        
-        if margin == None:
-            return False,f'margin value is empty.'
-        else:
-            return True,None
     
     def builtValidation(self,built):
         
