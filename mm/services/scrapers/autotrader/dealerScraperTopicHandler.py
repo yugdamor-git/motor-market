@@ -42,6 +42,8 @@ class topicHandler:
                         }
                     }
                     
+                    print(tmp)
+                    
                     self.producer.produce(tmp)
                 
                 # break
