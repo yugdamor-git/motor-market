@@ -323,5 +323,7 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
     
-    extra_hosts:
-      - "host.production.mysql:185.59.221.77"
+    
+    # networks:
+    #   outside:
+    #     external: true
