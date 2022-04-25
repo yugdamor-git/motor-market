@@ -324,6 +324,29 @@ class topicHandler:
             
             print(eventData)
             
+            if "Status" in what:
+                if what["Status"] == "expired":
+                    self.logsProducer.produce(
+                    {
+                        "eventType":"listingCount",
+                        "data":{
+                                "countFor":"expired"
+                            }
+                        }
+                    )
+            
+            if "status" in what:
+                if what["status"] == "expired":
+                    self.logsProducer.produce(
+                    {
+                        "eventType":"listingCount",
+                        "data":{
+                                "countFor":"expired"
+                            }
+                        }
+                    )
+            
+            
             self.db.recUpdate("fl_listings",what,where)
     
     def main(self):
@@ -415,7 +438,6 @@ class topicHandler:
                         
                         if status in ["sold","pending","to_parse","manual_expire"]:
                             mappedData["Status"] = status
-                            
                         
                         if status in ["sold","pending","manual_expire"]:
                             continue

@@ -4,6 +4,7 @@ from Database import Database
 from dealerForecourt import dealerForecourt
 from categoryId import categoryId
 from videoId import videoId
+from dealerAdminFee import dealerAdminFee
 import json
 
 from marginCalculation import marginCalculation
@@ -27,6 +28,25 @@ class Calculation:
         
         self.videoIdCalc = videoId()
         
+        self.dealerAdminFeeHandler = dealerAdminFee(self.db)
+    
+    def updateAdminFee(self,data):
+        
+        dealerId = data.get("dealerId",None)
+        
+        sourceAdminFee = data.get("adminFee",0)
+        
+        if dealerId == None:
+            return
+        
+        dbAdminFee = self.dealerAdminFeeHandler.getAdminFee(dealerId)
+        
+        if sourceAdminFee > dbAdminFee:
+            data["adminFee"] = sourceAdminFee
+        else:
+            data["adminFee"] = dbAdminFee
+            
+            
     def calculatePcpApr(self,data):
         
         price = data["mmPrice"]
@@ -64,7 +84,14 @@ class Calculation:
         else:
             data["mmPrice"] = data.get("price") + margin
             
-            
+    def calculateSourcePrice(self,data):
+        
+        atPrice = data.get("price",0)
+        
+        adminFee = data.get("adminFee",0)
+        
+        data["sourcePrice"] = atPrice + adminFee
+        
     
     def calculateLtv(self,data):
         ltv = {}

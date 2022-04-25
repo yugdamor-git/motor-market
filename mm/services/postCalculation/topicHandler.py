@@ -31,6 +31,13 @@ class topicHandler:
                 scraperType = data["data"].get("scraperType")
                 
                 if scraperType == "validator":
+                    
+                    # admin fee
+                    self.calculation.updateAdminFee(data["data"])
+                    
+                    # source price
+                    self.calculation.calculateSourcePrice(data["data"])
+                    
                     # margin
                     self.calculation.calculateMargin(data["data"])
                     
@@ -44,6 +51,12 @@ class topicHandler:
                     self.calculation.calculateLtv(data["data"])
                     
                 elif scraperType == "normal":
+                    
+                    # admin fee
+                    self.calculation.updateAdminFee(data["data"])
+                    
+                    # source price
+                    self.calculation.calculateSourcePrice(data["data"])
                     
                     # margin
                     self.calculation.calculateMargin(data["data"])
