@@ -100,7 +100,9 @@ class Transform:
         if data["price"] != None:
             price = int(data["price"])
             data["price"] = price
-
+        
+        data["cal_price_from_file"] = price
+        
         # adminFee
         if data["adminFee"] != None:
             adminFee = data["adminFee"].replace("£","").strip()
@@ -243,6 +245,8 @@ class Transform:
         if data["price"] != None:
             price = int(data["price"])
             data["price"] = price
+        
+        data["cal_price_from_file"] = price
         
         # priceIndicator
         if data["priceIndicator"] != None:

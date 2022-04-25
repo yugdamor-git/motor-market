@@ -7,12 +7,20 @@ class listingScraper:
     
     def __init__(self) -> None:
         self.graphql = graphql.Graphql()
+        
         self.proxy = self.graphql.proxy
+        
         self.maxRetry = 20
         
         self.accountId = 24898
         
+        self.planId = 26
+        
+        self.featureId = 26
+        
         self.websiteId = "17"
+        
+        self.priority = 109
     
     def scrapeById(self,id,scraperType):
         
@@ -70,6 +78,9 @@ class listingScraper:
         
         data["accountId"] = self.accountId
         data["websiteId"] = self.websiteId
+        data["featuredId"] = self.featureId
+        data["planId"] = self.planId
+        data["priority"] = self.priority
         
         return {
                 "status":True,

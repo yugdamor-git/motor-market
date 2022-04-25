@@ -28,7 +28,11 @@ class topicHandler:
     
     def mapColumnsInsert(self,data):
         columnMapping =[
+        {'key':'featuredId','value':'Featured_ID'},
+        {'key':'planId','value':'Plan_ID'},
+        {'key':'priority','value':'Priority'},
         {'key':'customPriceEnabled','value':'customPriceEnabled'},
+        {'key':'customPriceEnabled','value':'custom_price_Enable'},
         {'key':'customPrice','value':'customPrice'},
         {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
@@ -82,7 +86,7 @@ class topicHandler:
         {'key': 'mmPrice', 'value': 'price'},
         {'key': 'mmPrice', 'value': 'mmPrice'},
         {'key': 'sourcePrice', 'value': 'sourcePrice'},
-        {'key': 'sourcePrice', 'value': 'cal_price_from_file'},
+        {'key': 'cal_price_from_file', 'value': 'cal_price_from_file'},
         {'key': '0.069', 'value': '0.069'},
         {'key': '0.079', 'value': '0.079'},
         {'key': '0.089', 'value': '0.089'},
@@ -147,6 +151,7 @@ class topicHandler:
         {'key': 'categoryId', 'value': 'Category_ID'},
         {'key': 'videoId', 'value': 'video_id'},
         {'key':'registrationStatus','value':'registrationStatus'},
+        {'key':'registrationStatus','value':'number_plate_flag'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}
@@ -172,6 +177,7 @@ class topicHandler:
         {'key':'customPrice','value':'customPrice'},
         {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
+        {'key':'customPriceEnabled','value':'custom_price_Enable'},
         # {'key': 'accountId', 'value': 'Account_ID'},
         # {'key': 'sourceId', 'value': 'sourceId'},
         # {'key': 'sourceUrl', 'value': 'sourceUrl'},
@@ -287,6 +293,7 @@ class topicHandler:
         # {'key': 'categoryId', 'value': 'Category_ID'},
         # {'key': 'videoId', 'value': 'video_id'},
         {'key':'registrationStatus','value':'registrationStatus'},
+        {'key':'registrationStatus','value':'number_plate_flag'},
         # {'key': 'photosCount', 'value': 'Photos_count'}]
         ]
         
