@@ -1,13 +1,25 @@
 
-
+from redisHandler import redisHandler
 
 class dealerAdminFee:
     def __init__(self,db) -> None:
         self.db = db
+        self.redis = redisHandler()
+        
         
     
     def getAdminFee(self,dealerId):
         adminFee = 0
+        
+        cacheKey = f'dealerAdminFee.{dealerId}'
+        
+        cacheVal = self.redis.get(cacheKey)
+        
+        try:
+            if cacheVal != None:
+                return int(cacheVal)
+        except Exception as e:
+            print(f'error : {str(e)}')
         
         self.db.connect()
         
