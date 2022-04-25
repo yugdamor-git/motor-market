@@ -16,8 +16,8 @@ class dealerAdminFee:
             
             if len(result) > 0:
                 adminFee = int(result["admin_fee"])
-        except:
-            pass
+        except Exception as e:
+            print(f'error : {__file__} : {str(e)}')
         
         self.db.disconnect()
 

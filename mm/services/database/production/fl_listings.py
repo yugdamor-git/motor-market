@@ -152,6 +152,7 @@ class topicHandler:
         {'key': 'videoId', 'value': 'video_id'},
         {'key':'registrationStatus','value':'registrationStatus'},
         {'key':'registrationStatus','value':'number_plate_flag'},
+        {'key': 'dealerForecourtPrice', 'value': 'dealerForecourtPrice'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}
@@ -178,6 +179,7 @@ class topicHandler:
         {'key':'ltvStatus','value':'ltvStatus'},
         {'key': 'status', 'value': 'Status'},
         {'key':'customPriceEnabled','value':'custom_price_Enable'},
+        {'key': 'cal_price_from_file', 'value': 'cal_price_from_file'},
         # {'key': 'accountId', 'value': 'Account_ID'},
         # {'key': 'sourceId', 'value': 'sourceId'},
         # {'key': 'sourceUrl', 'value': 'sourceUrl'},
@@ -213,6 +215,7 @@ class topicHandler:
         # {'key': 'predictedBodyStyle', 'value': 'body_style'},
         # {'key': 'priceIndicator', 'value': 'price_indicator'},
         {'key': 'adminFee', 'value': 'admin_fees'},
+        {'key': 'dealerForecourtPrice', 'value': 'dealerForecourtPrice'},
         # {'key': 'trim', 'value': 'trim'},
         # {'key': 'vehicleType', 'value': 'vehicle_type'},
         # {'key': 'emissionScheme', 'value': 'emission_scheme'},
