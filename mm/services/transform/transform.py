@@ -110,6 +110,7 @@ class Transform:
         else:
             adminFee = 0
             data["adminFee"] = adminFee
+            
 
        
         # at price
@@ -133,6 +134,10 @@ class Transform:
             if code in self.builtCode:
                 built = self.builtCode[code]
                 data["built"] = built
+        
+        # dealer_id
+        if "dealer_id" in data:
+            data["dealerId"] = data["dealer_id"]
         
         return data
     
