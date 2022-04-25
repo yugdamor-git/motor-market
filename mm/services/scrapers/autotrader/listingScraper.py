@@ -80,4 +80,4 @@ class listingScraper:
 if __name__ == "__main__":
     # testing
     s = listingScraper()
-    print(s.scrapeById("202104231702346","normal"))
+    print(s.scrapeById("202108196429013","normal"))
