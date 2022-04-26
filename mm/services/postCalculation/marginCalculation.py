@@ -66,6 +66,8 @@ class marginCalculation:
         
         margin = None
         
+        print(category)
+        
         marginDict = self.marginBasedOnCC[category]
         
         for key in marginDict:
