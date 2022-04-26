@@ -20,10 +20,10 @@ class ImageDownloader:
         self.max_retry = 10
         
         self.imageGenerator = imageGenerator()
-        
+        self.datacenterProxy = os.environ.get("DATACENTER_PROXY")
         self.proxy = {
-            "http":os.environ.get("DATACENTER_PROXY"),
-            "https":os.environ.get("DATACENTER_PROXY")
+            "http":self.datacenterProxy,
+            "https":self.datacenterProxy
         }
         
         self.headers  = {
@@ -68,7 +68,7 @@ class ImageDownloader:
                     response = requests.get(
                         url = url,
                         headers = self.headers,
-                        # proxies=self.proxy
+                        proxies=self.proxy
                     )
                     break
                 except Exception as e:

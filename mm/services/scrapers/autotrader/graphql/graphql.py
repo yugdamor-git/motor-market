@@ -4,9 +4,11 @@ import json
 class Graphql:
     def __init__(self):
         
+        self.residentialProxy = os.environ.get("RESIDENTIAL_PROXY")
+        
         self.proxy = {
-            "http":os.environ.get("RESIDENTIAL_PROXY"),
-            "https":os.environ.get("RESIDENTIAL_PROXY")
+            "http":self.residentialProxy,
+            "https":self.residentialProxy
         }
         
         self.url = "https://www.autotrader.co.uk/at-graphql?opname=FPADataQuery"
