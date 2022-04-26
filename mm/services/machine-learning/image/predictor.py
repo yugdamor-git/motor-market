@@ -22,6 +22,9 @@ class Predictor:
         
         for image in downloadedImages:
             
+            if len(predicted) >= 10:
+                break
+            
             if image["status"] == False:
                 # log image failed to download
                 continue
