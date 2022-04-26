@@ -98,7 +98,7 @@ class Calculation:
         try:
             mmPrice = data.get("mmPrice")
             
-            sourcePrice = data.get("sourcePrice")
+            sourcePrice = data.get("price")
             
             registrationStatus = data.get("registrationStatus")
             
