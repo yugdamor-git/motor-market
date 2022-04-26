@@ -18,7 +18,9 @@ class Predictor:
         
         predicted = []
         
-        downloadedImages = self.prepare_images(urls,websiteId,sourceId)
+        downloadedImagesTemp = self.prepare_images(urls,websiteId,sourceId)
+        
+        downloadedImages = sorted(downloadedImagesTemp, key = lambda i: i['position'])
         
         for image in downloadedImages:
             
