@@ -405,11 +405,11 @@ class topicHandler:
                     print(f'normal execution')
                     websiteId = data["data"]["websiteId"]
                     
-                    sourceUrl = data["data"]["sourceUrl"]
+                    sourceId = data["data"]["sourceId"]
                     
                     where = {
                         "Website_ID":websiteId,
-                        "product_url":sourceUrl
+                        "product_url":sourceId
                     }
                     
                     self.db.connect()
@@ -424,7 +424,6 @@ class topicHandler:
                         # update
                         id = records[0]["ID"]
                         mappedData = self.mapColumnsUpdate(data)
-                        mappedData["product_url"] = mappedData["sourceUrl"]
                         mappedData["updated_at"] = {"func":"now()"}
                         
                         where = {
