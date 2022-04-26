@@ -72,12 +72,10 @@ class topicHandler:
                     
                     mainPhoto = None
                     
-                    for index in enumerate(tmp):
+                    for index,_ in enumerate(tmp):
                         for img in tmp:
                             if index == img["position"]:
                                 mainPhoto = img["thumb"]["path"]
-                                
-                                print(img)
                                 break
                         if mainPhoto != None:
                             break
