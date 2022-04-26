@@ -9,9 +9,9 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.validation'
+        self.subscribe = 'motormarket.scraper.autotrader.listing.prevalidation'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.predict.numberplate'
+        self.publish = 'motormarket.scraper.autotrader.listing.predict.makemodel'
         
         logsTopic = "motormarket.scraper.logs"
         

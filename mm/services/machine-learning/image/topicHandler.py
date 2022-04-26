@@ -10,7 +10,7 @@ class topicHandler:
         
         self.subscribe = 'motormarket.scraper.autotrader.listing.predict.image'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.validation'
+        self.publish = 'motormarket.scraper.autotrader.listing.postvalidation'
 
         logsTopic = "motormarket.scraper.logs"
         

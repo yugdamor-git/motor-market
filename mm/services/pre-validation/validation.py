@@ -23,12 +23,10 @@ class Validation:
         
         dealerId = data["dealerId"]
         
-        images = data["images"]
-        
         customPriceEnabled = data.get("customPriceEnabled",0)
         
         log = {}
-        log["service"] = "motormarket.scraper.autotrader.listing.validation"
+        log["service"] = "motormarket.scraper.autotrader.listing.prevalidation"
         log["sourceUrl"] = sourceUrl
         
         status,message = self.priceValidation(price,customPriceEnabled)
@@ -74,17 +72,6 @@ class Validation:
                 })
             
             return False
-
-        status,message = self.imageValidation(images)
-        if status == False:
-            log["errorMessage"] = message
-            
-            self.logsProducer.produce({
-                    "eventType":"insertLog",
-                    "data":log
-                })
-            
-            return False
         
         status,message = self.isBlackListedDealer(dealerId)
         if status == True:
@@ -98,13 +85,6 @@ class Validation:
             return False
         
         return True
-    
-    
-    def imageValidation(self,images):
-        if len(images) == 0:
-            return False,"there are no images."
-        
-        return True,None
     
     def priceValidation(self,price,customPriceEnabled):
         

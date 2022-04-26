@@ -1,4 +1,4 @@
-from transform import Transform
+from validation import Validation
 
 from topic import producer,consumer
 
@@ -9,23 +9,19 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.transform'
+        self.subscribe = 'motormarket.scraper.autotrader.listing.postvalidation'
         
-        self.publish = 'motormarket.scraper.autotrader.listing.prevalidation'
+        self.publish = 'motormarket.scraper.autotrader.listing.predict.numberplate'
         
-        self.postCalculationTopic = 'motormarket.scraper.autotrader.listing.post.calculation'
-
         logsTopic = "motormarket.scraper.logs"
-    
-        self.logsProducer = producer.Producer(logsTopic)
-        
-        self.transform = Transform()
         
         self.producer = producer.Producer(self.publish)
         
-        self.consumer = consumer.Consumer(self.subscribe,)
+        self.consumer = consumer.Consumer(self.subscribe)
         
-        self.postCalculationProducer = producer.Producer(self.postCalculationTopic)
+        self.logsProducer = producer.Producer(logsTopic)
+        
+        self.validator = Validation(self.logsProducer)
         
     def main(self):
         print("listening for new messages")
@@ -33,22 +29,15 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                scraperType = data["data"].get("scraperType")
-                
-                if scraperType == "validator":
-                    transformedData = self.transform.transformValidatorData(data["data"])
-                    data["data"].update(transformedData)
-                    self.postCalculationProducer.produce(data)
+                if self.validator.validate(data["data"]) == False:
+                    print('we are not taking this listing')
                     continue
-                
-                elif scraperType == "normal":
-                    transformedData = self.transform.transformData(data["data"])
-                
-                    data["data"].update(transformedData)
                 
                 print(data)
                 
                 self.producer.produce(data)
+                
+                # break
                 
             except Exception as e:
                 print(f'error : {str(e)}')
@@ -63,8 +52,6 @@ class topicHandler:
                     "eventType":"insertLog",
                     "data":log
                 })
-                
-                
                 
 if __name__ == "__main__":
     th = topicHandler()
