@@ -127,13 +127,6 @@ class Transform:
         if data["built"] != None:
             built = int(data["built"])
             data["built"] = built
-        else:
-            code = [str(char) for char in data["OrignalRegistration"] if char.isdigit()]
-            code = "".join(code)
-            
-            if code in self.builtCode:
-                built = self.builtCode[code]
-                data["built"] = built
         
         # dealer_id
         if "dealer_id" in data:
@@ -202,13 +195,7 @@ class Transform:
         if data["built"] != None:
             built = int(data["built"])
             data["built"] = built
-        else:
-            code = [str(char) for char in data["OrignalRegistration"] if char.isdigit()]
-            code = "".join(code)
-            
-            if code in self.builtCode:
-                built = self.builtCode[code]
-                data["built"] = built
+        
         
         # seats
         if data["seats"] != None:
