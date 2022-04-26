@@ -29,9 +29,9 @@ class topicHandler:
                 data =  self.consumer.consume()
                 
                 
-                print("continue")
+                # print("continue")
                 
-                continue
+                # continue
                 
                 websiteId = data["data"]["websiteId"]
                 
