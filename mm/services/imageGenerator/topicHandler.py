@@ -72,6 +72,8 @@ class topicHandler:
                     
                     mainPhoto = None
                     
+                    print(tmp)
+                    
                     for index in enumerate(tmp):
                         for img in tmp:
                             if index == img["position"]:
