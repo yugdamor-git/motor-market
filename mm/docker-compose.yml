@@ -196,7 +196,7 @@ services:
     build:
       context: ./services/machine-learning/image
       dockerfile: Dockerfile.image
-      
+
     restart: on-failure
 
     volumes:
@@ -236,34 +236,34 @@ services:
         limits:
           cpus: '2'
 
-  db:
-    image: mysql:latest
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USERNAME}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    ports:
-      - "6034:3306"
-    volumes:
-      - ./services/mysql/data:/var/lib/mysql
+  # db:
+  #   image: mysql:latest
+  #   container_name: db
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  #     MYSQL_DATABASE: ${MYSQL_DATABASE}
+  #     MYSQL_USER: ${MYSQL_USERNAME}
+  #     MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  #   ports:
+  #     - "6034:3306"
+  #   volumes:
+  #     - ./services/mysql/data:/var/lib/mysql
     
-    cap_add:
-      - SYS_NICE
+  #   cap_add:
+  #     - SYS_NICE
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    container_name: pma
-    links:
-      - db
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_ARBITRARY: 0
-    restart: always
-    ports:
-      - 8090:80
+  # phpmyadmin:
+  #   image: phpmyadmin/phpmyadmin:latest
+  #   container_name: pma
+  #   links:
+  #     - db
+  #   environment:
+  #     PMA_HOST: db
+  #     PMA_PORT: 3306
+  #     PMA_ARBITRARY: 0
+  #   restart: always
+  #   ports:
+  #     - 8090:80
   
   ftps:
     image: bfren/ftps
