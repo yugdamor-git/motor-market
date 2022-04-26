@@ -28,8 +28,10 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                continue
+                
                 print("continue")
+                
+                continue
                 
                 websiteId = data["data"]["websiteId"]
                 
