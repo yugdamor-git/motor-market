@@ -39,25 +39,6 @@ services:
     volumes:
       - ./services/redis/data:/data
 
-  # consumertest:
-  #   build:
-  #     context: ./tests
-  #     dockerfile: Dockerfile.consumer
-
-  #   depends_on:
-  #     - pulsar
-    
-  #   deploy:
-  #     replicas: 1
-  
-  producertest1:
-    build:
-      context: ./tests
-      dockerfile: Dockerfile.producer
-
-    depends_on:
-      - pulsar
-
   mongodb:
     image: mongo:latest
     environment:
@@ -141,7 +122,7 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-      
+
     restart: on-failure
   
   logs:

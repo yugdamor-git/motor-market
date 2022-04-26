@@ -77,9 +77,13 @@ class listingScraper:
             }
         
         data["accountId"] = self.accountId
+        
         data["websiteId"] = self.websiteId
+        
         data["featuredId"] = self.featureId
+        
         data["planId"] = self.planId
+        
         data["priority"] = self.priority
         
         return {
