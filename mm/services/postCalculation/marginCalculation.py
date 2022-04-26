@@ -59,14 +59,14 @@ class marginCalculation:
         elif make in self.makeLuxury:
             category = "luxury"
         else:
-            category = self.carTypesDict.get(key,None)
+            out = self.carTypesDict.get(key,None)
             
-            if category == None:
+            if out == None:
                 category = "others"
+            else:
+                category = out["category"]
         
         margin = None
-        
-        print(category)
         
         marginDict = self.marginBasedOnCC[category]
         
