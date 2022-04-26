@@ -185,6 +185,9 @@ class Transform:
             
             engineCylindersLitre = engineCylindersCC/1000
             data["engineCylindersLitre"] = round(engineCylindersLitre,2)
+        else:
+            data["engineCylindersCC"] = None
+            data["engineCylindersLitre"] = None
         
         # registration
         if data["registration"] != None:
