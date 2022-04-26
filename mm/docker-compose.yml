@@ -105,30 +105,30 @@ services:
 
     restart: on-failure
   
-  pulsar-dashboard:
-    image: apachepulsar/pulsar-manager:v0.2.0
-    ports:
-      - "9527:9527"
-      - "7750:7750"
-    depends_on:
-      - pulsar
-    links:
-      - pulsar
-    environment:
-      SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
+  # pulsar-dashboard:
+  #   image: apachepulsar/pulsar-manager:v0.2.0
+  #   ports:
+  #     - "9527:9527"
+  #     - "7750:7750"
+  #   depends_on:
+  #     - pulsar
+  #   links:
+  #     - pulsar
+  #   environment:
+  #     SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
   
-  cadvisor:
-    image: gcr.io/cadvisor/cadvisor:latest
-    container_name: cadvisor
-    ports:
-    - 8788:8080
-    volumes:
-    - /:/rootfs:ro
-    - /var/run:/var/run:rw
-    - /sys:/sys:ro
-    - /var/lib/docker/:/var/lib/docker:ro
-    depends_on:
-    - redis
+  # cadvisor:
+  #   image: gcr.io/cadvisor/cadvisor:latest
+  #   container_name: cadvisor
+  #   ports:
+  #   - 8788:8080
+  #   volumes:
+  #   - /:/rootfs:ro
+  #   - /var/run:/var/run:rw
+  #   - /sys:/sys:ro
+  #   - /var/lib/docker/:/var/lib/docker:ro
+  #   depends_on:
+  #   - redis
 
   transform:
     build: ./services/transform
