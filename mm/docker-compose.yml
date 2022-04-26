@@ -284,16 +284,16 @@ services:
       - FTPS_PASS=${FTPS_PASSWORD}
       - FTPS_EXTERNAL_URI=${FTPS_IP}
   
-  local-db-handler:
-    build:
-      context: ./services/database/local
-      dockerfile : Dockerfile.local
+  # local-db-handler:
+  #   build:
+  #     context: ./services/database/local
+  #     dockerfile : Dockerfile.local
     
-    restart: on-failure
+  #   restart: on-failure
     
-    environment:
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
+  #   environment:
+  #     - MONGO_USERNAME=${MONGO_USERNAME}
+  #     - MONGO_PASSWORD=${MONGO_PASSWORD}
   
   production-db-fllistings:
     build:
