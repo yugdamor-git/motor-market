@@ -4,8 +4,6 @@ from pathlib import Path
 import os
 import requests
 
-from imageGenerator import imageGenerator
-
 class ImageDownloader:
     def __init__(self) -> None:
         print("image downloader init")
