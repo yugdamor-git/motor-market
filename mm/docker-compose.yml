@@ -149,6 +149,10 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
 
     restart: on-failure
+
+    deploy:
+      mode: replicated
+      replicas: 6
   
   logs:
     build: ./services/logs
@@ -196,9 +200,7 @@ services:
 
     restart: on-failure
 
-    deploy:
-      mode: replicated
-      replicas: 6
+    
 
   image-prediction:
     build:
