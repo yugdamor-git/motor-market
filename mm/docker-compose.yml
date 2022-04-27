@@ -196,6 +196,10 @@ services:
 
     restart: on-failure
 
+    deploy:
+      mode: replicated
+      replicas: 6
+
   image-prediction:
     build:
       context: ./services/machine-learning/image
