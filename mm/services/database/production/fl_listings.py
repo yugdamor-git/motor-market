@@ -459,7 +459,7 @@ class topicHandler:
                         if data["data"]["registrationStatus"] == False:
                             mappedData["Status"] = "pending"
                         
-                        if data["data"]["ltvStatus"] == 0:
+                        if data["data"]["ltv"]["ltvStatus"] == 0:
                             mappedData["Status"] = "pending"
                         
                         self.db.connect()
