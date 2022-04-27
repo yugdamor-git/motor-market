@@ -180,6 +180,10 @@ services:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
 
     restart: on-failure
+
+    deploy:
+      mode: replicated
+      replicas: 5
   
   post-validation:
     build: ./services/post-validation
