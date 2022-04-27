@@ -409,7 +409,7 @@ class topicHandler:
                     
                     where = {
                         "Website_ID":websiteId,
-                        "product_url":sourceId
+                        "sourceId":sourceId
                     }
                     
                     self.db.connect()
@@ -459,6 +459,8 @@ class topicHandler:
                         if data["data"]["registrationStatus"] == False:
                             mappedData["Status"] = "pending"
                         
+                        if data["data"]["ltvStatus"] == 0:
+                            mappedData["Status"] = "pending"
                         
                         self.db.connect()
                         id = self.db.recInsert("fl_listings",mappedData)
