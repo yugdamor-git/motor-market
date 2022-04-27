@@ -121,6 +121,7 @@ class Calculation:
                     ltv.update(self.ltvCalc.getNullValues())
             else:
                 ltv = self.ltvCalc.getDefaultValues()
+                ltv["ltvStatus"] = None
         except Exception as e:
             print(f'error - calculation.py : {str(e)}')
             ltv = {}
