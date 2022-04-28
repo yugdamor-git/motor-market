@@ -187,7 +187,7 @@ services:
 
     deploy:
       mode: replicated
-      replicas: 15
+      replicas: 50
   
   post-validation:
     build: ./services/post-validation
