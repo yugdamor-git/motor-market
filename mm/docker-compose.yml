@@ -27,7 +27,7 @@ services:
     
     deploy:
       mode: replicated
-      replicas: 3
+      replicas: 2
       resources:
         limits:
           cpus: '5'
@@ -187,7 +187,7 @@ services:
 
     deploy:
       mode: replicated
-      replicas: 30
+      replicas: 20
   
   post-validation:
     build: ./services/post-validation
@@ -217,7 +217,7 @@ services:
       replicas: 2
       resources:
         limits:
-          cpus: '7'
+          cpus: '5'
 
   image-generation:
     build: 
