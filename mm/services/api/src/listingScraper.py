@@ -1,5 +1,5 @@
 import json
-from graphql import graphql
+import graphql
 import requests
 
 
