@@ -20,6 +20,7 @@ class Graphql:
                 id
                 price
                 adminFee
+                tradeLifecycleStatus
                 }
             }
         }        
@@ -37,6 +38,7 @@ class Graphql:
                 title
                 excludePreviousOwners
                 advertisedLocations
+                tradeLifecycleStatus
                 motExpiry
                 heading {
                     title
@@ -706,6 +708,8 @@ class Graphql:
 
         carData["price"] = jsonData.get("price",None)
         
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        
         carData["adminFee"] = jsonData.get("adminFee",0)
         
         return carData
@@ -781,6 +785,8 @@ class Graphql:
         carData["emissionScheme"] = specification.get("ulezCompliant",None)
         
         carData["transmission"] = specification.get("transmission",None)
+        
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
         
         carData["id"] = jsonData.get("id",None)
         

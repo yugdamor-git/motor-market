@@ -1,13 +1,14 @@
 import os
 import json
 
-
 class Graphql:
     def __init__(self):
         
+        self.residentialProxy = os.environ.get("RESIDENTIAL_PROXY")
+        
         self.proxy = {
-            "http":os.environ.get("RESIDENTIAL_PROXY"),
-            "https":os.environ.get("RESIDENTIAL_PROXY")
+            "http":self.residentialProxy,
+            "https":self.residentialProxy
         }
         
         self.url = "https://www.autotrader.co.uk/at-graphql?opname=FPADataQuery"
@@ -18,6 +19,8 @@ class Graphql:
                 advert(advertId:$advertId,searchOptions:$searchOptions){
                 id
                 price
+                adminFee
+                tradeLifecycleStatus
                 }
             }
         }        
@@ -35,6 +38,7 @@ class Graphql:
                 title
                 excludePreviousOwners
                 advertisedLocations
+                tradeLifecycleStatus
                 motExpiry
                 heading {
                     title
@@ -695,7 +699,23 @@ class Graphql:
         ]
         
         return payload
+    
+    def extractValidatorDataFromJson(self, response:json) -> dict:
+        
+        jsonData = response[0]["data"]["search"]["advert"]
+        
+        carData = {}
 
+        carData["price"] = jsonData.get("price",None)
+        
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        
+        carData["adminFee"] = jsonData.get("adminFee",0)
+        
+        return carData
+        
+        
+        
     def extractDataFromJson(self, response:json) -> dict:
         
         jsonData = response[0]["data"]["search"]["advert"]
@@ -765,6 +785,8 @@ class Graphql:
         carData["emissionScheme"] = specification.get("ulezCompliant",None)
         
         carData["transmission"] = specification.get("transmission",None)
+        
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
         
         carData["id"] = jsonData.get("id",None)
         

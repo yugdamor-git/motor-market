@@ -50,9 +50,13 @@ class topicHandler:
                         "registrationStatus":True,
                         "predictedRegistration":rawRegistration
                     }
-                        
                 
                 
+                if registrationData["registrationStatus"] != None:
+                    registrationData["number_plate_flag"] = not registrationData["registrationStatus"]
+                else:
+                    registrationData["number_plate_flag"] = 1
+                    
                 data["data"].update(registrationData)
                 
                 print(data)
