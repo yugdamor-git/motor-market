@@ -27,9 +27,9 @@ class Graphql:
         """
         
         self.all_fields_query = """
-        query FPADataQuery($advertId: String!,$numberOfImages: Int, $searchOptions: SearchOptions,$postcode: String) {
+        query FPADataQuery($advertId: String!,$searchOptions: SearchOptions) {
             search {
-                advert(advertId: $advertId, searchOptions: $searchOptions) {
+                advert(advertId:$advertId, searchOptions:$searchOptions) {
                 id
                 stockItemId
                 isAuction
@@ -38,7 +38,6 @@ class Graphql:
                 title
                 excludePreviousOwners
                 advertisedLocations
-                tradeLifecycleStatus
                 motExpiry
                 heading {
                     title
@@ -402,8 +401,8 @@ class Graphql:
                     __typename
                 }
                 stockType
-                versionNumber
                 tradeLifecycleStatus
+                versionNumber
                 condition
                 finance {
                     monthlyPayment
@@ -786,7 +785,7 @@ class Graphql:
         
         carData["transmission"] = specification.get("transmission",None)
         
-        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus",None)
         
         carData["id"] = jsonData.get("id",None)
         
