@@ -1,19 +1,34 @@
 import json
-from graphql import Graphql
+from graphql import graphql
 import requests
 
 
 class listingScraper:
     
     def __init__(self) -> None:
-        self.graphql = Graphql()
+        self.graphql = graphql.Graphql()
+        
         self.proxy = self.graphql.proxy
+        
         self.maxRetry = 20
+        
+        self.accountId = 24898
+        
+        self.planId = 26
+        
+        self.featureId = 26
+        
+        self.websiteId = "17"
+        
+        self.priority = 109
     
-    def scrapeById(self,id):
+    def scrapeById(self,id,scraperType):
         
-        query = self.graphql.requiredFieldsQuery
-        
+        if scraperType == "normal":
+            query = self.graphql.requiredFieldsQuery
+        elif scraperType == "validator":
+            query = self.graphql.priceFieldQuery
+            
         payload = self.graphql.getPayload(id,query)
         
         for retry in range(0,self.maxRetry):
@@ -43,10 +58,14 @@ class listingScraper:
             }
         
         try:
-            data = self.graphql.extractDataFromJson(jsonData)
+            if scraperType == "normal":
+                data = self.graphql.extractDataFromJson(jsonData)
+            elif scraperType == "validator":
+                data = self.graphql.extractValidatorDataFromJson(jsonData)
+                
             message = "200"
         except Exception as e:
-            print(f'error : {str(e)}')
+            print(f'error {__file__} : {str(e)}')
             data = None
             message = str(e)
         
@@ -57,8 +76,23 @@ class listingScraper:
                 "message":message
             }
         
+        data["accountId"] = self.accountId
+        
+        data["websiteId"] = self.websiteId
+        
+        data["featuredId"] = self.featureId
+        
+        data["planId"] = self.planId
+        
+        data["priority"] = self.priority
+        
         return {
                 "status":True,
                 "data":data,
                 "message":message
             }
+        
+if __name__ == "__main__":
+    # testing
+    s = listingScraper()
+    print(s.scrapeById("202204124568625","validator"))

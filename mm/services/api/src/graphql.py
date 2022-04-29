@@ -708,7 +708,7 @@ class Graphql:
 
         carData["price"] = jsonData.get("price",None)
         
-        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus",None)
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
@@ -786,7 +786,7 @@ class Graphql:
         
         carData["transmission"] = specification.get("transmission",None)
         
-        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus",None)
         
         carData["id"] = jsonData.get("id",None)
         
