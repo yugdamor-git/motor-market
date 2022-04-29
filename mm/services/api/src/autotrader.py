@@ -150,7 +150,7 @@ def graphqlEndpoint():
     message = "200"
     status = False
     try:
-        data = scraper.scrapeById(listing_id)
+        data = scraper.scrapeById(listing_id,query_type)
         status = True
     except Exception as e:
         data = None
