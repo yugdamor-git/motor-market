@@ -471,7 +471,7 @@ class topicHandler:
                         }
                         
                         status = records[0]["Status"]
-                        
+                        mappedData["Status"] = status
                         if status == "expired":
                             mappedData["Status"] = "active"
                         
@@ -483,7 +483,7 @@ class topicHandler:
                         
                         if status in ["sold","pending","manual_expire"]:
                             continue
-                        
+                        data["data"]["status"] = mappedData["Status"]
                         self.db.connect()
                         self.db.recUpdate("fl_listings",mappedData,where)
                         self.db.disconnect()
