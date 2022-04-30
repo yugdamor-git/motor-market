@@ -353,6 +353,10 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    deploy:
+      mode: replicated
+      replicas: 5
 
   
   production-db-aturls:
