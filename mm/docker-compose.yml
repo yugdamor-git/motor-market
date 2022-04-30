@@ -68,6 +68,20 @@ services:
     
     stdin_open: true
   
+  ftp-scraper:
+    build:
+      context: ./services/scrapers/ftp-scraper
+      dockerfile: Dockerfile.ftp
+
+    depends_on:
+      - pulsar
+    
+    volumes:
+      - ./services/ftp/files:/files
+      - ./services/ftp/processed-files:/processed-files
+      
+    stdin_open: true
+  
   dealer-scraper:
     build:
       context: ./services/scrapers/autotrader
