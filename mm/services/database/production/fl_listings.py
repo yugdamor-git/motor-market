@@ -13,6 +13,8 @@ class topicHandler:
         self.subscribe = 'motormarket.scraper.autotrader.listing.database.production'
         
         self.publish = 'motormarket.scraper.autotrader.listing.generate.image'
+        
+        self.urlScraperTopic = 'motormarket.scraper.autotrader.listing.database.urlscaper'
 
         self.db = Database()
         
@@ -25,6 +27,8 @@ class topicHandler:
         self.producer = producer.Producer(self.publish)
         
         self.consumer = consumer.Consumer(self.subscribe)
+        
+        self.urlScraperProducer = producer.Producer(self.urlScraperTopic)
     
     def mapColumnsInsert(self,data):
         columnMapping =[
@@ -316,7 +320,7 @@ class topicHandler:
         print(mappedData)    
         return mappedData
         
-        
+    
     
     def handleEvent(self,event,data):
         if event == "update":
@@ -352,6 +356,40 @@ class topicHandler:
             
             self.db.recUpdate("fl_listings",what,where)
     
+    def handleAtUrl(self,status,id,listingId,registrationStatus):
+        what = {
+            
+        }
+        
+        if status == "to_parse":
+            what["listing_status"] = "active"
+        else:
+            what["listing_status"] = status
+        what["scraped"] = 1
+        what["listing_id"] = id
+        what["updated_at"] = {"func":"now()"}
+        
+        if registrationStatus == 1:
+            what["number_plate_flag"] = 0
+        elif registrationStatus == None:
+            what["number_plate_flag"] = 2
+        else:
+            what["number_plate_flag"] = 2
+        
+        
+        where = {
+            "id":listingId
+        }
+        
+        eventType = "update"
+        
+        self.urlScraperProducer.produce({
+            "what":what,
+            "where":where,
+            "eventType":eventType
+        })
+        
+    
     def main(self):
         print("listening for new messages")
         while True:
@@ -370,6 +408,8 @@ class topicHandler:
                 
                 
                 scraperType = data["data"].get("scraperType")
+                
+                scraperName = data["data"].get("scraperName",None)
                 
                 if scraperType == "validator":
                     mappedData = self.mapColumnsInsert(data)
@@ -477,6 +517,14 @@ class topicHandler:
                         data["data"]["mmUrl"] = mmUrl
                         
                         upsert = "insert"
+                        
+                    if scraperName == "url-scraper":
+                        status = mappedData["Status"]
+                        listingId = data["data"].get("listingId")
+                        
+                        registrationStatus = data["data"].get("registrationStatus",None)
+                        
+                        self.handleAtUrl(status,id,listingId,registrationStatus)
                 
                     data["data"]["upsert"] = upsert
                     

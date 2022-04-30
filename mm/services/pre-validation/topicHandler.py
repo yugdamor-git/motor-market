@@ -15,11 +15,15 @@ class topicHandler:
         
         logsTopic = "motormarket.scraper.logs"
         
+        self.urlScraperTopic = 'motormarket.scraper.autotrader.listing.database.urlscaper'
+        
         self.producer = producer.Producer(self.publish)
         
         self.consumer = consumer.Consumer(self.subscribe)
         
         self.logsProducer = producer.Producer(logsTopic)
+        
+        self.urlScraperProducer = producer.Producer(self.urlScraperTopic)
         
         self.validator = Validation(self.logsProducer)
         
@@ -29,8 +33,34 @@ class topicHandler:
             try:
                 data =  self.consumer.consume()
                 
-                if self.validator.validate(data["data"]) == False:
+                status,log = self.validator.validate(data["data"])
+                
+                if status == False:
                     print('we are not taking this listing')
+                    
+                    scraperName = data["data"].get("scraperName",None)
+                    listingId = data["data"].get("listingId",None)
+                    
+                    if scraperName == None or listingId == None:
+                        continue
+                    
+                    what = {
+                        "status":3,
+                        "errorMessage":log["errorMessage"]
+                    }
+                    
+                    where = {
+                        "id":listingId
+                    }
+                    
+                    eventType = "update"
+                    
+                    self.urlScraperProducer.produce({
+                        "what":what,
+                        "where":where,
+                        "eventType":eventType
+                    })
+                    
                     continue
                 
                 print(data)

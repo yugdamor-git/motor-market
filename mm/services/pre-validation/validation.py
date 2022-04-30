@@ -38,7 +38,7 @@ class Validation:
                     "data":log
                 })
             
-            return False
+            return False,log
         
         status,message = self.engineCCValidation(cc)
         if status == False:
@@ -49,7 +49,7 @@ class Validation:
                     "data":log
                 })
             
-            return False
+            return False,log
         
         status,message = self.builtValidation(built)
         if status == False:
@@ -60,7 +60,7 @@ class Validation:
                     "data":log
                 })
             
-            return False
+            return False,log
         
         status,message = self.mileageValidation(mileage)
         if status == False:
@@ -71,7 +71,7 @@ class Validation:
                     "data":log
                 })
             
-            return False
+            return False,log
         
         status,message = self.isBlackListedDealer(dealerId)
         if status == True:
@@ -82,9 +82,9 @@ class Validation:
                     "data":log
                 })
             
-            return False
+            return False,log
         
-        return True
+        return True,{}
     
     def priceValidation(self,price,customPriceEnabled):
         
