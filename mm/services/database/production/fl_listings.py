@@ -421,6 +421,8 @@ class topicHandler:
                     
                     status = data["data"]["Status"]
                     
+                    mappedData["Status"] = status
+                    
                     if status == "expired":
                         mappedData["Status"] = "active"
                         
@@ -430,6 +432,14 @@ class topicHandler:
                     if status in ["sold","pending","to_parse","manual_expire"]:
                         mappedData["Status"] = status
                         
+                    
+                    if scraperName == "url-scraper":
+                        status = mappedData["Status"]
+                        listingId = data["data"].get("listingId")
+                        
+                        registrationStatus = data["data"].get("registrationStatus",None)
+                        
+                        self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
                     
                     if status in ["sold","pending","manual_expire"]:
                         continue
