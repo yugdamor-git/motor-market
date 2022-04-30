@@ -1,5 +1,6 @@
 from topic import producer,consumer
-from listingScraper import listingScraper
+
+from Database import Database
 
 import traceback
 
@@ -14,6 +15,8 @@ class topicHandler:
         logsTopic = "motormarket.scraper.logs"
             
         self.logsProducer = producer.Producer(logsTopic)
+        
+        self.db = Database()
         
         self.producer = producer.Producer(self.publish)
         
