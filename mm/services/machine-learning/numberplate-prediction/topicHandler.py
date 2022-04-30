@@ -15,11 +15,15 @@ class topicHandler:
 
         logsTopic = "motormarket.scraper.logs"
         
+        
+        
         self.predictor = Handler()
         
         self.redis = redisHandler()
         
         self.producer = producer.Producer(self.publish)
+        
+        self.logsProducer = producer.Producer(logsTopic)
         
         self.consumer = consumer.Consumer(self.subscribe)
         
