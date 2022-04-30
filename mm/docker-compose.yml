@@ -10,6 +10,8 @@ services:
 
     ports:
       - ${API_PORT}:5000
+    
+  
 
   numberplate-prediction:
     build:
@@ -68,6 +70,24 @@ services:
     
     stdin_open: true
   
+  url-scraper:
+    build:
+      context: ./services/scrapers/autotrader
+      dockerfile: Dockerfile.url
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    stdin_open: true
+  
+
   ftp-scraper:
     build:
       context: ./services/scrapers/ftp-scraper
@@ -79,7 +99,7 @@ services:
     volumes:
       - ./services/ftp/files:/files
       - ./services/ftp/processed-files:/processed-files
-      
+
     stdin_open: true
   
   dealer-scraper:
@@ -323,6 +343,22 @@ services:
     build:
       context: ./services/database/production
       dockerfile : Dockerfile.flListings
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+  
+  production-db-aturls:
+    build:
+      context: ./services/database/production
+      dockerfile : Dockerfile.aturls
     
     restart: on-failure
 
