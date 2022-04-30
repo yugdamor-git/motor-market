@@ -448,6 +448,15 @@ class topicHandler:
                     self.db.recUpdate("fl_listings",mappedData,where)
                     self.db.disconnect()
                     
+                    self.logsProducer.produce(
+                    {
+                        "eventType":"listingCount",
+                        "data":{
+                                "countFor":"update"
+                            }
+                        }
+                    )
+                    
                     continue
                 
                 
