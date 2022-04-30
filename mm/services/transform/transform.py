@@ -100,6 +100,8 @@ class Transform:
         if data["price"] != None:
             price = int(data["price"])
             data["price"] = price
+        else:
+            price =0
         
         data["cal_price_from_file"] = price
         
