@@ -66,7 +66,7 @@ services:
     
     deploy:
       mode: replicated
-      replicas: 200
+      replicas: 64
     
     stdin_open: true
   
