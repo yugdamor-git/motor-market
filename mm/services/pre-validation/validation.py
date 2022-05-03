@@ -25,11 +25,17 @@ class Validation:
         
         customPriceEnabled = data.get("customPriceEnabled",0)
         
+        scraperName = data.get("scraperName",None)
+        
+        if scraperName == "url-scraper" and customPriceEnabled == 1:
+            return True,{}
+        
         log = {}
         log["service"] = "motormarket.scraper.autotrader.listing.prevalidation"
         log["sourceUrl"] = sourceUrl
         
         status,message = self.priceValidation(price,customPriceEnabled)
+        
         if status == False:
             log["errorMessage"] = message
             
@@ -95,6 +101,7 @@ class Validation:
             return True,None
         
         maxPrice = 25000
+        
         if price <= maxPrice:
             return True,None
         
