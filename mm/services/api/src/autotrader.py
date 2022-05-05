@@ -149,11 +149,11 @@ def graphqlEndpoint():
     listing_id = request.args.get("id")
     message = "200"
     status = False
+    data = None
     try:
         data = scraper.scrapeById(listing_id,query_type)
         status = True
     except Exception as e:
-        data = None
         message = f'error : {str(e)}'
     
     response["data"] = data
