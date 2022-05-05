@@ -28,6 +28,8 @@ class listingScraper:
             query = self.graphql.requiredFieldsQuery
         elif scraperType == "validator":
             query = self.graphql.priceFieldQuery
+        elif scraperType == None:
+            query = self.graphql.all_fields_query
             
         payload = self.graphql.getPayload(id,query)
         

@@ -133,7 +133,7 @@ def graphqlEndpoint():
     
     token = request.args.get("token")
     
-    query_type = request.args.get("type")
+    query_type = request.args.get("type",None)
     
     if token == None:
         response["status"] = False
