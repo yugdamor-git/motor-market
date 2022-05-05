@@ -64,6 +64,8 @@ class listingScraper:
                 data = self.graphql.extractDataFromJson(jsonData)
             elif scraperType == "validator":
                 data = self.graphql.extractValidatorDataFromJson(jsonData)
+            elif scraperType == None:
+                data = jsonData
                 
             message = "200"
         except Exception as e:
