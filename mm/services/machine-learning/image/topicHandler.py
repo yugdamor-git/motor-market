@@ -27,7 +27,7 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
-                
+                continue
                 
                 # print("continue")
                 
