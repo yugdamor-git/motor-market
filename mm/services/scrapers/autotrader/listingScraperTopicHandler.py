@@ -25,11 +25,12 @@ class topicHandler:
         
         self.consumer = consumer.Consumer(self.subscribe)
     
-    def expireListing(self,id):
+    def expireListing(self,id,tradeLifecycleStatus):
         event = "update"
         what = {
             "Status":"expired",
-            "why":"no longer active on auto trader"
+            "why":"no longer active on auto trader",
+            "tradeLifecycleStatus":tradeLifecycleStatus
         }
         where = {
             "sourceId":id
@@ -63,7 +64,7 @@ class topicHandler:
                         continue
                     
                     if scrapedData["data"]["tradeLifecycleStatus"] in ["WASTEBIN","SALE_IN_PROGRESS"]:
-                        self.expireListing(id)
+                        self.expireListing(id,scrapedData["data"]["tradeLifecycleStatus"])
                         continue
                     
                 if scraperType == "normal":

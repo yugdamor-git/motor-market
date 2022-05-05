@@ -605,6 +605,7 @@ class Graphql:
                     id
                     colour
                     adminFee
+                    tradeLifecycleStatus
                     imageList{
                         images{
                            url 

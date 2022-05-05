@@ -157,6 +157,7 @@ class topicHandler:
         {'key':'registrationStatus','value':'registrationStatus'},
         {'key':'registrationStatus','value':'number_plate_flag'},
         {'key': 'dealerForecourtPrice', 'value': 'dealerForecourtPrice'},
+        {'key':'tradeLifecycleStatus','value':'tradeLifecycleStatus'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}

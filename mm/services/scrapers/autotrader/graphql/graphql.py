@@ -27,9 +27,9 @@ class Graphql:
         """
         
         self.all_fields_query = """
-        query FPADataQuery($advertId: String!,$searchOptions: SearchOptions) {
-            search {
-                advert(advertId:$advertId, searchOptions:$searchOptions) {
+        query FPADataQuery($advertId:String!,$searchOptions:SearchOptions){
+            search{
+                advert(advertId:$advertId,searchOptions:$searchOptions){
                 id
                 stockItemId
                 isAuction
@@ -39,7 +39,7 @@ class Graphql:
                 excludePreviousOwners
                 advertisedLocations
                 motExpiry
-                heading {
+                heading{
                     title
                     subtitle
                     __typename
@@ -60,47 +60,47 @@ class Graphql:
                 dateOfRegistration
                 homeDeliveryRegionCodes
                 deliversToMyPostcode
-                capabilities {
-                    guaranteedPartEx {
+                capabilities{
+                    guaranteedPartEx{
                     enabled
                     __typename
                     }
-                    marketExtensionHomeDelivery {
+                    marketExtensionHomeDelivery 
                     enabled
                     __typename
                     }
-                    marketExtensionClickAndCollect {
+                    marketExtensionClickAndCollect{
                     enabled
                     __typename
                     }
-                    marketExtensionCentrallyHeld {
+                    marketExtensionCentrallyHeld{
                     enabled
                     __typename
                     }
-                    sellerPromise {
+                    sellerPromise{
                     enabled
                     __typename
                     }
                     __typename
                 }
-                collectionLocations {
-                    locations {
+                collectionLocations{
+                    locations{
                     ...CollectionLocationData
                     __typename
                     }
                     __typename
                 }
                 registration
-                generation {
+                generation{
                     generationId
                     name
-                    review {
+                    review{
                     ownerReviewsSummary {
                         aggregatedRating
                         countOfReviews
                         __typename
                     }
-                    expertReviewSummary {
+                    expertReviewSummary{
                         rating
                         reviewUrl
                         __typename
@@ -115,7 +115,7 @@ class Graphql:
                 isFinanceAvailable
                 isFinanceFullApplicationAvailable
                 financeProvider
-                financeDefaults {
+                financeDefaults{
                     term
                     mileage
                     depositAmount
@@ -123,13 +123,13 @@ class Graphql:
                 }
                 retailerId
                 hasClickAndCollect
-                privateAdvertiser {
-                    contact {
+                privateAdvertiser{
+                    contact{
                     protectedNumber
                     email
                     __typename
                     }
-                    location {
+                    location{
                     town
                     county
                     postcode
@@ -139,21 +139,21 @@ class Graphql:
                     __typename
                 }
                 advertiserSegment
-                dealer {
+                dealer{
                     ...DealerData
                     __typename
                 }
-                video {
+                video{
                     url
                     preview
                     __typename
                 }
-                spin {
+                spin{
                     url
                     preview
                     __typename
                 }
-                imageList(limit: $numberOfImages) {
+                imageList(){
                     nextCursor
                     size
                     images {
@@ -604,6 +604,7 @@ class Graphql:
                     id
                     colour
                     adminFee
+                    tradeLifecycleStatus
                     imageList{
                         images{
                            url 
