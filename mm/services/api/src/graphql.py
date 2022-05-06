@@ -714,6 +714,8 @@ class Graphql:
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
+        carData["registrationDate"] = jsonData.get("dateOfRegistration",None)
+        
         return carData
         
         
