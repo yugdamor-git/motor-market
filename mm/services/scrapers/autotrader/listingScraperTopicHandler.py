@@ -30,11 +30,16 @@ class topicHandler:
         what = {
             "Status":"expired",
             "why":"no longer active on auto trader",
-            "tradeLifecycleStatus":tradeLifecycleStatus
+            
         }
+        
+        if tradeLifecycleStatus != None:
+            what["tradeLifecycleStatus"] = tradeLifecycleStatus
+            
         where = {
             "sourceId":id
         }
+        
         data = {
             "event":event,
             "eventData":{
@@ -57,14 +62,17 @@ class topicHandler:
                 id = data["data"]["sourceId"]
                 
                 scrapedData = self.scraper.scrapeById(id,scraperType)
+                
+                
                 if scraperType == "validator":
+                    tradeLifecycleStatus = scrapedData["data"].get("tradeLifecycleStatus",None)
                     if scrapedData["status"] == False:
                         # expire this listing , it is no longer active on source site.
-                        self.expireListing(id,scrapedData["data"]["tradeLifecycleStatus"])
+                        self.expireListing(id,tradeLifecycleStatus)
                         continue
                     
-                    if scrapedData["data"]["tradeLifecycleStatus"] in ["WASTEBIN","SALE_IN_PROGRESS"]:
-                        self.expireListing(id,scrapedData["data"]["tradeLifecycleStatus"])
+                    if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
+                        self.expireListing(id,tradeLifecycleStatus)
                         continue
                     
                 if scraperType == "normal":
