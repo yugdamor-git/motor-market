@@ -4,6 +4,8 @@ from topic import producer,consumer
 
 import traceback
 
+import os
+
 class topicHandler:
     def __init__(self):
         print("transform topic handler init")
@@ -22,6 +24,8 @@ class topicHandler:
         self.producer = producer.Producer(self.publish)
         
         self.consumer = consumer.Consumer(self.subscribe)
+        
+        self.env = os.environ.get("environ","prod")
     
     
     
@@ -30,6 +34,13 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
+                
+                skipFinder = data["data"].get("skipFinder",False)
+                
+                if skipFinder == True:
+                    data["data"]["scraperType"] = "validator"
+                    self.producer.produce(data)
+                    continue
                 
                 sourceId = data["data"]["sourceId"]
                 
@@ -45,7 +56,8 @@ class topicHandler:
                 
                 self.db.disconnect()
                 
-                print(data)
+                if self.env == "dev":
+                    print(data)
                 
                 self.producer.produce(data)
                 
