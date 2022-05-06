@@ -10,7 +10,7 @@ class listingScraper:
         
         self.proxy = self.graphql.proxy
         
-        self.maxRetry = 20
+        self.maxRetry = 3
         
         self.accountId = 24898
         
