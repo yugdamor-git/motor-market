@@ -27,14 +27,11 @@ class Validation:
         
         scraperName = data.get("scraperName",None)
         
-        if scraperName == "url-scraper" and customPriceEnabled == 1:
-            return True,{}
-        
         log = {}
         log["service"] = "motormarket.scraper.autotrader.listing.prevalidation"
         log["sourceUrl"] = sourceUrl
         
-        status,message = self.priceValidation(price,customPriceEnabled)
+        status,message = self.priceValidation(price,scraperName)
         
         if status == False:
             log["errorMessage"] = message
@@ -57,7 +54,7 @@ class Validation:
             
             return False,log
         
-        status,message = self.builtValidation(built)
+        status,message = self.builtValidation(built,scraperName)
         if status == False:
             log["errorMessage"] = message
             
@@ -68,7 +65,7 @@ class Validation:
             
             return False,log
         
-        status,message = self.mileageValidation(mileage)
+        status,message = self.mileageValidation(mileage,scraperName)
         if status == False:
             log["errorMessage"] = message
             
@@ -92,14 +89,16 @@ class Validation:
         
         return True,{}
     
-    def priceValidation(self,price,customPriceEnabled):
+    def priceValidation(self,price,scraperName):
         
         if price == None:
             return False,"price is empty."
         
-        if customPriceEnabled == 1:
-            return True,None
+        if scraperName == "url-scraper":
+            return True,{}
         
+        if scraperName == "url-scraper":
+            return True,None
         maxPrice = 25000
         
         if price <= maxPrice:
@@ -119,7 +118,10 @@ class Validation:
         else:
             return False,f'engineCC({cc}) is more than maxEngineCC({maxCC}).'
     
-    def builtValidation(self,built):
+    def builtValidation(self,built,scraperName):
+        
+        if scraperName == "url-scraper":
+            return True,None
         
         if built == None:
             return False,"built year is empty."
@@ -131,10 +133,13 @@ class Validation:
 
         return False,f'built year({built}) is less than min built year({minBuilt}).'
 
-    def mileageValidation(self,mileage):
+    def mileageValidation(self,mileage,scraperName):
         
         if mileage == None:
             return False,'mileage is empty.'
+        
+        if scraperName == "url-scraper":
+            return True,None
         
         maxMileage = 120000
         
