@@ -65,12 +65,12 @@ class topicHandler:
                 
                 
                 if scraperType == "validator":
-                    tradeLifecycleStatus = scrapedData["data"].get("tradeLifecycleStatus",None)
                     if scrapedData["status"] == False:
+                        tradeLifecycleStatus = scrapedData["data"].get("tradeLifecycleStatus",None)
                         # expire this listing , it is no longer active on source site.
                         self.expireListing(id,tradeLifecycleStatus)
                         continue
-                    
+                    tradeLifecycleStatus = scrapedData["data"].get("tradeLifecycleStatus",None)
                     if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
                         self.expireListing(id,tradeLifecycleStatus)
                         continue
