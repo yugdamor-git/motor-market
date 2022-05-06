@@ -45,7 +45,7 @@ class topicHandler:
                         continue
                     
                     what = {
-                        "status":3,
+                        "scraped":3,
                         "errorMessage":log["errorMessage"]
                     }
                     
