@@ -27,7 +27,9 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
-                # continue
+                sourceId = data["data"]["sourceId"]
+                print(sourceId)
+                continue
                 
                 # print("continue")
                 
