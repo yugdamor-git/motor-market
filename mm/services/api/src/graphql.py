@@ -21,6 +21,7 @@ class Graphql:
                 price
                 adminFee
                 tradeLifecycleStatus
+                dateOfRegistration
                 }
             }
         }        
