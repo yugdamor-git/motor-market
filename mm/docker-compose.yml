@@ -253,8 +253,8 @@ services:
         limits:
           cpus: '5'
     
-    environment:
-      DATACENTER_PROXY : ${DATACENTER_PROXY}
+    # environment:
+    #   DATACENTER_PROXY : ${DATACENTER_PROXY}
 
 
   image-generation:
