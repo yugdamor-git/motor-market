@@ -18,6 +18,7 @@ class ImageDownloader:
         self.max_retry = 10
         
         self.datacenterProxy = os.environ.get("DATACENTER_PROXY")
+        print(self.datacenterProxy)
         self.proxy = {
             "http":self.datacenterProxy,
             "https":self.datacenterProxy
