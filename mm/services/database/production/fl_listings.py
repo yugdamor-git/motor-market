@@ -158,6 +158,7 @@ class topicHandler:
         {'key':'registrationStatus','value':'number_plate_flag'},
         {'key': 'dealerForecourtPrice', 'value': 'dealerForecourtPrice'},
         {'key':'tradeLifecycleStatus','value':'tradeLifecycleStatus'},
+        {'key':'registration_date','value':'registration_date'},
         {'key': 'photosCount', 'value': 'Photos_count'}]
         
         mappedData = {}
@@ -302,6 +303,7 @@ class topicHandler:
         # {'key': 'videoId', 'value': 'video_id'},
         {'key':'registrationStatus','value':'registrationStatus'},
         {'key':'registrationStatus','value':'number_plate_flag'},
+        {'key':'registration_date','value':'registration_date'}
         # {'key': 'photosCount', 'value': 'Photos_count'}]
         ]
         
