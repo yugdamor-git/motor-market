@@ -60,8 +60,8 @@ class topicHandler:
                 scraperType = data["data"].get("scraperType")
                 
                 id = data["data"]["sourceId"]
-                # print(id)
-                # continue
+                print(id)
+                continue
                 
                 scrapedData = self.scraper.scrapeById(id,scraperType)
                 

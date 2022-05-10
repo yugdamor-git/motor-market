@@ -95,9 +95,6 @@ class Validation:
             return False,"price is empty."
         
         if scraperName == "url-scraper":
-            return True,{}
-        
-        if scraperName == "url-scraper":
             return True,None
         maxPrice = 25000
         
