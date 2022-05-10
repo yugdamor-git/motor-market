@@ -43,7 +43,7 @@ class Validation:
             
             return False,log
         
-        status,message = self.engineCCValidation(cc)
+        status,message = self.engineCCValidation(cc,customPriceEnabled)
         if status == False:
             log["errorMessage"] = message
             
@@ -106,10 +106,13 @@ class Validation:
         
         return False,f'price({price}) is more than max price({maxPrice})'
         
-    def engineCCValidation(self,cc):
+    def engineCCValidation(self,cc,customPriceEnabled):
         
         if cc == None:
             return False,"engine cc is empty."
+        
+        if customPriceEnabled == True:
+            return True,None
         
         maxCC = 3001
         
