@@ -46,6 +46,8 @@ class validator:
             self.producer.produce({
                 "data":tmp
             })
+            print(tmp)
+            break
 
 
 if __name__ == "__main__":
