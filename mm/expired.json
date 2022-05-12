@@ -1,0 +1,407 @@
+{
+    "sessionId": "8807e06a-a857-4f8c-8878-9516a23d0133",
+    "name": "Advertiser Presence - DO NOT MODIFY",
+    "description": "Advertiser Presence - DO NOT MODIFY",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": -1,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/presence_status_online.txt",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/presence_status_offline.txt",
+        "elementId": "cao_-1"
+    },
+    "status": 0,
+    "id": 8471
+},
+{
+    "sessionId": "6e3b8eea-d7d2-4890-8b43-d32a1686d0cf",
+    "name": "Auto Trader Full Page Ad",
+    "description": "Auto Trader Full Page Ad",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 1,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/72fd79b7-8739-4929-906d-6bb6f58a8336.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/48a8cf37-cd0b-48c3-a275-378572bebb56.icon.245.jpg",
+        "elementId": "cao_1"
+    },
+    "status": 0,
+    "id": 8472
+},
+{
+    "sessionId": "a0418c95-b384-471c-a263-5d100e70c739",
+    "name": "Detail Page",
+    "description": "Detail Page",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 2,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/double_rectangle_slim_greyblue_60hx150w.png",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/images/blank.gif",
+        "elementId": "cao_2"
+    },
+    "status": 0,
+    "id": 8473
+},
+{
+    "sessionId": "602579d0-fa41-4ed8-8851-37d3b45d3211",
+    "name": "Chat Balloon - red transparent",
+    "description": "Chat Balloon - red transparent",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 3,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/7e52f11d-3240-4d7b-a83a-d41192a0de46.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/7e52f11d-3240-4d7b-a83a-d41192a0de46.icon.245.jpg",
+        "elementId": "cao_3"
+    },
+    "status": 0,
+    "id": 8474
+},
+{
+    "sessionId": "a0f0534c-4dd5-4831-b83b-652f6aebb1b6",
+    "name": "Chat Balloon - blue-white",
+    "description": "Chat Balloon - blue-white",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 4,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/49661729-a14a-425f-a103-7299a9fec0c6.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/images/blank.gif",
+        "elementId": "cao_4"
+    },
+    "status": 0,
+    "id": 8475
+},
+{
+    "sessionId": "66616d91-cb64-4ab4-825a-ea2d4e489f67",
+    "name": "New Website Car Detail",
+    "description": "New Website Car Detail",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 5,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/a4ec366b-35cf-4d48-b986-fdd116a83ff3.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/31362df1-a598-4e43-8210-d3b7cb99719b.icon.245.jpg",
+        "elementId": "cao_5"
+    },
+    "status": 0,
+    "id": 8476
+},
+{
+    "sessionId": "073c272f-fd0e-47b0-b296-dcd55f78ddae",
+    "name": "TM Dropin",
+    "description": "",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 100,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/68706183-ae5d-4e84-8115-5cf992f83bea.icon.279.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/images/blank.gif",
+        "elementId": "cao_100"
+    },
+    "status": 0,
+    "id": 8477
+},
+{
+    "sessionId": "7fbf0eba-e3a5-4a7a-81eb-5ccd670ba0ec",
+    "name": "TM VDP",
+    "description": "topmarques VDP",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 101,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/e7564bb8-b876-4979-80ac-5a0ca7178f51.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/images/blank.gif",
+        "elementId": "cao_101"
+    },
+    "status": 0,
+    "id": 8478
+},
+{
+    "sessionId": "440c209a-bf00-4961-9349-9234735a0a85",
+    "name": "Mobile VDP",
+    "description": "Mobile Vehicle Detail Page",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 201,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/386655cc-5063-4622-8237-98c150944f3d.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/07151116-c7f3-4172-ad18-be82cb6de99f.icon.245.jpg",
+        "elementId": "cao_201"
+    },
+    "status": 0,
+    "id": 8479
+},
+{
+    "sessionId": "f4676eef-ad97-418c-adde-dfe2aed967d9",
+    "name": "Test DropIn",
+    "description": "Test DropIn",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 300,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/a17693aa-d778-4588-aebc-3243252ee010.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/images/blank.gif",
+        "elementId": "cao_300"
+    },
+    "status": 0,
+    "id": 8480
+},
+{
+    "sessionId": "2a39b0b4-464f-4fad-af49-c339b15a4c19",
+    "name": "Test 1 Icons",
+    "description": "Test 1 Icons",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 301,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/dedc936e-c3f4-49cc-958d-8528d2d23e19.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/d49c870b-f4db-4fa0-828c-4a6bb370b757.icon.245.jpg",
+        "elementId": "cao_301"
+    },
+    "status": 0,
+    "id": 8481
+},
+{
+    "sessionId": "2aeafb80-e5e0-4fd8-bc11-2d8989d33628",
+    "name": "Test 1.5 Icons",
+    "description": "Test 1.5 Icons",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 302,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/b94a698d-08e4-4203-b26c-d422d2878fdf.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/e3f8119e-9cf2-4495-9b0b-9a37ebcb3eed.icon.245.jpg",
+        "elementId": "cao_302"
+    },
+    "status": 0,
+    "id": 8482
+},
+{
+    "sessionId": "00a85c59-98e2-48a8-8a8b-d2ccdeff404f",
+    "name": "Test 2 Icons",
+    "description": "Test 2 Icons",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 303,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/8361e3e8-9808-4c3f-b87f-879893cba14b.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/3f8fb23b-2122-4327-af1b-da23e839b7b9.icon.245.jpg",
+        "elementId": "cao_303"
+    },
+    "status": 0,
+    "id": 8483
+},
+{
+    "sessionId": "31c74e33-c08b-4f3a-b9a9-49c09ca9d6e0",
+    "name": "Test 3 Icons",
+    "description": "Test 3 Icons",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 304,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/87530655-a2e9-4136-9ffa-f7c5d7539450.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/41db1064-7199-4003-9ee5-43d907c208d6.icon.245.jpg",
+        "elementId": "cao_304"
+    },
+    "status": 0,
+    "id": 8484
+},
+{
+    "sessionId": "6a51c6a0-034d-4568-8334-2f8167d0bee4",
+    "name": "chat icon 2017",
+    "description": "",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 305,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/10feca95-aab9-4281-bbcf-ee63c78a0093.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/e4fc2eee-8ae8-4834-8d88-07edc1d4a32c.icon.245.jpg",
+        "elementId": "cao_305"
+    },
+    "status": 0,
+    "id": 8485
+},
+{
+    "sessionId": "60b6f0e4-ae2f-4391-8c6c-f47f94f35d03",
+    "name": "chat icon 2017 v2",
+    "description": "chat icon 2017 v2",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 306,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk/files/3f0563fb-9f74-411c-aa9f-6a439570da87.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk/files/e9dc9356-1f93-403e-bceb-121fe640bc61.icon.245.jpg",
+        "elementId": "cao_306"
+    },
+    "status": 0,
+    "id": 8486
+},
+{
+    "sessionId": "186bf874-522d-4452-a4d5-a902b79372d6",
+    "referenceId": "",
+    "name": "Text",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "mtc",
+    "language": "en-US",
+    "placementId": 8487,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk:443//files/f7d4ffa4-b18e-45b1-a206-ca62e72425f6.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk:443//files/c72cc7cd-6473-415c-956d-2cbc729c5ae5.icon.245.jpg",
+        "elementId": "cao_636669094120630000"
+    },
+    "departmentSelector": {
+        "chatEnabled": false,
+        "mtcEnabled": false
+    },
+    "status": 0,
+    "id": 8487
+},
+{
+    "sessionId": "1d1c2eee-5672-4ea8-8aaf-f92db7eabd10",
+    "referenceId": "",
+    "name": "Chat",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 1,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": 8488,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "embeddedEngagement": {
+        "agentAvailableImageUrl": "https://portal.contactatonce.co.uk:443//files/971f9a48-3f47-437f-9086-fb84180900fb.icon.245.jpg",
+        "agentUnavailableImageUrl": "https://portal.contactatonce.co.uk//images/blank.gif",
+        "elementId": "cao_636669107252710000"
+    },
+    "departmentSelector": {
+        "chatEnabled": false,
+        "mtcEnabled": false
+    },
+    "status": 0,
+    "id": 8488
+},
+{
+    "sessionId": "50c701eb-5967-491a-a4dd-6b77573895e5",
+    "name": "Default_",
+    "description": "default engagement",
+    "fileName": "AutoTraderUK_BR_SlideUp_01_v2_NoPhotoUpdate.xsl",
+    "isPopOut": false,
+    "isOffline": false,
+    "type": 0,
+    "channel": "chat",
+    "language": "en-US",
+    "placementId": -1,
+    "disableLocationSelector": false,
+    "windowPosition": 0,
+    "minimizedMobileWindowPosition": 0,
+    "mtc": {
+        "tapToTextDisabled": false,
+        "phoneNumber": "447401320916"
+    },
+    "status": 0,
+    "id": 8470
+}
