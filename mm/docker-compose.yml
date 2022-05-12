@@ -63,7 +63,7 @@ services:
     
     environment:
       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-    
+      - DATACENTER_PROXY=${DATACENTER_PROXY}
     deploy:
       mode: replicated
       replicas: 64

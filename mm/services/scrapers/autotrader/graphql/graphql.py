@@ -5,10 +5,12 @@ class Graphql:
     def __init__(self):
         
         self.residentialProxy = os.environ.get("RESIDENTIAL_PROXY")
+        self.datacenterProxy = os.environ.get("DATACENTER_PROXY")
+        
         
         self.proxy = {
-            "http":self.residentialProxy,
-            "https":self.residentialProxy
+            "http":self.datacenterProxy,
+            "https":self.datacenterProxy
         }
         
         self.url = "https://www.autotrader.co.uk/at-graphql?opname=FPADataQuery"
