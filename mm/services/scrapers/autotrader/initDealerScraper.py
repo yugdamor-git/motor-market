@@ -68,7 +68,6 @@ class init_dealer_scraper:
                 
                 print(f'not blacklisted : {dealerId}')
                 
-                break
             else:
                 print(f'blacklisted : {dealerId}')
 
