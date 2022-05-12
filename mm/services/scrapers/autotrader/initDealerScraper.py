@@ -66,9 +66,11 @@ class init_dealer_scraper:
                     "data":tmp
                 })
                 
-                print(dealerId)
+                print(f'not blacklisted : {dealerId}')
                 
                 break
+            else:
+                print(f'blacklisted : {dealerId}')
 
 if __name__ == "__main__":
     v = init_dealer_scraper()
