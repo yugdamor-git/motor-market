@@ -33,6 +33,8 @@ class listingScraper:
             
         payload = self.graphql.getPayload(id,query)
         
+        jsonData = None
+        
         for retry in range(0,self.maxRetry):
             try:
                 response = requests.post(

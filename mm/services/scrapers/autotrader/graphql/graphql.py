@@ -9,8 +9,8 @@ class Graphql:
         
         
         self.proxy = {
-            "http":self.datacenterProxy,
-            "https":self.datacenterProxy
+            "http":self.residentialProxy,
+            "https":self.residentialProxy
         }
         
         self.url = "https://www.autotrader.co.uk/at-graphql?opname=FPADataQuery"
