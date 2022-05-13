@@ -53,9 +53,6 @@ class dealerListingValidator:
                 if not old_id in newlistingIds:
                     print(old_id)
                     expiredListings.append(old_id)
-            
-            if len(expiredListings) > 5:
-                break
         
         print(f'updating in database')
         
