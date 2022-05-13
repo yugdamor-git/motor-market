@@ -38,6 +38,9 @@ class dealerListingValidator:
     
 
     def main(self):
+        expiredListings = []
+        newListings = []
+        
         listings = self.get_all_listing()
         
         groupByDealerId = self.group_by_dealer_id(listings)
@@ -48,8 +51,22 @@ class dealerListingValidator:
 
             for old_id in oldListingIds:
                 if not old_id in newlistingIds:
-                    print(f'expired : {old_id}')
-                    break
+                    expiredListings.append(old_id)
+        
+        print(f'updating in database')
+        
+        print(f'total expired : {len(expiredListings)}')
+        
+        self.db.connect()
+        for sourceId in expiredListings:
+            print(sourceId)
+            data = {}
+            data["Status"] = "expired"
+            data["why"] = "expired by dealer-listing-validator."
+            self.db.recUpdate("fl_listings",data,{"sourceId":sourceId})
+        self.db.disconnect()
+        
+        
 
 if __name__ == "__main__":
     dlv = dealerListingValidator()
