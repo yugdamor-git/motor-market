@@ -51,6 +51,7 @@ class dealerListingValidator:
 
             for old_id in oldListingIds:
                 if not old_id in newlistingIds:
+                    print(old_id)
                     expiredListings.append(old_id)
         
         print(f'updating in database')
