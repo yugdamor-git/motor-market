@@ -1,6 +1,7 @@
 import scrapy
-
-from ...topic import producer,consumer
+import sys
+sys.path.append("...")
+from topic import producer,consumer
 
 class DealerListingValidatorSpider(scrapy.Spider):
     name = 'dealer-listing-validator'
