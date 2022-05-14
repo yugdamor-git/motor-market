@@ -77,7 +77,7 @@ class dealerScraper:
         
         try:
             totalPages = self.getTotalPageCount(dealerId)
-            with ThreadPoolExecutor(max_workers=30) as executor:
+            with ThreadPoolExecutor(max_workers=100) as executor:
                 for page in range(1,totalPages + 1):
                     threads.append(executor.submit(self.getListings,dealerId,page))
                     
@@ -92,7 +92,7 @@ class dealerScraper:
         return totalListings
         
         
-            
+        
         
 if __name__ == "__main__":
     s = dealerScraper()
