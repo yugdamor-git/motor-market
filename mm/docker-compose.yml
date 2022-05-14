@@ -122,6 +122,23 @@ services:
     
     stdin_open: true
   
+  dealer-scrapy-listing-validator:
+    build:
+      context: ./services/scrapers/autotrader/autotrader_scrapy
+      dockerfile: Dockerfile.dealer.scrapy.validator
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    stdin_open: true
+  
   url-scraper:
     build:
       context: ./services/scrapers/autotrader
