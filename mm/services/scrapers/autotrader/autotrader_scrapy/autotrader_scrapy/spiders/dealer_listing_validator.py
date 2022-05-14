@@ -1,13 +1,13 @@
 import scrapy
 
-from autotrader_scrapy.topic.producer import Producer
+from ...topic import producer,consumer
 
 class DealerListingValidatorSpider(scrapy.Spider):
     name = 'dealer-listing-validator'
     
     logsTopic = "motormarket.scraper.logs"
             
-    logsProducer = Producer.Producer(logsTopic)
+    logsProducer = producer.Producer(logsTopic)
     
     
     def start_requests(self):
