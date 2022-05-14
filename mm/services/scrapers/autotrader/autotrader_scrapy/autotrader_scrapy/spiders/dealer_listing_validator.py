@@ -12,14 +12,17 @@ class DealerListingValidatorSpider(scrapy.Spider):
     
     
     def start_requests(self):
-        log = {}
-        log["sourceUrl"] = "test"
-        log["service"] = 'motormarket.scraper.autotrader.url'
-        log["errorMessage"] = "test"
-        
-        self.logsProducer.produce({
-            "eventType":"insertLog",
-            "data":log
-        })
-        
-        print(log)
+        for i in range(0,5):
+            log = {}
+            log["sourceUrl"] = "test"
+            log["service"] = 'motormarket.scraper.autotrader.url'
+            log["errorMessage"] = "test"
+            
+            self.logsProducer.produce({
+                "eventType":"insertLog",
+                "data":log
+            })
+            
+            print(log)
+            
+            yield scrapy.Request("https://www.google.com")
