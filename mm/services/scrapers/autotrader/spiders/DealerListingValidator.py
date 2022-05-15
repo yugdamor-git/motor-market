@@ -4,6 +4,7 @@ sys.path.append("...")
 from scrapy.crawler import CrawlerProcess
 from topic import producer,consumer
 from Database import Database
+from datetime import datetime
 
 import os
 
@@ -201,7 +202,6 @@ class DealerListingValidator(scrapy.Spider):
         listings = self.helper.get_all_db_listing()
         
         groupByDealerId = self.helper.group_by_dealer_id(listings)
-        
         index = 0
         for dealerId in groupByDealerId:
             oldListingIds = {str(id) for id in groupByDealerId[dealerId]}
@@ -273,8 +273,19 @@ class DealerListingValidator(scrapy.Spider):
             
             if response.meta["retryCount"] < self.MAX_RETRY_COUNT:
                 yield new_request
-        
-        
+
+
+def is_working_hour():
+    start = 5
+    end = 20
+    now = datetime.now()
+    
+    if now.hour >= start and now.hour <= end:
+        return True
+    else:
+        return False
+    
+    
 if __name__ == "__main__":
     
     settings = {
@@ -295,5 +306,8 @@ if __name__ == "__main__":
     
     c.crawl(DealerListingValidator)
     
-    c.start()
+    if is_working_hour() == True:
+        c.start()
+    else:
+        print(f'skipping execution,i cant run scraper outside working hour.')
     
