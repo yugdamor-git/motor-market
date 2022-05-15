@@ -816,7 +816,7 @@ class ListingScraperPipeline:
     def __init__(self) -> None:
         publish = 'motormarket.scraper.autotrader.listing.transform'
         
-        self.producer = producer.Producer(self.publish)
+        self.producer = producer.Producer(publish)
         
     def open_spider(self,spider):
         pass
