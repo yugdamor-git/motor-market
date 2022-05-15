@@ -859,33 +859,33 @@ class ListingScraper(scrapy.Spider):
     priority = 109
     
     def start_requests(self):
-        
-        data =  self.consumer.consume()
-                
-        scraperType = data["data"].get("scraperType")
-        
-        id = data["data"]["sourceId"]
-        
-        if scraperType == "normal":
-            query = self.graphql.requiredFieldsQuery
-        elif scraperType == "validator":
-            query = self.graphql.priceFieldQuery
+        while True:
+            data =  self.consumer.consume()
+                    
+            scraperType = data["data"].get("scraperType")
             
-        payload = self.graphql.getPayload(id,query)
-        
-        meta = {
-            "proxy":self.proxy,
-            "data":data
-        }
-        
-        yield scrapy.Request(
-            url=self.graphql.url,
-            method="POST",
-            headers=self.graphql.headers,
-            body=json.dumps(payload),
-            meta=meta,
-            callback=self.extractData
-        )
+            id = data["data"]["sourceId"]
+            
+            if scraperType == "normal":
+                query = self.graphql.requiredFieldsQuery
+            elif scraperType == "validator":
+                query = self.graphql.priceFieldQuery
+                
+            payload = self.graphql.getPayload(id,query)
+            
+            meta = {
+                "proxy":self.proxy,
+                "data":data
+            }
+            
+            yield scrapy.Request(
+                url=self.graphql.url,
+                method="POST",
+                headers=self.graphql.headers,
+                body=json.dumps(payload),
+                meta=meta,
+                callback=self.extractData
+            )
         
         
         
