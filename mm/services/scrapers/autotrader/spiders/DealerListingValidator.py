@@ -115,6 +115,7 @@ class DealerListingValidatorPipeline:
         pass
     
     def scrapeNewlisting(self,sourceId):
+        print(f'new listing : {sourceId}')
         data =  {
             "data":{
             "sourceId":f'{sourceId}',
@@ -127,6 +128,7 @@ class DealerListingValidatorPipeline:
         self.finderProducer.produce(data)
     
     def updateExpiredListing(self,sourceId):
+        print(f'expired listing : {sourceId}')
         event = "update"
         what = {
             "Status":"expired",
@@ -150,9 +152,6 @@ class DealerListingValidatorPipeline:
         
     
     def close_spider(self,spider):
-        expiredListings = []
-        newListings = []
-        
         for dealerId in self.data:
             oldListingIds = {str(id) for id in self.data[dealerId]["old"]}
             newlistingIds = {str(id) for id in self.data[dealerId]["new"]}
@@ -165,9 +164,6 @@ class DealerListingValidatorPipeline:
             for new_id in newlistingIds:
                 if not new_id in oldListingIds:
                     self.scrapeNewlisting(new_id)
-        
-        print(f'expiredListings : {expiredListings}')
-        print(f'newListings : {newListings}')
     
     def process_item(self,item,spider):
         
@@ -204,6 +200,7 @@ class DealerListingValidator(scrapy.Spider):
         
         groupByDealerId = self.helper.group_by_dealer_id(listings)
         
+        index = 0
         for dealerId in groupByDealerId:
             oldListingIds = {str(id) for id in groupByDealerId[dealerId]}
             
@@ -215,7 +212,9 @@ class DealerListingValidator(scrapy.Spider):
             
             yield self.helper.getPageCountRequest(dealerId,meta,self.getListingIds)
             
-            break
+            if index > 5:
+                break
+            index += 1
         
     def getListingIds(self,response):
         
