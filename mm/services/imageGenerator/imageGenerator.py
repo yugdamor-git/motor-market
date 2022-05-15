@@ -1,6 +1,5 @@
 from io import BytesIO
 from pathlib import Path
-from turtle import position
 from PIL import Image
 from concurrent.futures import ThreadPoolExecutor,as_completed
 from ftpHandler import ftpHandler
@@ -72,15 +71,13 @@ class imageGenerator:
             
             for size in self.sizes:
                 tmp = {}
-                imagePath = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.jpg'
-                tmp['path'] = imagePath
+                imagePathTmp = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.jpg'
+                tmp['path'] = imagePathTmp
                 tmp['type'] = size["name"]
                 tmp["size"] = size
                 processedImages[size["name"]] = tmp
             
             imageStats = ftp.getFileStats(orgImagePath)
-            
-            print(imageStats)
             
             if imageStats["exists"] == True:
                 
@@ -97,12 +94,18 @@ class imageGenerator:
             
             for size in self.sizes:
                 _,buff = self.convert_image(rawImage,size)
-                imagePath = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.jpg'
+                imagePathTmp = f'S{websiteId}/ad{listingId}/{size["name"]}_{imageId}.jpg'
                 # upload image in server through ftp
-                ftp.uploadFile(imagePath,buff)
+                ftp.uploadFile(imagePathTmp,buff)
             
             processedImages["status"] = True
             processedImages["exists"] = False
+            
+            try:
+                deletePath = Path(imagePath)
+                deletePath.unlink()
+            except:
+                pass
             
             return processedImages
         
