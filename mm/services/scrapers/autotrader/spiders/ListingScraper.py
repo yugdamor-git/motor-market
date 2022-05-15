@@ -880,6 +880,7 @@ class ListingScraper(scrapy.Spider):
         
         yield scrapy.Request(
             url=self.graphql.url,
+            method="POST",
             headers=self.graphql.headers,
             body=json.dumps(payload),
             meta=meta,
