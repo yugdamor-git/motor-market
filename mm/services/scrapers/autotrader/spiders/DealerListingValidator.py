@@ -286,7 +286,8 @@ if __name__ == "__main__":
         'CONCURRENT_REQUESTS': 500,
         'RETRY_ENABLED':True,
         'RETRY_TIMES':3,
-        'RETRY_HTTP_CODES':[403]
+        'RETRY_HTTP_CODES':[403],
+        'DOWNLOAD_TIMEOUT':10
         
     }
     
