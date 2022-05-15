@@ -262,7 +262,8 @@ class DealerListingValidator(scrapy.Spider):
         oldListingIds = meta.get("oldListingIds")
         try:
             scrapedListingIds = self.helper.extractDealerListingsIdByPage(response)
-        except:
+        except Exception as e:
+            print(f'error : {str(e)}')
             response.meta["retryCount"] += 1
             new_request = response.request.replace(dont_filter=True)
             
