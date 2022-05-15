@@ -155,10 +155,12 @@ class DealerListingValidatorPipeline:
         for dealerId in self.data:
             oldListingIds = {str(id) for id in self.data[dealerId]["old"]}
             newlistingIds = {str(id) for id in self.data[dealerId]["new"]}
-
+            
+            if len(newlistingIds.keys()) == 0:
+                continue
+            
             for old_id in oldListingIds:
                 if not old_id in newlistingIds:
-                    print(old_id)
                     self.updateExpiredListing(old_id)
             
             for new_id in newlistingIds:
