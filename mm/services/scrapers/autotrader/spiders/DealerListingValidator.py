@@ -213,11 +213,6 @@ class DealerListingValidator(scrapy.Spider):
             }
             
             yield self.helper.getPageCountRequest(dealerId,meta,self.getListingIds)
-            
-            if index > 20:
-                break
-            
-            index += 1
         
     def getListingIds(self,response):
         
@@ -284,10 +279,15 @@ if __name__ == "__main__":
     
     settings = {
         "ROBOTSTXT_OBEY":False,
-        "HTTPERROR_ALLOWED_CODES":[403],
         "ITEM_PIPELINES":{
             DealerListingValidatorPipeline:300
-        }
+        },
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 500,
+        'CONCURRENT_REQUESTS': 500,
+        'RETRY_ENABLED':True,
+        'RETRY_TIMES':3,
+        'RETRY_HTTP_CODES':[403]
+        
     }
     
     c = CrawlerProcess(settings)
