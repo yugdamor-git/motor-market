@@ -2,8 +2,7 @@ import scrapy
 import sys
 sys.path.append("...")
 from scrapy.crawler import CrawlerProcess
-# from topic import producer,consumer
-# from dealerListingValidator import dealerListingValidator
+from topic import producer,consumer
 from Database import Database
 
 import os
