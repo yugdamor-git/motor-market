@@ -69,6 +69,6 @@ class dealerListingValidator:
         
         
 
-if __name__ == "__main__":
-    dlv = dealerListingValidator()
-    dlv.main()
+# if __name__ == "__main__":0
+#     dlv = dealerListingValidator()
+#     dlv.main()

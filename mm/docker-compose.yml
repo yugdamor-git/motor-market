@@ -124,7 +124,7 @@ services:
   
   dealer-scrapy-listing-validator:
     build:
-      context: ./services/scrapers/autotrader/autotrader_scrapy
+      context: ./services/scrapers/autotrader/spiders
       dockerfile: Dockerfile.dealer.scrapy.validator
 
     depends_on:

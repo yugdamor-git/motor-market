@@ -357,6 +357,7 @@ class topicHandler:
                     )
             
             
+            
             self.db.recUpdate("fl_listings",what,where)
     
     def handleAtUrl(self,status,id,listingId,registrationStatus):
@@ -391,7 +392,7 @@ class topicHandler:
             "where":where,
             "eventType":eventType
         })
-        
+
     
     def main(self):
         print("listening for new messages")
