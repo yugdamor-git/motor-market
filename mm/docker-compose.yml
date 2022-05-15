@@ -29,10 +29,10 @@ services:
     
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       resources:
         limits:
-          cpus: '8'
+          cpus: '10'
 
 
   redis:
@@ -317,10 +317,10 @@ services:
 
     deploy:
       mode: replicated
-      replicas: 2
+      replicas: 1
       resources:
         limits:
-          cpus: '8'
+          cpus: '10'
     
     environment:
       - DATACENTER_PROXY=${DATACENTER_PROXY}
