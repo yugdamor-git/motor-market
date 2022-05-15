@@ -262,6 +262,15 @@ class DealerListingValidator(scrapy.Spider):
         oldListingIds = meta.get("oldListingIds")
         try:
             scrapedListingIds = self.helper.extractDealerListingsIdByPage(response)
+            
+            data = {
+            "dealerId":dealerId,
+            "oldListingIds":oldListingIds,
+            "scrapedListingIds":scrapedListingIds
+                }
+        
+            yield data
+            
         except Exception as e:
             print(f'error : {str(e)}')
             response.meta["retryCount"] += 1
@@ -269,13 +278,6 @@ class DealerListingValidator(scrapy.Spider):
             
             if response.meta["retryCount"] < self.MAX_RETRY_COUNT:
                 yield new_request
-        data = {
-            "dealerId":dealerId,
-            "oldListingIds":oldListingIds,
-            "scrapedListingIds":scrapedListingIds
-        }
-        
-        yield data
         
         
 if __name__ == "__main__":
