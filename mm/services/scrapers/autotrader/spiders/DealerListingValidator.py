@@ -79,7 +79,7 @@ class Helper:
         self.db.connect()
         for i in range(0,retry):
             try:
-                listings = self.db.recCustomQuery("SELECT sourceId,dealer_id FROM fl_listings WHERE Status='active'")
+                listings = self.db.recCustomQuery("SELECT sourceId,dealer_id FROM fl_listings WHERE Status IN('active','pending')")
                 break
             except:
                 pass
