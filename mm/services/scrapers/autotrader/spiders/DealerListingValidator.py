@@ -200,7 +200,7 @@ class DealerListingValidator(scrapy.Spider):
     
     def start_requests(self):
         
-        listings = self.helper.get_all_listing()
+        listings = self.helper.get_all_db_listing()
         
         groupByDealerId = self.helper.group_by_dealer_id(listings)
         
