@@ -332,11 +332,9 @@ if __name__ == "__main__":
         
     }
     
-    c = CrawlerProcess(settings)
-    
-    c.crawl(DealerListingValidator)
-    
     if is_working_hour() == True:
+        c = CrawlerProcess(settings)
+        c.crawl(DealerListingValidator)
         c.start()
     else:
         print(f'skipping execution,i cant run scraper outside working hour.')
