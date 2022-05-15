@@ -212,8 +212,9 @@ class DealerListingValidator(scrapy.Spider):
             
             yield self.helper.getPageCountRequest(dealerId,meta,self.getListingIds)
             
-            if index > 5:
+            if index > 20:
                 break
+            
             index += 1
         
     def getListingIds(self,response):
