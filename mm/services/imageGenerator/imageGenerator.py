@@ -104,6 +104,7 @@ class imageGenerator:
             try:
                 deletePath = Path(imagePath)
                 deletePath.unlink()
+                print(f'file deleted : {deletePath}')
             except:
                 pass
             
