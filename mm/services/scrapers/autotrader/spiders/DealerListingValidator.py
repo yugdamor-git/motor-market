@@ -47,6 +47,27 @@ class Helper:
         meta["proxy"] = self.proxy
         return scrapy.Request(url,method="GET",headers=self.headers,meta=meta,callback=callback_func)
     
+    def extractPrice(self,price):
+        try:
+            if price == None:
+                return None
+            tmp = int(float(str(price).replace("£","").replace(",","").strip()))
+            return tmp
+        except:
+            return None
+    
+    def priceValidation(self,price):
+        
+        if price == None:
+            return False
+        
+        maxPrice = 25000
+        
+        if price <= maxPrice:
+            return True
+        
+        return False
+    
     def extractDealerListingsIdByPage(self,response):
         
         listings = []
@@ -60,6 +81,14 @@ class Helper:
         for item in results:
             writeOffCategory = item['vehicle']['writeOffCategory']
             if not writeOffCategory in self.invalid_category:
+                
+                price = item.get("price",None)
+                
+                price = self.extractPrice(price)
+                
+                if self.priceValidation(price) == False:
+                    continue
+                
                 listings.append(item["id"])
         
         return listings
@@ -255,6 +284,7 @@ class DealerListingValidator(scrapy.Spider):
         dealerId = meta.get("dealerId")
         
         oldListingIds = meta.get("oldListingIds")
+        
         try:
             scrapedListingIds = self.helper.extractDealerListingsIdByPage(response)
             
