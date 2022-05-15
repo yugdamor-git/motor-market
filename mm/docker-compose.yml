@@ -55,8 +55,8 @@ services:
 
   listing-scraper:
     build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.listing
+      context: ./services/scrapers/autotrader/spiders
+      dockerfile: Dockerfile.listing.scraper
 
     depends_on:
       - pulsar
@@ -64,9 +64,6 @@ services:
     environment:
       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
       - DATACENTER_PROXY=${DATACENTER_PROXY}
-    deploy:
-      mode: replicated
-      replicas: 64
     
     stdin_open: true
   
