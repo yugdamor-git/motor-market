@@ -205,7 +205,7 @@ class DealerListingValidator(scrapy.Spider):
         groupByDealerId = self.helper.group_by_dealer_id(listings)
         
         for dealerId in groupByDealerId:
-            oldListingIds = {str(id) for id in groupByDealerId[dealerId]["oldListingIds"]}
+            oldListingIds = {str(id) for id in groupByDealerId[dealerId]}
             
             meta = {
                 "dealerId":dealerId,
