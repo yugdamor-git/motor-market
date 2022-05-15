@@ -156,7 +156,7 @@ class DealerListingValidatorPipeline:
             oldListingIds = {str(id) for id in self.data[dealerId]["old"]}
             newlistingIds = {str(id) for id in self.data[dealerId]["new"]}
             
-            if len(newlistingIds.keys()) == 0:
+            if len(newlistingIds) == 0:
                 continue
             
             for old_id in oldListingIds:
