@@ -966,7 +966,7 @@ if __name__ == "__main__":
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
         'DOWNLOAD_TIMEOUT':10,
-        'LOG_LEVEL':'ERROR'
+        'LOG_LEVEL':'DEBUG'
         
     }
     
