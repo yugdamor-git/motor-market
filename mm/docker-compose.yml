@@ -55,8 +55,8 @@ services:
 
   listing-scraper:
     build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.listing
+      context: ./services/scrapers/autotrader/spiders
+      dockerfile: Dockerfile.listing.scraper
 
     depends_on:
       - pulsar
