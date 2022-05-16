@@ -963,7 +963,7 @@ if __name__ == "__main__":
         'CONCURRENT_REQUESTS_PER_DOMAIN': 128,
         'CONCURRENT_REQUESTS': 128,
         'RETRY_ENABLED':True,
-        'RETRY_TIMES':3,
+        'RETRY_TIMES':20,
         'RETRY_HTTP_CODES':[403],
         'DOWNLOAD_TIMEOUT':10,
         'LOG_LEVEL':'DEBUG'
