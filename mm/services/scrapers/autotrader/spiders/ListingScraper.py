@@ -861,11 +861,11 @@ class ListingScraper(scrapy.Spider):
     def start_requests(self):
         while True:
             data =  self.consumer.consume()
-            # continue 
+            
             scraperType = data["data"].get("scraperType")
             
             id = data["data"]["sourceId"]
-            
+            print(id)
             if scraperType == "normal":
                 query = self.graphql.requiredFieldsQuery
             elif scraperType == "validator":
@@ -965,8 +965,7 @@ if __name__ == "__main__":
         'RETRY_ENABLED':True,
         'RETRY_TIMES':20,
         'RETRY_HTTP_CODES':[403],
-        'DOWNLOAD_TIMEOUT':10,
-        'LOG_LEVEL':'DEBUG'
+        'DOWNLOAD_TIMEOUT':5,
         
     }
     
