@@ -879,7 +879,7 @@ class ListingScraper(scrapy.Spider):
             }
             
             yield scrapy.Request(
-                url=self.graphql.url,
+                url = self.graphql.url,
                 method="POST",
                 headers=self.graphql.headers,
                 body=json.dumps(payload),
@@ -895,7 +895,6 @@ class ListingScraper(scrapy.Spider):
     def extractData(self,response):
         
         meta = response.meta
-        
         
         if response.status == 403 or "cloudflare" in response.text.lower():
             response.meta["retryCount"] += 1
@@ -960,8 +959,8 @@ if __name__ == "__main__":
         "ITEM_PIPELINES":{
             ListingScraperPipeline:300
         },
-        'CONCURRENT_REQUESTS_PER_DOMAIN':32,
-        'CONCURRENT_REQUESTS':32,
+        # 'CONCURRENT_REQUESTS_PER_DOMAIN':32,
+        # 'CONCURRENT_REQUESTS':32,
         'RETRY_ENABLED':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
@@ -971,5 +970,7 @@ if __name__ == "__main__":
     }
     
     c = CrawlerProcess(settings)
+    
     c.crawl(ListingScraper)
+    
     c.start()
