@@ -960,12 +960,13 @@ if __name__ == "__main__":
         "ITEM_PIPELINES":{
             ListingScraperPipeline:300
         },
-        'CONCURRENT_REQUESTS_PER_DOMAIN': 128,
-        'CONCURRENT_REQUESTS': 128,
+        'CONCURRENT_REQUESTS_PER_DOMAIN':32,
+        'CONCURRENT_REQUESTS':32,
         'RETRY_ENABLED':True,
-        'RETRY_TIMES':20,
+        'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
-        'DOWNLOAD_TIMEOUT':5,
+        'DOWNLOAD_TIMEOUT':60,
+        'COOKIES_ENABLED':False
         
     }
     
