@@ -429,7 +429,7 @@ services:
     
     deploy:
       mode: replicated
-      replicas: 5
+      replicas: 20
 
   
   production-db-aturls:
