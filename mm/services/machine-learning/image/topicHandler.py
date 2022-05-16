@@ -27,13 +27,13 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume()
-                sourceId = data["data"]["sourceId"]
-                print(sourceId)
-                continue
+                # sourceId = data["data"]["sourceId"]
+                # print(sourceId)
+                # continue
                 
-                print("continue")
+                # print("continue")
                 
-                continue
+                # continue
                 
                 websiteId = data["data"]["websiteId"]
                 
