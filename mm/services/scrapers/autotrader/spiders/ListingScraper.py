@@ -861,7 +861,7 @@ class ListingScraper(scrapy.Spider):
     def start_requests(self):
         while True:
             data =  self.consumer.consume()
-                    
+            continue 
             scraperType = data["data"].get("scraperType")
             
             id = data["data"]["sourceId"]
