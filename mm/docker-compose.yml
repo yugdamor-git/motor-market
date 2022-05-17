@@ -454,6 +454,9 @@ services:
     
     restart: on-failure
 
+    volumes:
+      - ./services/libs:/libs
+
     environment:
       - MONGO_USERNAME=${MONGO_USERNAME}
       - MONGO_PASSWORD=${MONGO_PASSWORD}

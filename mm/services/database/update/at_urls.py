@@ -1,5 +1,5 @@
-import sys
 
+import sys
 sys.path.append("/libs")
 
 from Database import Database
@@ -18,7 +18,7 @@ class topicHandler:
         
         self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.fl_listings_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.FL_LISTINGS_UPDATE)
+        self.fl_listings_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.AT_URLS_UPDATE)
         
         self.db = Database()
         
@@ -44,7 +44,7 @@ class topicHandler:
         self.db.connect()
         
         try:
-            self.db.recUpdate("fl_listings",what,where)
+            self.db.recUpdate("AT_urls",what,where)
         except Exception as e:
             print(f'error : {str(e)}')
         
@@ -89,7 +89,7 @@ class topicHandler:
                 
                 log["sourceUrl"] = source_url
                 
-                log["service"] = self.topics.FL_LISTINGS_UPDATE
+                log["service"] = self.topics.AT_URLS_UPDATE
                 
                 log["errorMessage"] = traceback.format_exc()
                 

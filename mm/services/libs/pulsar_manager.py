@@ -7,6 +7,7 @@ URI='pulsar://pulsar'
 class Topics(Enum):
     LOGS = "motormarket.scraper.logs"
     FL_LISTINGS_UPDATE = 'motormarket.database.fllistings.update'
+    AT_URLS_UPDATE = 'motormarket.database.aturls.update'
 
 class Producer:
     def __init__(self,producer_client) -> None:
@@ -17,11 +18,8 @@ class Producer:
         self.producer_client.send(
             json.dumps(data).encode("utf-8")
         )
-        
+
 class Parser:
-    def __init__(self) -> None:
-        pass
-    
     def json_parser(self,data):
         return json.loads(data)
     

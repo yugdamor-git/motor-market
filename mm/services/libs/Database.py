@@ -3,8 +3,6 @@ import pymysql
 import re
 import os
 
-
-      
 class Database:
   def __init__(self):
     self.host = os.environ.get("MYSQL_HOST","db")
