@@ -83,7 +83,7 @@ services:
         - DATACENTER_PROXY=${DATACENTER_PROXY}
       
       stdin_open: true
-      
+
       restart: unless-stopped
       
   # validator:
@@ -446,6 +446,25 @@ services:
     deploy:
       mode: replicated
       replicas: 20
+
+  fllistings-update:
+    build:
+      context: ./services/database/update/
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    deploy:
+      mode: replicated
+      replicas: 1
 
   
   production-db-aturls:
