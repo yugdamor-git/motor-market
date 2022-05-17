@@ -68,9 +68,24 @@ services:
     stdin_open: true
 
     
-    restart: unless-stopped    
+    restart: unless-stopped  
 
-  
+  listing-scraper-scrapy:
+      build:
+        context: ./services/scrapers/autotrader/spiders
+        dockerfile: Dockerfile.listing.scraper
+
+      depends_on:
+        - pulsar
+      
+      environment:
+        - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+        - DATACENTER_PROXY=${DATACENTER_PROXY}
+      
+      stdin_open: true
+      
+      restart: unless-stopped
+      
   # validator:
   #   build:
   #     context: ./services/scrapers/autotrader
