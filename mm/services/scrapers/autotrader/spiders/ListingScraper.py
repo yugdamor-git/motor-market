@@ -866,7 +866,7 @@ class ListingScraper(scrapy.Spider):
             
             id = data["data"]["sourceId"]
             print(id)
-            continue
+            # continue
             if scraperType == "normal":
                 query = self.graphql.requiredFieldsQuery
             elif scraperType == "validator":
