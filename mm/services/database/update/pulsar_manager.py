@@ -47,7 +47,7 @@ class PulsarManager:
         self.client = pulsar.Client(self.uri)
         
     def create_producer(self,topic:Topics):
-        return Producer(self.client.create_producer(topic))
+        return Producer(self.client.create_producer(topic.value))
     
     def create_consumer(self,topic:Topics):
         return Consumer(self.client.subscribe(topic.value,f'{topic.name}-subscription',pulsar.ConsumerType.Shared))
