@@ -122,18 +122,7 @@ class topicHandler:
         
         mappedData = self.map_columns(data)
         
-        if scraperName == "url-scraper":
-            status = None
-            if "Status" in mappedData:
-                status = mappedData["Status"]
-            elif "status" in mappedData:
-                status = mappedData["status"]
-            
-            listingId = data["data"].get("listingId")
-            
-            registrationStatus = data["data"].get("registrationStatus",None)
-            
-            self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
+        
         
         try:
             records = self.db.recSelect("fl_listings",where)
@@ -171,6 +160,19 @@ class topicHandler:
                 print(data)
                 
                 self.generate_image_producer.produce_message(data)
+            
+            if scraperName == "url-scraper":
+                status = None
+                if "Status" in mappedData:
+                    status = mappedData["Status"]
+                elif "status" in mappedData:
+                    status = mappedData["status"]
+                
+                listingId = data["data"].get("listingId")
+                
+                registrationStatus = data["data"].get("registrationStatus",None)
+                
+                self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
                 
         except Exception as e:
             print(f'error : {str(e)}')
