@@ -1,4 +1,8 @@
-from topic import producer,consumer
+import sys
+sys.path.append("/libs")
+
+
+from pulsar_manager import PulsarManager
 
 from imageGenerator import imageGenerator
 
@@ -8,31 +12,25 @@ class topicHandler:
     def __init__(self):
         print("image prediction handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.generate.image'
+        pulsar_manager = PulsarManager()
+        
+        self.topics = pulsar_manager.topics
+        
+        self.consumer = pulsar_manager.create_consumer(pulsar_manager.topics.GENERATE_IMAGE)
 
-        self.publish_fl_listings = "motormarket.scraper.autotrader.listing.database.production"
+        self.fl_listings_update_producer = pulsar_manager.create_producer(pulsar_manager.topics.FL_LISTINGS_UPDATE)
         
-        self.publish_fl_listing_photos = "motormarket.scraper.autotrader.listing.database.production.photo"
-        
-        logsTopic = "motormarket.scraper.logs"
+        self.fl_listingphotos_producer = pulsar_manager.create_producer(pulsar_manager.topics.FL_LISTING_PHOTOS_INSERT)
         
         self.generator = imageGenerator()
-            
-        self.logsProducer = producer.Producer(logsTopic)
         
-        self.producerFlListings = producer.Producer(self.publish_fl_listings)
+        self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.producerFlListingPhotos = producer.Producer(self.publish_fl_listing_photos)
-        
-        self.consumer = consumer.Consumer(self.subscribe)
-    
-    
-      
     def main(self):
         print("listening for new messages")
         while True:
             try:
-                data =  self.consumer.consume()
+                data =  self.consumer.consume_message()
                 
                 images = data["data"]["images"]
                 
@@ -62,8 +60,7 @@ class topicHandler:
                     # insert into fl listing photos
                     data["data"]["images"] = tmp
                     
-                    self.producerFlListingPhotos.produce(data)
-                    
+                    self.fl_listingphotos_producer.produce_message(data)
                     # update thumbnail if it's insert
                     
                     where = {
@@ -84,30 +81,24 @@ class topicHandler:
                         mainPhoto = tmp[0]["thumb"]["path"]
                     
                     what = {
+                    
                     }
+                        
+                    what["Main_photo"] = mainPhoto
+                    
+                    what["mm_product_url"] = data["data"]["mmUrl"]
+                    
+                    if status in ["to_parse","expired"]:
+                        what["Status"] = "active"
+                    
+                    if data["data"]["registrationStatus"] == False:
+                        what["status"] = "pending"
                     
                     
-                    if upsert == "insert":
-                        
-                        what["Main_photo"] = mainPhoto
-                        
-                        what["mm_product_url"] = data["data"]["mmUrl"]
-                        
-                        if status in ["to_parse","expired"]:
-                            what["Status"] = "active"
-                        
-                        if data["data"]["registrationStatus"] == False:
-                            what["status"] = "pending"
-                        
-                        eventData = {
-                            "what":what,
-                            "where":where
-                        }
-                        
-                        data["event"] = "update"
-                        data["eventData"] = eventData
-                        
-                        self.producerFlListings.produce(data)
+                    
+                    data["data"]["what"] = what
+                    data["data"]["where"] = where
+                    
                 else:
                     where = {
                                 "ID":listingId
@@ -123,43 +114,28 @@ class topicHandler:
                             if data["data"]["registrationStatus"] == False:
                                 what["status"] = "pending"
                             
-                            eventData = {
-                                "what":what,
-                                "where":where
-                            }
-                            data["event"] = "update"
-                            data["eventData"] = eventData
-                            
-                            self.producerFlListings.produce(data)
+                            data["data"]["what"] = what
+                            data["data"]["where"] = where
                         
                     else:
                         what = {
                                 "Status":"expired"
                             }
                         
-                        eventData = {
-                                "what":what,
-                                "where":where
-                            }
-                        data["event"] = "update"
-                        data["eventData"] = eventData
+                        data["data"]["what"] = what
                         
-                        self.producerFlListings.produce(data)
-                        
-                        
-                        
-                        # update thumbnail in fl_listings and update status
-                
+                        data["data"]["where"] = where
+                            
+                self.fl_listings_update_producer.produce_message(data)
+            
             except Exception as e:
                 print(f'error : {str(e)}')
-                
                 log = {}
-                
                 log["sourceUrl"] = data["data"]["sourceUrl"]
-                log["service"] = self.subscribe
+                log["service"] = self.topics.GENERATE_IMAGE.value
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })

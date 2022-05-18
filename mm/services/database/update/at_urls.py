@@ -18,7 +18,7 @@ class topicHandler:
         
         self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.fl_listings_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.AT_URLS_UPDATE)
+        self.at_urls_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.AT_URLS_UPDATE)
         
         self.db = Database()
         
@@ -33,8 +33,6 @@ class topicHandler:
                 )
         
     def handle_update_event(self,what,where):
-        
-        
         what["updated_at"] = {"func":"now()"}
        
         if "Status" in what or "status" in what:
@@ -54,7 +52,7 @@ class topicHandler:
         
         while True:
             try:
-                message =  self.fl_listings_update_consumer.consume_message()
+                message =  self.at_urls_update_consumer.consume_message()
                 
                 data = message.get("data",None)
                 

@@ -63,14 +63,6 @@ class topicHandler:
                     print(f'message : {message}')
                     continue
                 
-                event_type = data.get("event_type",None)
-                
-                print(f'event : {event_type}')
-                
-                if event_type != "update" or event_type == None:
-                    print(f'the event type({event_type}) is not update.skipping')
-                    continue
-                
                 source_url = data.get("sourceUrl",None)
                 
                 what = data.get("what",None)
@@ -89,7 +81,7 @@ class topicHandler:
                 
                 log["sourceUrl"] = source_url
                 
-                log["service"] = self.topics.FL_LISTINGS_UPDATE
+                log["service"] = self.topics.FL_LISTINGS_UPDATE.value
                 
                 log["errorMessage"] = traceback.format_exc()
                 

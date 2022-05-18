@@ -501,10 +501,10 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
   
-  production-db-fllistings-finder:
+  fllistings-find:
     build:
-      context: ./services/database/production
-      dockerfile : Dockerfile.flListings.finder
+      context: ./services/database/find
+      dockerfile : Dockerfile.flListings
     
     restart: on-failure
 
@@ -515,11 +515,3 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-    
-    deploy:
-      mode: replicated
-      replicas: 20
-    
-    # networks:
-    #   outside:
-    #     external: true

@@ -6,8 +6,18 @@ URI='pulsar://pulsar'
 
 class Topics(Enum):
     LOGS = "motormarket.scraper.logs"
+    
     FL_LISTINGS_UPDATE = 'motormarket.database.fllistings.update'
+    FL_LISTINGS_INSERT = 'motormarket.database.fllistings.insert'
+    FL_LISTINGS_FIND = 'motormarket.database.fllistings.find'
+    
+    FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
+    
     AT_URLS_UPDATE = 'motormarket.database.aturls.update'
+    
+    GENERATE_IMAGE = 'motormarket.listing.generate.image'
+    
+    AUTOTRADER_LISTING_SCRAPER = 'motormarket.scraper.autotrader.listing.scrape'
 
 class Producer:
     def __init__(self,producer_client) -> None:
