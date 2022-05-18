@@ -57,7 +57,7 @@ class topicHandler:
                 
                 print(f'processing : {source_url}')
                 
-                self.handle_update_event(message)
+                self.handle_find_event(message)
 
             except Exception as e:
                 print(f'error : {str(e)}')
