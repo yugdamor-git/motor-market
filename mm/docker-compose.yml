@@ -11,6 +11,9 @@ services:
     ports:
       - ${API_PORT}:5000
     
+    volumes:
+      - ./services/libs:/libs
+    
   
 
   numberplate-prediction:

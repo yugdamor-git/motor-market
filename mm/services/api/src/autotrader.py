@@ -1,4 +1,10 @@
 
+import sys
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from flask import Blueprint,request,jsonify
 import os
 
@@ -8,11 +14,13 @@ from topic import producer,consumer
 
 scraper = listingScraper()
 
+pm = PulsarManager()
+
 autotrader = Blueprint("autotrader",__name__)
 
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
-finderTopic = 'motormarket.scraper.autotrader.listing.database.finder'
+finderTopic = pm.topics.FL_LISTINGS_FIND.value
 
 dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
