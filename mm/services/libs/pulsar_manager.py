@@ -1,15 +1,19 @@
 import pulsar
 import json
 from enum import Enum
+import os
 
 URI='pulsar://pulsar'
+
+SCRAPER_NAME = os.environ.get("SCRAPER_NAME","")
 
 class Topics(Enum):
     LOGS = "motormarket.scraper.logs"
     
     FL_LISTINGS_UPDATE = 'motormarket.database.fllistings.update'
     FL_LISTINGS_INSERT = 'motormarket.database.fllistings.insert'
-    FL_LISTINGS_FIND = 'motormarket.database.fllistings.find'
+    
+    FL_LISTINGS_FIND = f'motormarket{SCRAPER_NAME}.database.fllistings.find'
     
     FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
     

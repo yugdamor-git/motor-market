@@ -504,6 +504,13 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
   
+
+
+# LISTING - FINDER
+
+# this service is used to check if the listing is present in database or not. there are two version of this service. 
+# one works for normal scraper and another one works for at urls.
+
   fl-listings-find:
     build:
       context: ./services/database/find
@@ -518,6 +525,28 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    volumes:
+      - ./services/libs:/libs
+
+  
+  fl-listings-find-at-urls:
+    build:
+      context: ./services/database/find
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - SCRAPER_NAME=.at.urls
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
     
     volumes:
       - ./services/libs:/libs
+
+# LISTING - FINDER
