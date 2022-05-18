@@ -18,6 +18,7 @@ class Topics(Enum):
     LISTING_TRANSFORM = f'motormarket{SCRAPER_NAME}.scraper.listing.transform'
     
     LISTING_PREVALIDATION = f'motormarket{SCRAPER_NAME}.scraper.listing.prevalidation'
+    LISTING_POSTVALIDATION = f'motormarket{SCRAPER_NAME}.scraper.listing.postvalidation'
     
     LISTING_POST_CALCULATION= f'motormarket{SCRAPER_NAME}.scraper.listing.postcalculation'
     

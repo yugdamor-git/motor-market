@@ -262,27 +262,6 @@ services:
 
     restart: on-failure
 
-    
-
-  image-prediction:
-    build:
-      context: ./services/machine-learning/image
-      dockerfile: Dockerfile.image
-
-    restart: on-failure
-
-    volumes:
-      - ./media:/usr/src/app/media
-
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          cpus: '10'
-    
-    environment:
-      - DATACENTER_PROXY=${DATACENTER_PROXY}
 
 
   image-generation:
@@ -651,7 +630,55 @@ services:
     
     volumes:
           - ./services/libs:/libs
-          
+
 # SEAT PREDICTION
 
 
+
+# IMAGE PREDICTION
+
+  image-prediction:
+    build:
+      context: ./services/machine-learning/image
+      dockerfile: Dockerfile.image
+
+    restart: on-failure
+
+    volumes:
+      - ./media:/usr/src/app/media
+      - ./services/libs:/libs
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          cpus: '8'
+    
+    environment:
+      - DATACENTER_PROXY=${DATACENTER_PROXY}
+  
+  image-prediction-at-urls:
+    build:
+      context: ./services/machine-learning/image
+      dockerfile: Dockerfile.image
+
+    restart: on-failure
+
+    volumes:
+      - ./media:/usr/src/app/media
+      - ./services/libs:/libs
+
+    deploy:
+      mode: replicated
+      replicas: 1
+      resources:
+        limits:
+          cpus: '5'
+    
+    environment:
+      - DATACENTER_PROXY=${DATACENTER_PROXY}
+      - SCRAPER_NAME=.at.urls
+
+
+# IMAGE PREDICTION

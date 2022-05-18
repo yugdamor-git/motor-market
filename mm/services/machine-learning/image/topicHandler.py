@@ -1,4 +1,8 @@
-from topic import producer,consumer
+import sys
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
 
 from predictor import Predictor
 
@@ -8,25 +12,23 @@ class topicHandler:
     def __init__(self):
         print("image prediction handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.predict.image'
+        pulsar_manager = PulsarManager()
         
-        self.publish = 'motormarket.scraper.autotrader.listing.postvalidation'
-
-        logsTopic = "motormarket.scraper.logs"
+        self.topics = pulsar_manager.topics
+        
+        self.consumer = pulsar_manager.create_consumer(pulsar_manager.topics.LISTING_PREDICT_IMAGE)
+        
+        self.producer = pulsar_manager.create_producer(pulsar_manager.topics.LISTING_POSTVALIDATION)
+        
+        self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
         self.predictor = Predictor()
-            
-        self.logsProducer = producer.Producer(logsTopic)
-        
-        self.producer = producer.Producer(self.publish)
-        
-        self.consumer = consumer.Consumer(self.subscribe)
         
     def main(self):
         print("listening for new messages")
         while True:
             try:
-                data =  self.consumer.consume()
+                data =  self.consumer.consume_message()
                 # sourceId = data["data"]["sourceId"]
                 # print(sourceId)
                 # continue
@@ -48,7 +50,7 @@ class topicHandler:
                 
                 print(data)
                 
-                self.producer.produce(data)
+                self.producer.produce_message(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')
@@ -56,10 +58,10 @@ class topicHandler:
                 log = {}
                 
                 log["sourceUrl"] = data["data"]["sourceUrl"]
-                log["service"] = self.subscribe
+                log["service"] = self.topics.LISTING_PREDICT_IMAGE
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
