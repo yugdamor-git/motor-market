@@ -25,7 +25,7 @@ class topicHandler:
         
         self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.validator = Validation(self.logsProducer)
+        self.validator = Validation(self.logs_producer)
         
     def main(self):
         print("listening for new messages")

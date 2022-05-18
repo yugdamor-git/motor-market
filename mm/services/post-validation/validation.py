@@ -24,7 +24,7 @@ class Validation:
         if status == False:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
