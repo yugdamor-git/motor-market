@@ -15,6 +15,8 @@ class Topics(Enum):
     
     FL_LISTINGS_FIND = f'motormarket{SCRAPER_NAME}.database.fllistings.find'
     
+    LISTING_TRANSFORM = f'motormarket{SCRAPER_NAME}.scraper.listing.transform'
+    
     FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
     
     AT_URLS_UPDATE = 'motormarket.database.aturls.update'
