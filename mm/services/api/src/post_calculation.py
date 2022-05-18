@@ -63,8 +63,14 @@ def ltv():
         what["updated_at"] = {"func":"now()"}
         where = {"ID":ID}
         
-        post_calculation.db.recUpdate("fl_listings",what,where)
-    
+        post_calculation.db.connect()
+        try:
+            post_calculation.db.recUpdate("fl_listings",what,where)
+        except Exception as e:
+            print(f'error: {str(e)}')
+            
+        post_calculation.db.disconnect()
+            
     return jsonify({
         "status":True,
         "message":"200",
