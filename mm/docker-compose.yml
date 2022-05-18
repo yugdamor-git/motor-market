@@ -54,7 +54,7 @@ services:
       volumes:
         - ./service/libs:/libs
 
-      restart: unless-stopped
+      restart: always
       
   # validator:
   #   build:
