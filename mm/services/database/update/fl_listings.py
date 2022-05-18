@@ -42,7 +42,8 @@ class topicHandler:
                 self.increase_expired_count()
         
         self.db.connect()
-        
+        print(what)
+        print(where)
         try:
             self.db.recUpdate("fl_listings",what,where)
         except Exception as e:
@@ -66,6 +67,7 @@ class topicHandler:
                 source_url = data.get("sourceUrl",None)
                 
                 what = data.get("what",None)
+                
                 where = data.get("where",None)
                 
                 if what == None or where == None:
