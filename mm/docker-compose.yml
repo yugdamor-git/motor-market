@@ -235,14 +235,7 @@ services:
   #   depends_on:
   #   - redis
 
-  transform:
-    build: ./services/transform
 
-    restart: on-failure
-
-    deploy:
-      mode: replicated
-      replicas: 20
   
   post-calculation:
     build: ./services/postCalculation
@@ -582,3 +575,27 @@ services:
       restart: unless-stopped
 
 # LISTING - SCRAPER
+
+# TRANSFORM
+# this service will reformate the scraped raw data for further processing...
+  transform:
+    build: ./services/transform
+
+    restart: on-failure
+
+    volumes:
+        - ./services/libs:/libs
+
+  transform-at-urls:
+    build: ./services/transform
+
+    restart: on-failure
+
+    environment:
+        - SCRAPER_NAME=.at.urls
+
+    volumes:
+        - ./services/libs:/libs
+
+# TRANSFORM
+

@@ -17,6 +17,10 @@ class Topics(Enum):
     
     LISTING_TRANSFORM = f'motormarket{SCRAPER_NAME}.scraper.listing.transform'
     
+    LISTING_PREVALIDATION = f'motormarket{SCRAPER_NAME}.scraper.listing.prevalidation'
+    
+    LISTING_POST_CALCULATION= f'motormarket{SCRAPER_NAME}.scraper.listing.postcalculation'
+    
     FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
     
     AT_URLS_UPDATE = 'motormarket.database.aturls.update'
