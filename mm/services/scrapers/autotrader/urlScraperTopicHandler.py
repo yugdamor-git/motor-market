@@ -1,8 +1,8 @@
 
 import sys
-from pulsar_manager import PulsarManager
-
 sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
 
 from Database import Database
 
