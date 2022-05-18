@@ -67,7 +67,7 @@ class topicHandler:
             try:
                 message =  self.fl_listingphotos_update_consumer.consume_message()
                 source_url = message["data"].get("sourceUrl")
-                self.handle_update_event(message)
+                self.handle_insert_event(message)
                 
             except Exception as e:
                 print(f'error : {str(e)}')
