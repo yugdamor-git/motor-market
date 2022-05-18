@@ -103,6 +103,9 @@ class topicHandler:
         
         what["updated_at"] = {"func":"now()"}
         
+        print(what)
+        print(where)
+        
         try:
             self.db.recUpdate("fl_listings",what,where)
         except Exception as e:
