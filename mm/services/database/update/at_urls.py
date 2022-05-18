@@ -34,10 +34,6 @@ class topicHandler:
         
     def handle_update_event(self,what,where):
         what["updated_at"] = {"func":"now()"}
-       
-        if "Status" in what:
-            if what["Status"] == "expired":
-                self.increase_expired_count()
         
         self.db.connect()
         
@@ -47,7 +43,7 @@ class topicHandler:
             print(f'error : {str(e)}')
         
         self.db.disconnect()
-            
+        
     def main(self):
         
         while True:
@@ -56,18 +52,9 @@ class topicHandler:
                 
                 data = message.get("data",None)
                 
-                if data == None:
-                    print(f'this message does not contain data object.')
-                    print(f'message : {message}')
-                    continue
-                
-                
                 what = data.get("what",None)
-                where = data.get("where",None)
                 
-                if what == None or where == None:
-                    print(f'what and where is not present. skipping...')
-                    continue
+                where = data.get("where",None)
                 
                 self.handle_update_event(what,where)
                 

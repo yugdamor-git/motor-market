@@ -34,8 +34,13 @@ class topicHandler:
             
             result = self.db.recCustomQuery(f'SELECT ID,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM fl_listings WHERE sourceId="{source_id}"')
             
+            
             if len(result) > 0:
+                if result[0]["Status"] in ["sold","manual_expire","pending","approval","to_parse"]:
+                    return
+                
                 data["data"]["scraperType"] = "validator"
+                
                 data["data"].update(result[0])
             else:
                 data["data"]["scraperType"] = "normal"

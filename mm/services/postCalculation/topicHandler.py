@@ -1,10 +1,13 @@
 import sys
 
+from services.postCalculation.column_mapping import ColumnMapping
+
 sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
 
 from calculation import Calculation
+from column_mapping import ColumnMapping
 import json
 
 import traceback
@@ -26,6 +29,8 @@ class topicHandler:
         self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
             
         self.calculation = Calculation()
+        
+        self.column_mapping = ColumnMapping()
         
     def main(self):
         print("listening for new messages")
@@ -55,9 +60,22 @@ class topicHandler:
                     # ltv
                     self.calculation.calculateLtv(data["data"])
                     
-                    self.fl_listings_update_producer.produce_message(data)
+                    ID = data["data"].get("ID")
                     
-                    print(data)
+                    what = self.column_mapping(data,self.column_mapping.update_mapping)
+                    
+                    where = {
+                        "ID":ID
+                    }
+                    
+                    self.fl_listings_update_producer.produce_message(
+                        {
+                            "data":{
+                                "what":what,
+                                "where":where
+                            }
+                        }
+                    )
                     
                     continue
                     
@@ -91,10 +109,10 @@ class topicHandler:
                         log = {}
                     
                         log["sourceUrl"] = data["data"]["sourceUrl"]
-                        log["service"] = self.subscribe
+                        log["service"] = self.topics.LISTING_POST_CALCULATION.value
                         log["errorMessage"] = "categoryId is None."
                         
-                        self.logsProducer.produce({
+                        self.logs_producer.produce_message({
                             "eventType":"insertLog",
                             "data":log
                         })
@@ -104,8 +122,6 @@ class topicHandler:
                     
                     # video id
                     self.calculation.calculateVideoId(data["data"])
-                
-                    print(data)
                 
                     self.producer.produce_message(data)
                 

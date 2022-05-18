@@ -108,22 +108,7 @@ services:
     
   #   stdin_open: true
   
-  # dealer-scrapy-listing-validator:
-  #   build:
-  #     context: ./services/scrapers/autotrader/spiders
-  #     dockerfile: Dockerfile.dealer.validator
-
-  #   depends_on:
-  #     - pulsar
-    
-  #   environment:
-  #     - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-  #     - MYSQL_HOST=${MYSQL_HOST}
-  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
-    
-  #   stdin_open: true
+ 
   
 
   ftp-scraper:
@@ -943,3 +928,27 @@ services:
 
 # AT - URL - SCRAPER - INIT
 
+
+# DEALER SCRAPY LISTING VALIDATOR
+  dealer-scrapy-listing-validator:
+    build:
+      context: ./services/scrapers/autotrader/spiders
+      dockerfile: Dockerfile.dealer.validator
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    volumes:
+        - ./services/libs:/libs
+    
+    stdin_open: true
+
+
+# DEALER SCRAPY LISTING VALIDATOR

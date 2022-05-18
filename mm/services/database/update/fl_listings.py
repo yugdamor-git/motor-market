@@ -98,30 +98,10 @@ class topicHandler:
            
         })
     
-    def handle_update_event(self,what,where,data):
-        
+    def handle_update_event(self,what,where):
+        self.db.connect()
         
         what["updated_at"] = {"func":"now()"}
-       
-        if "Status" in what or "status" in what:
-            if what["Status"] == "expired":
-                self.increase_expired_count()
-        
-        scraperName = data.get("scraperName",None)
-        
-       
-        
-        if scraperName == "url-scraper":
-            
-            status = data["data"].get("Status",None)
-            
-            listingId = data["data"].get("listingId")
-            
-            registrationStatus = data["data"].get("registrationStatus",None)
-            
-            self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
-        
-        self.db.connect()
         
         try:
             self.db.recUpdate("fl_listings",what,where)
@@ -138,32 +118,18 @@ class topicHandler:
                 
                 data = message.get("data",None)
                 
-                if data == None:
-                    print(f'this message does not contain data object.')
-                    print(f'message : {message}')
-                    continue
-                
-                source_url = data.get("sourceUrl",None)
-                
                 what = data.get("what",None)
                 
                 where = data.get("where",None)
                 
-                if what == None or where == None:
-                    mappedData = self.map_columns(message)
-                    
-                    
-                    
-                    continue
-                
-                self.handle_update_event(what,where,message)
-                
+                self.handle_update_event(what,where)
+                                
             except Exception as e:
                 print(f'error : {str(e)}')
                 
                 log = {}
                 
-                log["sourceUrl"] = source_url
+                log["sourceUrl"] = None
                 
                 log["service"] = self.topics.FL_LISTINGS_UPDATE.value
                 

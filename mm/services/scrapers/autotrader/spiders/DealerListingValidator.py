@@ -1,9 +1,14 @@
 import scrapy
 import sys
-sys.path.append("...")
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from scrapy.crawler import CrawlerProcess
-from topic import producer,consumer
+
 from Database import Database
+
 from datetime import datetime
 
 import os
@@ -132,12 +137,12 @@ class Helper:
 class DealerListingValidatorPipeline:
     def __init__(self) -> None:
         self.data = {}
-        finderTopic = 'motormarket.scraper.autotrader.listing.database.finder'
-        self.finderProducer = producer.Producer(finderTopic)
         
-        self.fl_listings = 'motormarket.scraper.autotrader.listing.database.production'
+        self.pulsar_manager = PulsarManager()
         
-        self.fl_listings_producer = producer.Producer(self.fl_listings)
+        self.fl_listings_find_producer = self.pulsar_manager.create_producer(self.pulsar_manager.topics.FL_LISTINGS_FIND)
+        
+        self.fl_listings_update_producer = self.pulsar_manager.create_producer(self.pulsar_manager.topics.FL_LISTINGS_UPDATE)
         
         
         
@@ -155,7 +160,7 @@ class DealerListingValidatorPipeline:
             }
         }
         
-        self.finderProducer.produce(data)
+        self.fl_listings_find_producer.produce_message(data)
     
     def updateExpiredListing(self,sourceId):
         print(f'expired listing : {sourceId}')
@@ -171,14 +176,13 @@ class DealerListingValidatorPipeline:
         }
         
         data = {
-            "event":event,
-            "eventData":{
+            "data":{
                 "what":what,
                 "where":where
             }
         }
         
-        self.fl_listings_producer.produce(data)
+        self.fl_listings_update_producer.produce_message(data)
         
     
     def close_spider(self,spider):
@@ -255,6 +259,7 @@ class DealerListingValidator(scrapy.Spider):
                 yield new_request
             
         dealerId = meta.get("dealerId")
+        
         try:
             
             totalPages = self.helper.extractPageCount(response)
