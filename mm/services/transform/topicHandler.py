@@ -40,6 +40,7 @@ class topicHandler:
                 if scraperType == "validator":
                     transformedData = self.transform.transformValidatorData(data["data"])
                     data["data"].update(transformedData)
+                    print(data)
                     self.post_calculation_producer.produce_message(data)
                     continue
                 
