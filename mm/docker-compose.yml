@@ -595,7 +595,6 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - SCRAPER_NAME=.at.urls
 
     restart: on-failure
     
@@ -611,6 +610,7 @@ services:
       - MYSQL_USERNAME=${MYSQL_USERNAME}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - SCRAPER_NAME=.at.urls
 
     restart: on-failure
 
