@@ -189,17 +189,6 @@ services:
       replicas: 5
     
     stdin_open: true
-  
-  makemodel-prediction:
-    build:
-      context: ./services/machine-learning/make-model
-      dockerfile: Dockerfile.makemodel
-    
-    restart: on-failure
-
-    deploy:
-      mode: replicated
-      replicas: 2
 
   pulsar:
     build: ./services/pulsar
@@ -618,5 +607,33 @@ services:
         - ./services/libs:/libs
 
 # PRE VALIDATION
+
+
+# MAKE MODEL PREDICTION
+
+  makemodel-prediction:
+    build:
+      context: ./services/machine-learning/make-model
+      dockerfile: Dockerfile.makemodel
+    
+    restart: on-failure
+
+    volumes:
+        - ./services/libs:/libs
+
+  makemodel-prediction-at-urls:
+      build:
+        context: ./services/machine-learning/make-model
+        dockerfile: Dockerfile.makemodel
+      
+      restart: on-failure
+
+      environment:
+        - SCRAPER_NAME=.at.urls
+    
+      volumes:
+          - ./services/libs:/libs
+
+# MAKE MODEL PREDICTION
 
 
