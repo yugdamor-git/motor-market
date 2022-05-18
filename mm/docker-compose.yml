@@ -688,7 +688,7 @@ services:
       build:
         context: ./services/machine-learning/numberplate-prediction
         dockerfile: Dockerfile.image
-        
+
       volumes:
         - ./media:/usr/src/app/media
         - ./services/libs:/libs
@@ -714,8 +714,8 @@ services:
         - ./services/libs:/libs
       
       environment:
-        - PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
-        - SCRAPER_NAME : .at.urls
+        - PLATE_RECOGNIZER_TOKEN=${PLATE_RECOGNIZER_TOKEN}
+        - SCRAPER_NAME=.at.urls
       
       deploy:
         mode: replicated
