@@ -25,6 +25,8 @@ class topicHandler:
         
         self.generate_image_producer = pulsar_manager.create_producer(pulsar_manager.topics.GENERATE_IMAGE)
         
+        self.at_urls_update_producer = pulsar_manager.create_producer(self.topics.AT_URLS_UPDATE)
+        
         self.columnMapping = self.load_column_map_json()
         
         self.urlGenerator = MMUrlGenerator()
@@ -65,11 +67,48 @@ class topicHandler:
                     }
                 )
         
+    def handleAtUrl(self,status,id,listingId,registrationStatus):
+        
+        what = {
+            
+        }
+        
+        if status == "to_parse":
+            what["listing_status"] = "active"
+        else:
+            what["listing_status"] = status
+        what["scraped"] = 1
+        what["listing_id"] = id
+        what["updated_at"] = {"func":"now()"}
+        
+        if registrationStatus == 1:
+            what["number_plate_flag"] = 0
+        elif registrationStatus == None:
+            what["number_plate_flag"] = 2
+        else:
+            what["number_plate_flag"] = 2
+        
+        
+        where = {
+            "id":listingId
+        }
+        
+        
+        self.at_urls_update_producer.produce_message({
+            "data":{
+                "what":what,
+                "where":where,
+            }
+           
+        })
+        
     def handle_insert_event(self,data):
         
         websiteId = data["data"]["websiteId"]
                     
         sourceId = data["data"]["sourceId"]
+        
+        scraperName = data["data"].get("scraperName")
         
         if sourceId == None:
             return
@@ -81,12 +120,20 @@ class topicHandler:
         
         self.db.connect()
         
+        mappedData = self.map_columns(data)
+        
+        if scraperName == "url-scraper":
+            status = mappedData["Status"]
+            listingId = data["data"].get("listingId")
+            
+            registrationStatus = data["data"].get("registrationStatus",None)
+            
+            self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
+        
         try:
             records = self.db.recSelect("fl_listings",where)
             
             if len(records) == 0:
-                
-                mappedData = self.map_columns(data)
                 
                 mappedData["updated_at"] = {"func":"now()"}
                 
