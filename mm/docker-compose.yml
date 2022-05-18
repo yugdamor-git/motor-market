@@ -501,10 +501,10 @@ services:
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
   
-  fllistings-find:
+  fl-listings-find:
     build:
       context: ./services/database/find
-      dockerfile : Dockerfile.flListings
+      dockerfile : Dockerfile.fl_listings
     
     restart: on-failure
 
