@@ -1,7 +1,5 @@
 import sys
 
-from services.postCalculation.column_mapping import ColumnMapping
-
 sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
