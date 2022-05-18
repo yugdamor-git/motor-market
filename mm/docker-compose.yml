@@ -476,6 +476,48 @@ services:
 
 # LISTING - INSERT
 
+# LISTING PHOTOS - INSERT
+
+  fl-listingphotos-insert:
+    build:
+      context: ./services/database/insert
+      dockerfile : Dockerfile.fl_listingphotos
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    volumes:
+      - ./services/libs:/libs
+
+  
+  fl-listingphotos-insert-at-urls:
+    build:
+      context: ./services/database/insert
+      dockerfile : Dockerfile.fl_listingphotos
+    
+    restart: on-failure
+
+    environment:
+      - SCRAPER_NAME=.at.urls
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    volumes:
+      - ./services/libs:/libs
+
+# LISTING PHOTOS - INSERT
+
 
 
 # LISTING - SCRAPER

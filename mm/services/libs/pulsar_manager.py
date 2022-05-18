@@ -30,13 +30,13 @@ class Topics(Enum):
     LISTING_PREDICT_IMAGE= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.image'
     
     
-    FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
+    FL_LISTING_PHOTOS_INSERT = f'motormarket{SCRAPER_NAME}.database.fllistingphotos.insert'
     
     AT_URLS_UPDATE = 'motormarket.database.aturls.update'
     
-    GENERATE_IMAGE = 'motormarket.listing.generate.image'
+    GENERATE_IMAGE = f'motormarket{SCRAPER_NAME}.listing.generate.image'
     
-    AUTOTRADER_LISTING_SCRAPER = 'motormarket.scraper.autotrader.listing.scrape'
+    AUTOTRADER_LISTING_SCRAPER = f'motormarket{SCRAPER_NAME}.scraper.autotrader.listing.scrape'
 
 class Producer:
     def __init__(self,producer_client) -> None:
