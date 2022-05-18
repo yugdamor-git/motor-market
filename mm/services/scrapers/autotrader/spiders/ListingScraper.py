@@ -831,7 +831,7 @@ class ListingScraperPipeline:
         tradeLifecycleStatus = data["data"].get("tradeLifecycleStatus",None)
         
         if not tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
-            self.producer.produce(data)
+            self.producer.produce_message(data)
         
         return item
     
