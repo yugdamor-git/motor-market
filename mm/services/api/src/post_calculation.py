@@ -13,10 +13,6 @@ import os
 
 post_calculation = Calculation()
 
-pm = PulsarManager()
-
-fl_listings_update_producer = pm.create_producer(pm.topics.FL_LISTINGS_UPDATE)
-
 calculation = Blueprint("calculation",__name__)
 
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
@@ -64,14 +60,10 @@ def ltv():
     
     if update_in_db == True and ID != None:
         what = tmp["ltv"]
+        what["updated_at"] = {"func":"now()"}
         where = {"ID":ID}
         
-        fl_listings_update_producer.produce_message({
-            "data":{
-                "what":what,
-                "where":where
-            }
-        })
+        post_calculation.db.recUpdate("fl_listings",what,where)
     
     return jsonify({
         "status":True,
