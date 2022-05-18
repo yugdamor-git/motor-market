@@ -55,6 +55,7 @@ class topicHandler:
             tmp["approved_from_dashboard"] = 1
             
             try:
+                print(tmp)
                 self.db.recInsert("fl_listing_photos",tmp)
             except Exception as e:
                 print(f'error : {str(e)}')
@@ -66,7 +67,9 @@ class topicHandler:
         while True:
             try:
                 message =  self.fl_listingphotos_update_consumer.consume_message()
+                
                 source_url = message["data"].get("sourceUrl")
+                
                 self.handle_insert_event(message)
                 
             except Exception as e:
