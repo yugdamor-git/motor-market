@@ -13,6 +13,7 @@ services:
     
     volumes:
       - ./services/libs:/libs
+      - ./services/postCalculation:/post_calculation
 
   redis:
     image: "redis:alpine"
