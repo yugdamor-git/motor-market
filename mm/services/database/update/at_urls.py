@@ -35,7 +35,7 @@ class topicHandler:
     def handle_update_event(self,what,where):
         what["updated_at"] = {"func":"now()"}
        
-        if "Status" in what or "status" in what:
+        if "Status" in what:
             if what["Status"] == "expired":
                 self.increase_expired_count()
         
@@ -61,15 +61,6 @@ class topicHandler:
                     print(f'message : {message}')
                     continue
                 
-                event_type = data.get("event_type",None)
-                
-                print(f'event : {event_type}')
-                
-                if event_type != "update" or event_type == None:
-                    print(f'the event type({event_type}) is not update.skipping')
-                    continue
-                
-                source_url = data.get("sourceUrl",None)
                 
                 what = data.get("what",None)
                 where = data.get("where",None)
@@ -85,7 +76,7 @@ class topicHandler:
                 
                 log = {}
                 
-                log["sourceUrl"] = source_url
+                log["sourceUrl"] = None
                 
                 log["service"] = self.topics.AT_URLS_UPDATE.value
                 
