@@ -542,43 +542,43 @@ services:
 # which is based on scrapy. another one is for at urls which is based on normal requests.
 
 
-listing-scraper:
-    build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.listing
+  listing-scraper:
+      build:
+        context: ./services/scrapers/autotrader
+        dockerfile: Dockerfile.listing
 
-    depends_on:
-      - pulsar
-    
-    environment:
-      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-      - DATACENTER_PROXY=${DATACENTER_PROXY}
-    
-    stdin_open: true
+      depends_on:
+        - pulsar
+      
+      environment:
+        - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+        - DATACENTER_PROXY=${DATACENTER_PROXY}
+      
+      stdin_open: true
 
-    volumes:
-      - ./services/libs:/libs
+      volumes:
+        - ./services/libs:/libs
 
-    restart: unless-stopped
+      restart: unless-stopped
 
-listing-scraper-at-urls:
-    build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.listing
+  listing-scraper-at-urls:
+      build:
+        context: ./services/scrapers/autotrader
+        dockerfile: Dockerfile.listing
 
-    depends_on:
-      - pulsar
-    
-    environment:
-      - SCRAPER_NAME=.at.urls
-      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-      - DATACENTER_PROXY=${DATACENTER_PROXY}
-    
-    stdin_open: true
+      depends_on:
+        - pulsar
+      
+      environment:
+        - SCRAPER_NAME=.at.urls
+        - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+        - DATACENTER_PROXY=${DATACENTER_PROXY}
+      
+      stdin_open: true
 
-    volumes:
-      - ./services/libs:/libs
+      volumes:
+        - ./services/libs:/libs
 
-    restart: unless-stopped
+      restart: unless-stopped
 
 # LISTING - SCRAPER
