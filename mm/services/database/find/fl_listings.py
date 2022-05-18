@@ -22,6 +22,8 @@ class topicHandler:
         
         self.producer = pulsar_manager.create_producer(pulsar_manager.topics.AUTOTRADER_LISTING_SCRAPER)
         
+        self.at_urls_update_producer = pulsar_manager.create_producer(self.topics.AT_URLS_UPDATE)
+        
         self.db = Database()
         
     def handle_find_event(self,data):
@@ -29,6 +31,8 @@ class topicHandler:
         self.db.connect()
         
         source_id = data["data"].get("sourceId")
+        
+        scraper_name = data["data"].get("scraperName",None)
 
         try:
             
@@ -36,6 +40,33 @@ class topicHandler:
             
             
             if len(result) > 0:
+                
+                if scraper_name == "url-scraper":
+                    what = {
+                        "listing_id":result[0]["ID"],
+                        "listing_status":result[0]["Status"],
+                        "scraped":1,
+                        "updated_at":{
+                            "func":"now()"
+                        },
+                        "errorMessage":"listing already exists."
+                    }
+                    
+                    if result[0]["Status"] == "pending":
+                        what["number_plate_flag"] = 2
+                    
+                    where = {
+                        "id":data["data"].get("listingId")
+                    }
+                    
+                    self.at_urls_update_producer.produce_message({
+                        "data":{
+                            "what":what,
+                            "where":where
+                        }
+                    })
+                    
+                
                 if result[0]["Status"] in ["sold","manual_expire","pending","approval","to_parse"]:
                     return
                 
