@@ -107,7 +107,7 @@ class topicHandler:
             if what["Status"] == "expired":
                 self.increase_expired_count()
         
-        scraperName = data.get("scraperName")
+        scraperName = data.get("scraperName",None)
         
        
         

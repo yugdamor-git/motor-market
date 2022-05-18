@@ -15,15 +15,31 @@ post_calculation = Calculation()
 
 pm = PulsarManager()
 
+fl_listings_update_producer = pm.create_producer(pm.topics.FL_LISTINGS_UPDATE)
+
 calculation = Blueprint("calculation",__name__)
 
 auth_token = os.environ.get("FLASK_AUTH_TOKEN")
 
 @calculation.route("/ltv",methods=['POST'])
 def ltv():
+    
     json_data = request.json
     
+    token = request.args.get("token")
+    
+    if token != auth_token:
+        return jsonify(
+            {
+                "status":False,
+                "message":"invalid auth token",
+                "data":None
+            }
+        )
+    
     ID = int(json_data.get("ID"))
+    
+    update_in_db = json_data.get("update_in_db",0)
     
     mmPrice = int(json_data.get("mmPrice"))
     
@@ -46,4 +62,19 @@ def ltv():
     
     post_calculation.calculateLtv(tmp)
     
-    return jsonify(tmp)
+    if update_in_db == True and ID != None:
+        what = tmp["ltv"]
+        where = {"ID":ID}
+        
+        fl_listings_update_producer.produce_message({
+            "data":{
+                "what":what,
+                "where":where
+            }
+        })
+    
+    return jsonify({
+        "status":True,
+        "message":"200",
+        "data":tmp
+    })
