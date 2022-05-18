@@ -1,5 +1,9 @@
+import sys
 
-from topic import producer,consumer
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from handler import Handler
 from redisHandler import redisHandler
 import json
@@ -9,29 +13,25 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.predict.numberplate'
+        pulsar_manager = PulsarManager()
         
-        self.publish = 'motormarket.scraper.autotrader.listing.post.calculation'
-
-        logsTopic = "motormarket.scraper.logs"
+        self.topics = pulsar_manager.topics
         
+        self.consumer = pulsar_manager.create_consumer(self.topics.LISTING_PREDICT_NUMBERPLATE)
         
+        self.producer = pulsar_manager.create_producer(self.topics.LISTING_POST_CALCULATION)
+        
+        self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
         
         self.predictor = Handler()
         
         self.redis = redisHandler()
         
-        self.producer = producer.Producer(self.publish)
-        
-        self.logsProducer = producer.Producer(logsTopic)
-        
-        self.consumer = consumer.Consumer(self.subscribe)
-        
     def main(self):
         print("listening for new messages")
         while True:
             try:
-                data =  self.consumer.consume()
+                data =  self.consumer.consume_message()
                 
                 images = data["data"]["images"]
                 
@@ -65,18 +65,17 @@ class topicHandler:
                 
                 print(data)
                 
-                self.producer.produce(data)
-                
+                self.producer.produce_message(data)
             except Exception as e:
                 print(f'error : {str(e)}')
                 
                 log = {}
                 
                 log["sourceUrl"] = data["data"]["sourceUrl"]
-                log["service"] = self.subscribe
+                log["service"] = self.topics.LISTING_PREDICT_NUMBERPLATE.value
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })

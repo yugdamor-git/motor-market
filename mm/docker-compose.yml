@@ -13,29 +13,6 @@ services:
     
     volumes:
       - ./services/libs:/libs
-    
-  
-
-  numberplate-prediction:
-    build:
-      context: ./services/machine-learning/numberplate-prediction
-      dockerfile: Dockerfile.image
-
-    # volumes:
-    #   - /var/www/html/files:/usr/src/app/files
-
-    volumes:
-      - ./media:/usr/src/app/media
-    
-    environment:
-      PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
-    
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          cpus: '10'
 
 
   redis:
@@ -703,3 +680,49 @@ services:
     volumes:
       - ./services/libs:/libs
 # POST VALIDATION
+
+
+# NUMBERPLATE PREDICTION
+
+  numberplate-prediction:
+      build:
+        context: ./services/machine-learning/numberplate-prediction
+        dockerfile: Dockerfile.image
+        
+      volumes:
+        - ./media:/usr/src/app/media
+        - ./services/libs:/libs
+      
+      environment:
+        PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
+      
+      deploy:
+        mode: replicated
+        replicas: 1
+        resources:
+          limits:
+            cpus: '5'
+
+  numberplate-prediction-at-urls:
+
+      build:
+        context: ./services/machine-learning/numberplate-prediction
+        dockerfile: Dockerfile.image
+
+      volumes:
+        - ./media:/usr/src/app/media
+        - ./services/libs:/libs
+      
+      environment:
+        - PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
+        - SCRAPER_NAME : .at.urls
+      
+      deploy:
+        mode: replicated
+        replicas: 1
+        resources:
+          limits:
+            cpus: '5'
+
+
+# NUMBERPLATE PREDICTION
