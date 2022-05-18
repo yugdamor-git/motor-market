@@ -29,7 +29,7 @@ class topicHandler:
         
         images = data["data"]["images"]
                 
-        id = data["data"]["id"]
+        id = data["data"]["ID"]
         
         for img in images:
             tmp = {}
