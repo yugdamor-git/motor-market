@@ -30,8 +30,8 @@ class Producer:
         )
 
 class Parser:
-    def json_parser(self,data):
-        return json.loads(data)
+    def json_parser(self,message):
+        return json.loads(message.data())
     
 
 class Consumer:
