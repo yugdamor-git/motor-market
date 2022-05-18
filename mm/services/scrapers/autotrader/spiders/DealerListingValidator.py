@@ -336,9 +336,7 @@ if __name__ == "__main__":
         'DOWNLOAD_TIMEOUT':10
         
     }
-    c = CrawlerProcess(settings)
-    c.crawl(DealerListingValidator)
-    c.start()
+    
     if is_working_hour() == True:
         c = CrawlerProcess(settings)
         c.crawl(DealerListingValidator)
