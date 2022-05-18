@@ -130,7 +130,7 @@ class topicHandler:
                 
                 log["sourceUrl"] = source_url
                 
-                log["service"] = self.topics.FL_LISTINGS_INSERT
+                log["service"] = self.topics.FL_LISTINGS_INSERT.value
                 
                 log["errorMessage"] = traceback.format_exc()
                 

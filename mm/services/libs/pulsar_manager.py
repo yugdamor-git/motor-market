@@ -10,9 +10,8 @@ SCRAPER_NAME = os.environ.get("SCRAPER_NAME","")
 class Topics(Enum):
     LOGS = "motormarket.scraper.logs"
     
-    FL_LISTINGS_UPDATE = 'motormarket.database.fllistings.update'
-    FL_LISTINGS_INSERT = 'motormarket.database.fllistings.insert'
-    
+    FL_LISTINGS_UPDATE = f'motormarket{SCRAPER_NAME}.database.fllistings.update'
+    FL_LISTINGS_INSERT = f'motormarket{SCRAPER_NAME}.database.fllistings.insert'
     FL_LISTINGS_FIND = f'motormarket{SCRAPER_NAME}.database.fllistings.find'
     
     LISTING_TRANSFORM = f'motormarket{SCRAPER_NAME}.scraper.listing.transform'
