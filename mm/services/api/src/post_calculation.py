@@ -40,7 +40,7 @@ def ltv():
         "price":sourcePrice,
         "registrationStatus":True,
         "websiteId":websiteId,
-        "registration":registration,
+        "predictedRegistration":registration,
         "mileage":mileage
     }
     
