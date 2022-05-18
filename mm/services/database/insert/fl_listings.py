@@ -7,6 +7,8 @@ from Database import Database
 
 from pulsar_manager import PulsarManager
 
+from MMUrlGenerator import MMUrlGenerator
+
 import traceback
 
 class topicHandler:
@@ -24,6 +26,8 @@ class topicHandler:
         self.generate_image_producer = pulsar_manager.create_producer(pulsar_manager.topics.GENERATE_IMAGE)
         
         self.columnMapping = self.load_column_map_json()
+        
+        self.urlGenerator = MMUrlGenerator()
         
         self.db = Database()
     
