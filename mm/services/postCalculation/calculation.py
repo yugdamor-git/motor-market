@@ -110,6 +110,7 @@ class Calculation:
                         ltv["ltvStatus"] = 0
                         ltv["dealerForecourtResponse"] = json.dumps(dealerForecourtResponse)
                         ltv["status"] = "approval"
+                        
                         ltv.update(self.ltvCalc.getNullValues())
                     else:
                         ltv = self.ltvCalc.calculate(mmPrice,glassPrice)
@@ -122,6 +123,7 @@ class Calculation:
             else:
                 ltv = self.ltvCalc.getDefaultValues()
                 ltv["ltvStatus"] = None
+                
         except Exception as e:
             print(f'error - calculation.py : {str(e)}')
             ltv = {}

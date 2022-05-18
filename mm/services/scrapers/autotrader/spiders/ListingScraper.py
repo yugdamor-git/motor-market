@@ -858,15 +858,21 @@ class ListingScraper(scrapy.Spider):
     
     priority = 109
     
+    message_timeout = 5 * 1000
+    
     def start_requests(self):
         while True:
-            data =  self.consumer.consume_message()
+            
+            data =  self.consumer.consume_message(timeout_millis=self.message_timeout)
+            
+            if data == None:
+                break
             
             scraperType = data["data"].get("scraperType")
             
             id = data["data"]["sourceId"]
             print(id)
-            # continue
+            
             if scraperType == "normal":
                 query = self.graphql.requiredFieldsQuery
             elif scraperType == "validator":
@@ -960,14 +966,14 @@ if __name__ == "__main__":
         "ITEM_PIPELINES":{
             ListingScraperPipeline:300
         },
-        # 'CONCURRENT_REQUESTS_PER_DOMAIN':32,
-        # 'CONCURRENT_REQUESTS':32,
+        'CONCURRENT_REQUESTS_PER_DOMAIN':128,
+        'CONCURRENT_REQUESTS':128,
         'RETRY_ENABLED':True,
         'DOWNLOAD_DELAY':1,
         'RANDOMIZE_DOWNLOAD_DELAY':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
-        'DOWNLOAD_TIMEOUT':5,
+        'DOWNLOAD_TIMEOUT':6,
         'COOKIES_ENABLED':False
         
     }

@@ -61,11 +61,14 @@ class Consumer:
     def print(self,message):
         print(message)
     
-    def consume_message(self):
-        message = self.consumer_client.receive()
-        self.consumer_client.acknowledge(message)
-        self.print(f'message_id : {message.message_id()}')
-        return self.parser.json_parser(message)
+    def consume_message(self,timeout_millis = None):
+        try:
+            message = self.consumer_client.receive(timeout_millis = timeout_millis)
+            self.consumer_client.acknowledge(message)
+            self.print(f'message_id : {message.message_id()}')
+            return self.parser.json_parser(message)
+        except:
+            return None
     
 class PulsarManager:
     def __init__(self):
