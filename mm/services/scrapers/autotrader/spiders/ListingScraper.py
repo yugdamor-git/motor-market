@@ -1,11 +1,14 @@
 import scrapy
 import sys
+
 sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from scrapy.crawler import CrawlerProcess
 # from topic import producer,consumer
 # from Database import Database
 from datetime import datetime
-from pulsar_manager import PulsarManager
 import os
 
 import json

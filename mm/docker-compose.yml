@@ -52,7 +52,7 @@ services:
       stdin_open: true
 
       volumes:
-        - ./service/libs:/libs
+        - ./services/libs:/libs
 
       restart: always
       
