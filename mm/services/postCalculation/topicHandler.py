@@ -1,5 +1,10 @@
+import sys
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from calculation import Calculation
-from topic import producer,consumer
 import json
 
 import traceback
@@ -8,25 +13,23 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.post.calculation'
+        pulsar_manager = PulsarManager()
         
-        self.publish = 'motormarket.scraper.autotrader.listing.database.production'
-
-        logsTopic = "motormarket.scraper.logs"
-    
-        self.logsProducer = producer.Producer(logsTopic)
+        self.topics = pulsar_manager.topics
         
+        self.consumer = pulsar_manager.create_consumer(self.topics.LISTING_POST_CALCULATION)
+        
+        self.producer = pulsar_manager.create_producer(self.topics.FL_LISTINGS_INSERT)
+        
+        self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
+            
         self.calculation = Calculation()
-        
-        self.producer = producer.Producer(self.publish)
-        
-        self.consumer = consumer.Consumer(self.subscribe)
         
     def main(self):
         print("listening for new messages")
         while True:
             try:
-                data =  self.consumer.consume()
+                data =  self.consumer.consume_message()
                 
                 scraperType = data["data"].get("scraperType")
                 
@@ -96,17 +99,17 @@ class topicHandler:
                 
                 print(data)
                 
-                self.producer.produce(data)
+                self.producer.produce_message(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')
                 log = {}
                 
                 log["sourceUrl"] = data["data"]["sourceUrl"]
-                log["service"] = self.subscribe
+                log["service"] = self.topics.LISTING_POST_CALCULATION.value
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
