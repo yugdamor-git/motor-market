@@ -251,16 +251,6 @@ services:
     restart: on-failure
 
   
-  seat-prediction:
-    build:
-      context: ./services/machine-learning/seats
-      dockerfile: Dockerfile.seats
-
-    restart: on-failure
-
-    deploy:
-      replicas: 1
-  
   post-validation:
     build: ./services/post-validation
 
@@ -635,5 +625,33 @@ services:
           - ./services/libs:/libs
 
 # MAKE MODEL PREDICTION
+
+
+# SEAT PREDICTION
+
+  seat-prediction:
+    build:
+      context: ./services/machine-learning/seats
+      dockerfile: Dockerfile.seats
+
+    restart: on-failure
+    
+    volumes:
+          - ./services/libs:/libs
+
+  seat-prediction-at-urls:
+    build:
+      context: ./services/machine-learning/seats
+      dockerfile: Dockerfile.seats
+
+    restart: on-failure
+
+    environment:
+        - SCRAPER_NAME=.at.urls
+    
+    volumes:
+          - ./services/libs:/libs
+          
+# SEAT PREDICTION
 
 

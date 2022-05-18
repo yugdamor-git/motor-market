@@ -25,6 +25,8 @@ class Topics(Enum):
     
     LISTING_PREDICT_SEAT= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.seat'
     
+    LISTING_PREDICT_IMAGE= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.image'
+    
     
     FL_LISTING_PHOTOS_INSERT = 'motormarket.database.fllistingphotos.insert'
     
