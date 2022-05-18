@@ -250,18 +250,6 @@ services:
 
     restart: on-failure
 
-  
-  post-validation:
-    build: ./services/post-validation
-
-    environment:
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-
-    restart: on-failure
-
 
 
   image-generation:
@@ -682,3 +670,36 @@ services:
 
 
 # IMAGE PREDICTION
+
+
+# POST VALIDATION
+  post-validation:
+    build: ./services/post-validation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    restart: on-failure
+
+    volumes:
+      - ./services/libs:/libs
+
+  
+  post-validation-at-urls:
+    build: ./services/post-validation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - SCRAPER_NAME=.at.urls
+
+    restart: on-failure
+
+    volumes:
+      - ./services/libs:/libs
+# POST VALIDATION

@@ -24,6 +24,8 @@ class Topics(Enum):
     
     LISTING_PREDICT_MAKEMODEL= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.makemodel'
     
+    LISTING_PREDICT_NUMBERPLATE= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.numberplate'
+    
     LISTING_PREDICT_SEAT= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.seat'
     
     LISTING_PREDICT_IMAGE= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.image'
