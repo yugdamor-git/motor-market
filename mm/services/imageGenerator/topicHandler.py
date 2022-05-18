@@ -36,7 +36,7 @@ class topicHandler:
                 
                 websiteId = data["data"]["websiteId"]
                 
-                listingId = data["data"]["id"]
+                listingId = data["data"]["ID"]
                 
                 upsert = data["data"]["upsert"]
                 
@@ -64,7 +64,7 @@ class topicHandler:
                     # update thumbnail if it's insert
                     
                     where = {
-                        "id":listingId
+                        "ID":listingId
                     }
                     
                     mainPhoto = None

@@ -99,6 +99,9 @@ class topicHandler:
                     mappedData["Status"] = "pending"
                     
                 id = self.db.recInsert("fl_listings",mappedData)
+                
+                data["data"]["ID"] = id
+                
                 make = mappedData["make"]
                 model = mappedData["model"]
                 title = mappedData["title"]
