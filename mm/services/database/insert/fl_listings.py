@@ -123,7 +123,12 @@ class topicHandler:
         mappedData = self.map_columns(data)
         
         if scraperName == "url-scraper":
-            status = mappedData["Status"]
+            status = None
+            if "Status" in mappedData:
+                status = mappedData["Status"]
+            elif "status" in mappedData:
+                status = mappedData["status"]
+            
             listingId = data["data"].get("listingId")
             
             registrationStatus = data["data"].get("registrationStatus",None)
