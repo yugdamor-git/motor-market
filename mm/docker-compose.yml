@@ -213,35 +213,6 @@ services:
 
     restart: on-failure
 
-
-
-  image-generation:
-    build: 
-      context: ./services/imageGenerator
-      dockerfile: Dockerfile.image
-
-    restart: on-failure
-    
-    environment:
-      PRODUCTION_SERVER_FTP_USERNAME: ${PRODUCTION_SERVER_FTP_USERNAME}
-      PRODUCTION_SERVER_FTP_PASSWORD : ${PRODUCTION_SERVER_FTP_PASSWORD}
-      PRODUCTION_SERVER_IMAGE_DIR_PREFIX : ${PRODUCTION_SERVER_IMAGE_DIR_PREFIX}
-      PRODUCTION_SERVER_FTP_PORT : ${PRODUCTION_SERVER_FTP_PORT}
-      PRODUCTION_SERVER_IP_ADDRESS : ${PRODUCTION_SERVER_IP_ADDRESS}
-    
-    volumes:
-      - ./media:/usr/src/app/media
-    
-    stdin_open: true
-    tty: true
-
-    deploy:
-      mode: replicated
-      replicas: 1
-      resources:
-        limits:
-          cpus: '2'
-
   # db:
   #   image: mysql:latest
   #   container_name: db
@@ -831,3 +802,64 @@ services:
         - ./services/libs:/libs
 
 # POST CALCULATIONS
+
+# IMAGE - GENERATION
+
+  image-generation:
+      build: 
+        context: ./services/imageGenerator
+        dockerfile: Dockerfile.image
+
+      restart: on-failure
+      
+      environment:
+        - PRODUCTION_SERVER_FTP_USERNAME=${PRODUCTION_SERVER_FTP_USERNAME}
+        - PRODUCTION_SERVER_FTP_PASSWORD=${PRODUCTION_SERVER_FTP_PASSWORD}
+        - PRODUCTION_SERVER_IMAGE_DIR_PREFIX=${PRODUCTION_SERVER_IMAGE_DIR_PREFIX}
+        - PRODUCTION_SERVER_FTP_PORT=${PRODUCTION_SERVER_FTP_PORT}
+        - PRODUCTION_SERVER_IP_ADDRESS=${PRODUCTION_SERVER_IP_ADDRESS}
+      
+      volumes:
+        - ./media:/usr/src/app/media
+        - ./services/libs:/libs
+      
+      stdin_open: true
+      tty: true
+
+      deploy:
+        mode: replicated
+        replicas: 1
+        resources:
+          limits:
+            cpus: '2'
+
+  image-generation-at-urls:
+      build: 
+        context: ./services/imageGenerator
+        dockerfile: Dockerfile.image
+
+      restart: on-failure
+      
+      environment:
+        - PRODUCTION_SERVER_FTP_USERNAME=${PRODUCTION_SERVER_FTP_USERNAME}
+        - PRODUCTION_SERVER_FTP_PASSWORD=${PRODUCTION_SERVER_FTP_PASSWORD}
+        - PRODUCTION_SERVER_IMAGE_DIR_PREFIX=${PRODUCTION_SERVER_IMAGE_DIR_PREFIX}
+        - PRODUCTION_SERVER_FTP_PORT=${PRODUCTION_SERVER_FTP_PORT}
+        - PRODUCTION_SERVER_IP_ADDRESS=${PRODUCTION_SERVER_IP_ADDRESS}
+        - SCRAPER_NAME=.at.urls
+      
+      volumes:
+        - ./media:/usr/src/app/media
+        - ./services/libs:/libs
+      
+      stdin_open: true
+      tty: true
+
+      deploy:
+        mode: replicated
+        replicas: 1
+        resources:
+          limits:
+            cpus: '2'
+
+# IMAGE - GENERATION
