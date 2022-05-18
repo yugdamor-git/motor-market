@@ -23,16 +23,17 @@ class topicHandler:
         
         self.generate_image_producer = pulsar_manager.create_producer(pulsar_manager.topics.GENERATE_IMAGE)
         
+        self.columnMapping = self.load_column_map_json()
+        
         self.db = Database()
     
     def load_column_map_json(self):
         data = None
         with open("insert_column_mapping.json","r") as f:
-            data = json.loads(f)
+            data = json.loads(f.read())
         return data
     
     def map_columns(self,data):
-        columnMapping = self.load_column_map_json()
         
         mappedData = {}
         
@@ -42,7 +43,7 @@ class topicHandler:
         dataTmp.update(data["data"]["pcpapr"])
         dataTmp.update(data["data"]["ltv"])
         
-        for item in columnMapping:
+        for item in self.columnMapping:
             key = item["key"]
             val = item["value"]
             if key in dataTmp:
@@ -107,6 +108,8 @@ class topicHandler:
                 data["data"]["upsert"] = "insert"
                 
                 self.increase_insert_count()
+                
+                print(data)
                 
                 self.generate_image_producer.produce_message(data)
                 
