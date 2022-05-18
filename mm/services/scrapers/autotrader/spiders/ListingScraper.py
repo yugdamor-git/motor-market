@@ -1,11 +1,11 @@
 import scrapy
 import sys
-sys.path.append("...")
+sys.path.append("/libs")
 from scrapy.crawler import CrawlerProcess
-from topic import producer,consumer
+# from topic import producer,consumer
 # from Database import Database
 from datetime import datetime
-
+from pulsar_manager import PulsarManager
 import os
 
 import json
@@ -811,9 +811,9 @@ class Graphql:
 
 class ListingScraperPipeline:
     def __init__(self) -> None:
-        publish = 'motormarket.scraper.autotrader.listing.transform'
+        pulsar_manager = PulsarManager()
         
-        self.producer = producer.Producer(publish)
+        self.producer = pulsar_manager.create_producer(pulsar_manager.topics.LISTING_TRANSFORM)
         
     def open_spider(self,spider):
         pass
@@ -838,9 +838,9 @@ class ListingScraperPipeline:
 class ListingScraper(scrapy.Spider):
     name = 'listing-scraper'
     
-    subscribe = 'motormarket.scraper.autotrader.listing.scrape'
+    pulsar_manager = PulsarManager()
     
-    consumer = consumer.Consumer(subscribe)
+    consumer = pulsar_manager.create_consumer(pulsar_manager.topics.AUTOTRADER_LISTING_SCRAPER)
     
     MAX_RETRY_COUNT = 6
     
@@ -860,7 +860,7 @@ class ListingScraper(scrapy.Spider):
     
     def start_requests(self):
         while True:
-            data =  self.consumer.consume()
+            data =  self.consumer.consume_message()
             
             scraperType = data["data"].get("scraperType")
             
@@ -905,6 +905,7 @@ class ListingScraper(scrapy.Spider):
                 yield new_request
             
         data = meta.get("data")
+        
         scraperType = data["data"].get("scraperType")
         
         try:
@@ -952,7 +953,6 @@ def is_working_hour():
     else:
         return False
     
-    
 if __name__ == "__main__":
     
     settings = {
@@ -963,9 +963,11 @@ if __name__ == "__main__":
         # 'CONCURRENT_REQUESTS_PER_DOMAIN':32,
         # 'CONCURRENT_REQUESTS':32,
         'RETRY_ENABLED':True,
+        'DOWNLOAD_DELAY':1,
+        'RANDOMIZE_DOWNLOAD_DELAY':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
-        'DOWNLOAD_TIMEOUT':60,
+        'DOWNLOAD_TIMEOUT':5,
         'COOKIES_ENABLED':False
         
     }

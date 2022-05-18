@@ -47,6 +47,9 @@ services:
       
       stdin_open: true
 
+      volumes:
+        - ./service/libs:/libs
+
       restart: unless-stopped
       
   # validator:
@@ -101,22 +104,22 @@ services:
     
   #   stdin_open: true
   
-  dealer-scrapy-listing-validator:
-    build:
-      context: ./services/scrapers/autotrader/spiders
-      dockerfile: Dockerfile.dealer.validator
+  # dealer-scrapy-listing-validator:
+  #   build:
+  #     context: ./services/scrapers/autotrader/spiders
+  #     dockerfile: Dockerfile.dealer.validator
 
-    depends_on:
-      - pulsar
+  #   depends_on:
+  #     - pulsar
     
-    environment:
-      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   environment:
+  #     - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+  #     - MYSQL_HOST=${MYSQL_HOST}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
     
-    stdin_open: true
+  #   stdin_open: true
   
 
   ftp-scraper:
@@ -133,22 +136,22 @@ services:
 
     stdin_open: true
   
-  dealer-scraper:
-    build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.dealer
+  # dealer-scraper:
+  #   build:
+  #     context: ./services/scrapers/autotrader
+  #     dockerfile: Dockerfile.dealer
 
-    depends_on:
-      - pulsar
+  #   depends_on:
+  #     - pulsar
     
-    environment:
-      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+  #   environment:
+  #     - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
     
-    deploy:
-      mode: replicated
-      replicas: 5
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 5
     
-    stdin_open: true
+    # stdin_open: true
 
   pulsar:
     build: ./services/pulsar
@@ -255,78 +258,78 @@ services:
   #     - MONGO_USERNAME=${MONGO_USERNAME}
   #     - MONGO_PASSWORD=${MONGO_PASSWORD}
   
-  production-db-fllistings:
-    build:
-      context: ./services/database/production
-      dockerfile : Dockerfile.flListings
+  # production-db-fllistings:
+  #   build:
+  #     context: ./services/database/production
+  #     dockerfile : Dockerfile.flListings
     
-    restart: on-failure
+  #   restart: on-failure
 
-    environment:
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   environment:
+  #     - MONGO_USERNAME=${MONGO_USERNAME}
+  #     - MONGO_PASSWORD=${MONGO_PASSWORD}
+  #     - MYSQL_HOST=${MYSQL_HOST}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
     
-    deploy:
-      mode: replicated
-      replicas: 20
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 20
 
-  fllistings-update:
-    build:
-      context: ./services/database/update/
-      dockerfile : Dockerfile.fl_listings
+  # fllistings-update:
+  #   build:
+  #     context: ./services/database/update/
+  #     dockerfile : Dockerfile.fl_listings
     
-    restart: on-failure
+  #   restart: on-failure
 
-    volumes:
-      - ./services/libs:/libs
+  #   volumes:
+  #     - ./services/libs:/libs
 
-    environment:
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   environment:
+  #     - MONGO_USERNAME=${MONGO_USERNAME}
+  #     - MONGO_PASSWORD=${MONGO_PASSWORD}
+  #     - MYSQL_HOST=${MYSQL_HOST}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
     
-    deploy:
-      mode: replicated
-      replicas: 1
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 1
 
   
-  production-db-aturls:
-    build:
-      context: ./services/database/production
-      dockerfile : Dockerfile.aturls
+  # production-db-aturls:
+  #   build:
+  #     context: ./services/database/production
+  #     dockerfile : Dockerfile.aturls
     
-    restart: on-failure
+  #   restart: on-failure
 
-    environment:
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   environment:
+  #     - MONGO_USERNAME=${MONGO_USERNAME}
+  #     - MONGO_PASSWORD=${MONGO_PASSWORD}
+  #     - MYSQL_HOST=${MYSQL_HOST}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
     
   
-  production-db-fllistingphotos:
-    build:
-      context: ./services/database/production
-      dockerfile : Dockerfile.flListingPhotos
+  # production-db-fllistingphotos:
+  #   build:
+  #     context: ./services/database/production
+  #     dockerfile : Dockerfile.flListingPhotos
     
-    restart: on-failure
+  #   restart: on-failure
 
-    environment:
-      - MONGO_USERNAME=${MONGO_USERNAME}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #   environment:
+  #     - MONGO_USERNAME=${MONGO_USERNAME}
+  #     - MONGO_PASSWORD=${MONGO_PASSWORD}
+  #     - MYSQL_HOST=${MYSQL_HOST}
+  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
   
 
 
