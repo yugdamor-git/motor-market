@@ -202,21 +202,7 @@ services:
   #   - redis
 
 
-  
-  post-calculation:
-    build: ./services/postCalculation
 
-    environment:
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-
-    restart: on-failure
-
-    deploy:
-      mode: replicated
-      replicas: 6
   
   logs:
     build: ./services/logs
@@ -726,3 +712,37 @@ services:
 
 
 # NUMBERPLATE PREDICTION
+
+
+# POST CALCULATIONS
+
+  post-calculation:
+    build: ./services/postCalculation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    restart: on-failure
+
+    volumes:
+        - ./services/libs:/libs
+
+  post-calculation-at-urls:
+    build: ./services/postCalculation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - SCRAPER_NAME=.at.urls
+
+    restart: on-failure
+
+    volumes:
+        - ./services/libs:/libs
+
+# POST CALCULATIONS
