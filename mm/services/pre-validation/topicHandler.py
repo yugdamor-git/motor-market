@@ -1,3 +1,9 @@
+import sys
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 from validation import Validation
 
 from topic import producer,consumer
@@ -9,29 +15,25 @@ class topicHandler:
     def __init__(self):
         print("transform topic handler init")
         
-        self.subscribe = 'motormarket.scraper.autotrader.listing.prevalidation'
+        pulsar_manager = PulsarManager()
         
-        self.publish = 'motormarket.scraper.autotrader.listing.predict.makemodel'
+        self.topics = pulsar_manager.topics
         
-        logsTopic = "motormarket.scraper.logs"
+        self.consumer = pulsar_manager.create_consumer(pulsar_manager.topics.LISTING_PREVALIDATION)
         
-        self.urlScraperTopic = 'motormarket.scraper.autotrader.listing.database.urlscaper'
+        self.producer = pulsar_manager.create_producer(pulsar_manager.topics.LISTING_PREDICT_MAKEMODEL)
         
-        self.producer = producer.Producer(self.publish)
+        self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.consumer = consumer.Consumer(self.subscribe)
-        
-        self.logsProducer = producer.Producer(logsTopic)
-        
-        self.urlScraperProducer = producer.Producer(self.urlScraperTopic)
-        
-        self.validator = Validation(self.logsProducer)
+        self.at_urls_update_producer = pulsar_manager.create_producer(pulsar_manager.topics.AT_URLS_UPDATE)
+         
+        self.validator = Validation(self.logs_producer)
         
     def main(self):
         print("listening for new messages")
         while True:
             try:
-                data =  self.consumer.consume()
+                data =  self.consumer.consume_message()
                 
                 status,log = self.validator.validate(data["data"])
                 
@@ -39,6 +41,7 @@ class topicHandler:
                     print('we are not taking this listing')
                     
                     scraperName = data["data"].get("scraperName",None)
+                    
                     listingId = data["data"].get("listingId",None)
                     
                     if scraperName == None or listingId == None:
@@ -53,19 +56,23 @@ class topicHandler:
                         "id":listingId
                     }
                     
-                    eventType = "update"
+                    data = {
+                            "data":{
+                                "what":what,
+                                "where":where,
+                            }
+                        }
                     
-                    self.urlScraperProducer.produce({
-                        "what":what,
-                        "where":where,
-                        "eventType":eventType
-                    })
+                    if scraperName == "url-scraper":
+                        self.at_urls_update_producer.produce_message(data)
+                    
+                    print(data)
                     
                     continue
                 
                 print(data)
                 
-                self.producer.produce(data)
+                self.producer.produce_message(data)
                 
                 # break
                 
@@ -75,10 +82,10 @@ class topicHandler:
                 log = {}
                 
                 log["sourceUrl"] = data["data"]["sourceUrl"]
-                log["service"] = self.subscribe
+                log["service"] = self.topics.LISTING_PREVALIDATION
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })

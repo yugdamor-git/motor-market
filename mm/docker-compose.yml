@@ -272,21 +272,6 @@ services:
     deploy:
       replicas: 1
   
-  pre-validation:
-    build: ./services/pre-validation
-
-    environment:
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-
-    restart: on-failure
-
-    deploy:
-      mode: replicated
-      replicas: 20
-  
   post-validation:
     build: ./services/post-validation
 
@@ -598,4 +583,40 @@ services:
         - ./services/libs:/libs
 
 # TRANSFORM
+
+
+# PRE VALIDATION
+# this service will check the conditions , and if any listing is not acording to our pre defined condition then we won't process them further.
+  pre-validation:
+    build: ./services/pre-validation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - SCRAPER_NAME=.at.urls
+
+    restart: on-failure
+    
+    volumes:
+        - ./services/libs:/libs
+
+
+  pre-validation-at-urls:
+    build: ./services/pre-validation
+
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    restart: on-failure
+
+    volumes:
+        - ./services/libs:/libs
+
+# PRE VALIDATION
+
 

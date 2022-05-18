@@ -36,7 +36,7 @@ class Validation:
         if status == False:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
@@ -47,7 +47,7 @@ class Validation:
         if status == False:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
@@ -58,7 +58,7 @@ class Validation:
         if status == False:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
@@ -69,7 +69,7 @@ class Validation:
         if status == False:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
@@ -80,7 +80,7 @@ class Validation:
         if status == True:
             log["errorMessage"] = message
             
-            self.logsProducer.produce({
+            self.logsProducer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
