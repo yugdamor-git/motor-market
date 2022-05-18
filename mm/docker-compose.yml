@@ -421,6 +421,91 @@ services:
 
 # LISTING - FINDER
 
+# LISTING - UPDATE
+
+  fl-listings-update:
+    build:
+      context: ./services/database/update
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    volumes:
+      - ./services/libs:/libs
+
+  
+  fl-listings-update-at-urls:
+    build:
+      context: ./services/database/update
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - SCRAPER_NAME=.at.urls
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    volumes:
+      - ./services/libs:/libs
+
+# LISTING - INSERT
+
+# LISTING - INSERT
+
+  fl-listings-insert:
+    build:
+      context: ./services/database/insert
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+
+    volumes:
+      - ./services/libs:/libs
+
+  
+  fl-listings-insert-at-urls:
+    build:
+      context: ./services/database/insert
+      dockerfile : Dockerfile.fl_listings
+    
+    restart: on-failure
+
+    environment:
+      - SCRAPER_NAME=.at.urls
+      - MONGO_USERNAME=${MONGO_USERNAME}
+      - MONGO_PASSWORD=${MONGO_PASSWORD}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    volumes:
+      - ./services/libs:/libs
+
+# LISTING - INSERT
+
+
 
 # LISTING - SCRAPER
 
