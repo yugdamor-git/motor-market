@@ -21,6 +21,8 @@ class topicHandler:
         
         self.producer = pulsar_manager.create_producer(self.topics.FL_LISTINGS_INSERT)
         
+        self.fl_listings_update_producer = pulsar_manager.create_producer(self.topics.FL_LISTINGS_UPDATE)
+        
         self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
             
         self.calculation = Calculation()
@@ -52,6 +54,12 @@ class topicHandler:
                     
                     # ltv
                     self.calculation.calculateLtv(data["data"])
+                    
+                    self.fl_listings_update_producer.produce_message(data)
+                    
+                    print(data)
+                    
+                    continue
                     
                 elif scraperType == "normal":
                     
@@ -97,9 +105,9 @@ class topicHandler:
                     # video id
                     self.calculation.calculateVideoId(data["data"])
                 
-                print(data)
+                    print(data)
                 
-                self.producer.produce_message(data)
+                    self.producer.produce_message(data)
                 
             except Exception as e:
                 print(f'error : {str(e)}')

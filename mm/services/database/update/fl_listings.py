@@ -8,6 +8,8 @@ from pulsar_manager import PulsarManager
 
 import traceback
 
+import json
+
 class topicHandler:
     def __init__(self):
         print("topic handler init")
@@ -20,8 +22,37 @@ class topicHandler:
         
         self.fl_listings_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.FL_LISTINGS_UPDATE)
         
-        self.db = Database()
+        self.at_urls_update_producer = pulsar_manager.create_producer(self.topics.AT_URLS_UPDATE)
         
+        self.columnMapping = self.load_column_map_json()
+        
+        self.db = Database()
+    
+    def load_column_map_json(self):
+        data = None
+        with open("update_column_mapping.json","r") as f:
+            data = json.loads(f.read())
+            
+        return data
+    
+    def map_columns(self,data):
+        
+        mappedData = {}
+        
+        dataTmp = {}
+        
+        dataTmp.update(data["data"])
+        dataTmp.update(data["data"]["pcpapr"])
+        dataTmp.update(data["data"]["ltv"])
+        
+        for item in self.columnMapping:
+            key = item["key"]
+            val = item["value"]
+            if key in dataTmp:
+                mappedData[val] = dataTmp[key]
+                    
+        return mappedData
+    
     def increase_expired_count(self):
         self.logs_producer.produce_message(
                 {
@@ -31,8 +62,43 @@ class topicHandler:
                         }
                     }
                 )
+
+    def handleAtUrl(self,status,id,listingId,registrationStatus):
         
-    def handle_update_event(self,what,where):
+        what = {
+            
+        }
+        
+        if status == "to_parse":
+            what["listing_status"] = "active"
+        else:
+            what["listing_status"] = status
+        what["scraped"] = 1
+        what["listing_id"] = id
+        what["updated_at"] = {"func":"now()"}
+        
+        if registrationStatus == 1:
+            what["number_plate_flag"] = 0
+        elif registrationStatus == None:
+            what["number_plate_flag"] = 2
+        else:
+            what["number_plate_flag"] = 2
+        
+        
+        where = {
+            "id":listingId
+        }
+        
+        
+        self.at_urls_update_producer.produce_message({
+            "data":{
+                "what":what,
+                "where":where,
+            }
+           
+        })
+    
+    def handle_update_event(self,what,where,data):
         
         
         what["updated_at"] = {"func":"now()"}
@@ -41,9 +107,22 @@ class topicHandler:
             if what["Status"] == "expired":
                 self.increase_expired_count()
         
+        scraperName = data.get("scraperName")
+        
+       
+        
+        if scraperName == "url-scraper":
+            
+            status = data["data"].get("Status",None)
+            
+            listingId = data["data"].get("listingId")
+            
+            registrationStatus = data["data"].get("registrationStatus",None)
+            
+            self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
+        
         self.db.connect()
-        print(what)
-        print(where)
+        
         try:
             self.db.recUpdate("fl_listings",what,where)
         except Exception as e:
@@ -74,7 +153,7 @@ class topicHandler:
                     print(f'what and where is not present. skipping...')
                     continue
                 
-                self.handle_update_event(what,where)
+                self.handle_update_event(what,where,message)
                 
             except Exception as e:
                 print(f'error : {str(e)}')

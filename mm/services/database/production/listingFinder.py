@@ -38,8 +38,10 @@ class topicHandler:
                 skipFinder = data["data"].get("skipFinder",False)
                 
                 if skipFinder == True:
+                    
                     data["data"]["scraperType"] = "validator"
                     self.producer.produce(data)
+                    
                     continue
                 
                 sourceId = data["data"]["sourceId"]
