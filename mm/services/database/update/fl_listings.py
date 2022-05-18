@@ -150,7 +150,10 @@ class topicHandler:
                 where = data.get("where",None)
                 
                 if what == None or where == None:
-                    print(f'what and where is not present. skipping...')
+                    mappedData = self.map_columns(message)
+                    
+                    
+                    
                     continue
                 
                 self.handle_update_event(what,where,message)

@@ -87,7 +87,7 @@ class topicHandler:
                 
                 log["sourceUrl"] = source_url
                 
-                log["service"] = self.topics.AT_URLS_UPDATE
+                log["service"] = self.topics.AT_URLS_UPDATE.value
                 
                 log["errorMessage"] = traceback.format_exc()
                 

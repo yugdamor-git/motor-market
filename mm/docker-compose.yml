@@ -415,7 +415,29 @@ services:
     volumes:
       - ./services/libs:/libs
 
-# LISTING - INSERT
+# LISTING - UPDATE
+
+# AT URLS - UPDATE
+  at-urls-update:
+      build:
+        context: ./services/database/update
+        dockerfile : Dockerfile.at_urls
+      
+      restart: on-failure
+
+      environment:
+        - SCRAPER_NAME=.at.urls
+        - MONGO_USERNAME=${MONGO_USERNAME}
+        - MONGO_PASSWORD=${MONGO_PASSWORD}
+        - MYSQL_HOST=${MYSQL_HOST}
+        - MYSQL_USERNAME=${MYSQL_USERNAME}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+      
+      volumes:
+        - ./services/libs:/libs
+
+# AT URLS - UPDATE
 
 # LISTING - INSERT
 
