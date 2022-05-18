@@ -118,23 +118,6 @@ services:
     
     stdin_open: true
   
-  url-scraper:
-    build:
-      context: ./services/scrapers/autotrader
-      dockerfile: Dockerfile.url
-
-    depends_on:
-      - pulsar
-    
-    environment:
-      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-      - MYSQL_HOST=${MYSQL_HOST}
-      - MYSQL_USERNAME=${MYSQL_USERNAME}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-
-    stdin_open: true
-  
 
   ftp-scraper:
     build:
@@ -905,3 +888,29 @@ services:
             cpus: '2'
 
 # IMAGE - GENERATION
+
+# AT - URL - SCRAPER - INIT
+
+  at-urls-scraper:
+    build:
+      context: ./services/scrapers/autotrader
+      dockerfile: Dockerfile.url
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - SCRAPER_NAME=.at.urls
+    
+    volumes:
+        - ./services/libs:/libs
+
+    stdin_open: true
+
+# AT - URL - SCRAPER - INIT
+
