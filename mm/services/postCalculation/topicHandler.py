@@ -60,7 +60,7 @@ class topicHandler:
                     
                     ID = data["data"].get("ID")
                     
-                    what = self.column_mapping(data,self.column_mapping.update_mapping)
+                    what = self.column_mapping.map_columns(data,self.column_mapping.update_mapping)
                     
                     where = {
                         "ID":ID
