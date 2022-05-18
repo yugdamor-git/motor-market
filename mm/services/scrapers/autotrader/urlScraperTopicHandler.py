@@ -1,4 +1,8 @@
-from topic import producer,consumer
+
+import sys
+from pulsar_manager import PulsarManager
+
+sys.path.append("/libs")
 
 from Database import Database
 
@@ -10,15 +14,15 @@ class topicHandler:
     def __init__(self):
         print("image prediction handler init")
         
-        self.publish = 'motormarket.scraper.autotrader.listing.database.finder'
-
-        logsTopic = "motormarket.scraper.logs"
-            
-        self.logsProducer = producer.Producer(logsTopic)
+        pulsar_manager = PulsarManager()
+        
+        self.topics = pulsar_manager.topics
+        
+        self.producer = pulsar_manager.create_producer(self.topics.FL_LISTINGS_FIND)
+        
+        self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
         
         self.db = Database()
-        
-        self.producer = producer.Producer(self.publish)
         
     
     def getPendingListings(self):
@@ -34,7 +38,9 @@ class topicHandler:
         return pendingListings
 
     def preprocess(self,listings):
+        
         processedListings = []
+        
         for listing in listings:
             try:
                 tmp = {}
@@ -83,11 +89,12 @@ class topicHandler:
                 
                 for listing in pendingListings:
                     print(listing)
-                    self.producer.produce(
+                    self.producer.produce_message(
                         {
                             "data":listing
                         }
                     )
+                    
                     self.db.recUpdate("AT_urls",{"scraped":2},{"id":listing["listingId"]})
                     
             except Exception as e:
@@ -97,7 +104,7 @@ class topicHandler:
                 log["service"] = 'motormarket.scraper.autotrader.url'
                 log["errorMessage"] = traceback.format_exc()
                 
-                self.logsProducer.produce({
+                self.logs_producer.produce_message({
                     "eventType":"insertLog",
                     "data":log
                 })
