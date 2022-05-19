@@ -1,3 +1,9 @@
+import sys
+
+sys.path.append("/libs")
+
+from pulsar_manager import PulsarManager
+
 
 from Database import Database
 from topic import producer,consumer
@@ -10,19 +16,20 @@ class validator:
         
         self.maxRetry = 5
         
+        pulsar_manager = PulsarManager()
+        
+        self.topics = pulsar_manager.topics
+        
         self.database = Database()
         
-        self.publish = 'motormarket.scraper.autotrader.listing.database.finder'
-        
-        self.producer = producer.Producer(self.publish)
-        
+        self.producer = pulsar_manager.create_producer(self.topics.FL_LISTINGS_FIND)
         
     def getListings(self):
         listings = []
         self.database.connect()
         for retry in range(0,self.maxRetry):
             try:
-                listings = self.database.recCustomQuery(f'SELECT ID,sourceId,scraperName,sourceUrl,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM `fl_listings` WHERE Status="active" AND Website_ID={self.websiteId} AND sourceId IS NOT NULL')
+                listings = self.database.recCustomQuery(f'SELECT ID,sourceId,scraperName,sourceUrl,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM `fl_listings` WHERE Status="active" AND Website_ID={self.websiteId} AND sourceId IS NOT NULL LIMIT 100')
                 break
             except Exception as e:
                 print(f'error : {__file__} -> {str(e)}')
@@ -38,14 +45,16 @@ class validator:
         for listing in listings:
             tmp = listing.copy()
             
-            tmp["skipFinder"] = True
+            tmp["skip_find"] = True
             
             tmp["websiteId"] = self.websiteId
             
+            tmp["scraperType"] = "validator"
             
-            self.producer.produce({
+            self.producer.produce_message({
                 "data":tmp
             })
+            
             print(tmp["ID"])
 
 if __name__ == "__main__":

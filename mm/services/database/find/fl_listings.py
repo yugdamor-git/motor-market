@@ -89,11 +89,20 @@ class topicHandler:
             try:
                 message =  self.fl_listings_find_consumer.consume_message()
                 
+                skip_find = message["data"].get("skip_find",False)
+                
+                if skip_find == True:
+                    self.producer.produce_message(message)
+                    continue
+                    
+                
                 source_url = message["data"].get("sourceUrl")
                 
                 print(f'processing : {source_url}')
                 
                 self.handle_find_event(message)
+                
+                
 
             except Exception as e:
                 print(f'error : {str(e)}')
