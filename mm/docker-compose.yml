@@ -55,24 +55,7 @@ services:
         - ./services/libs:/libs
 
       restart: always
-      
-  # validator:
-  #   build:
-  #     context: ./services/scrapers/autotrader
-  #     dockerfile: Dockerfile.validator
 
-  #   depends_on:
-  #     - pulsar
-    
-  #   environment:
-  #     - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-  #     - MYSQL_HOST=${MYSQL_HOST}
-  #     - MYSQL_USERNAME=${MYSQL_USERNAME}
-  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
-    
-  #   stdin_open: true
-  
 
   # init-dealer-scraper:
   #   build:
@@ -952,3 +935,28 @@ services:
 
 
 # DEALER SCRAPY LISTING VALIDATOR
+
+
+# INIT VALIDATOR
+
+  init-validator:
+    build:
+      context: ./services/scrapers/autotrader
+      dockerfile: Dockerfile.validator
+
+    depends_on:
+      - pulsar
+    
+    environment:
+      - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_USERNAME=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+    
+    volumes:
+        - ./services/libs:/libs
+    
+    stdin_open: true
+
+# INIT VALIDATOR
