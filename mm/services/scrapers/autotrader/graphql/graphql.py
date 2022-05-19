@@ -607,6 +607,7 @@ class Graphql:
                     colour
                     adminFee
                     tradeLifecycleStatus
+                    vehicleCheckStatus
                     dateOfRegistration
                     imageList{
                         images{
@@ -792,6 +793,8 @@ class Graphql:
         carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus",None)
         
         carData["registration_date"] = jsonData.get("dateOfRegistration",None)
+        
+        carData["vehicleCheckStatus"] = jsonData.get("vehicleCheckStatus",None)
         
         carData["id"] = jsonData.get("id",None)
         

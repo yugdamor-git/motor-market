@@ -31,6 +31,7 @@ class Graphql:
                 id
                 price
                 adminFee
+                vehicleCheckStatus
                 tradeLifecycleStatus
                 }
             }
@@ -617,6 +618,7 @@ class Graphql:
                     adminFee
                     tradeLifecycleStatus
                     dateOfRegistration
+                    vehicleCheckStatus
                     imageList{
                         images{
                            url 
@@ -693,7 +695,7 @@ class Graphql:
             "operationName": "FPADataQuery",
             "variables": {
             "advertId": f'{carId}',
-            "numberOfImages": 100,
+            "numberOfImages": 30,
             "searchOptions": {
                 "advertisingLocations": [
                 "at_cars"
@@ -721,6 +723,8 @@ class Graphql:
         carData["price"] = jsonData.get("price",None)
         
         carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus")
+        
+        carData["vehicleCheckStatus"] = jsonData.get("vehicleCheckStatus",None)
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
@@ -800,6 +804,8 @@ class Graphql:
         
         carData["tradeLifecycleStatus"] = jsonData.get("tradeLifecycleStatus",None)
         
+        carData["vehicleCheckStatus"] = jsonData.get("vehicleCheckStatus",None)
+        
         carData["registration_date"] = jsonData.get("dateOfRegistration",None)
         
         carData["id"] = jsonData.get("id",None)
@@ -818,26 +824,58 @@ class ListingScraperPipeline:
         
         self.producer = pulsar_manager.create_producer(pulsar_manager.topics.LISTING_TRANSFORM)
         
+        self.fl_listings_update_producer = pulsar_manager.create_producer(pulsar_manager.topics.FL_LISTINGS_UPDATE)
+        
     def open_spider(self,spider):
         pass
     
     def close_spider(self,spider):
         pass
     
+    def expire_listing(self,sourceId,reason):
+        
+        what = {
+            "why":reason,
+            "Status":"expired"
+        }
+        
+        where = {
+            "sourceId":sourceId
+        }
+        
+        self.fl_listings_update_producer.produce_message({
+            "data":{
+                "what":what,
+                "where":where
+            }
+        })
+    
     def process_item(self,item,spider):
         
         data = item["data"]
         
+        sourceId = data.get("sourceId")
+        
         tradeLifecycleStatus = data["data"].get("tradeLifecycleStatus",None)
         
-        if not tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
-            self.producer.produce_message(data)
+        vehicleCheckStatus = data["data"].get("vehicleCheckStatus",None)
+        
+        scraperType = data["data"].get("scraperType")
+        
+        if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
+            if scraperType == "validator":
+                self.expire_listing(sourceId,f'tradeLifecycleStatus is {tradeLifecycleStatus}')
+            return item
+        
+        if vehicleCheckStatus != "PASSED":
+            if scraperType == "validator":
+                self.expire_listing(sourceId,f'vehicleCheckStatus is {vehicleCheckStatus}')
+            return item
+        
+        self.producer.produce_message(data)
         
         return item
     
-    
-    
-
 class ListingScraper(scrapy.Spider):
     name = 'listing-scraper'
     
@@ -874,6 +912,7 @@ class ListingScraper(scrapy.Spider):
             scraperType = data["data"].get("scraperType")
             
             id = data["data"]["sourceId"]
+            
             print(id)
             
             if scraperType == "normal":
