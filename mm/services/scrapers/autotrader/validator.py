@@ -29,7 +29,7 @@ class validator:
         self.database.connect()
         for retry in range(0,self.maxRetry):
             try:
-                listings = self.database.recCustomQuery(f'SELECT ID,sourceId,scraperName,sourceUrl,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM `fl_listings` WHERE Status="active" AND Website_ID={self.websiteId} AND sourceId IS NOT NULL LIMIT 100')
+                listings = self.database.recCustomQuery(f'SELECT ID,sourceId,scraperName,sourceUrl,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM `fl_listings` WHERE Status="active" AND Website_ID={self.websiteId} AND sourceId IS NOT NULL LIMIT 1000')
                 break
             except Exception as e:
                 print(f'error : {__file__} -> {str(e)}')
