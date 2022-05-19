@@ -939,7 +939,7 @@ services:
 
 # INIT VALIDATOR
 
-  init-validator:
+  init-listing-validator:
     build:
       context: ./services/scrapers/autotrader
       dockerfile: Dockerfile.validator
