@@ -1049,6 +1049,7 @@ if __name__ == "__main__":
         },
         'CONCURRENT_REQUESTS_PER_DOMAIN':500,
         'CONCURRENT_REQUESTS':500,
+        'CONCURRENT_ITEMS':10,
         'RETRY_ENABLED':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
