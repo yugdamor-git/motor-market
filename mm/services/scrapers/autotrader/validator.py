@@ -6,7 +6,6 @@ from pulsar_manager import PulsarManager
 
 
 from Database import Database
-from topic import producer,consumer
 
 class validator:
     def __init__(self):
