@@ -981,6 +981,6 @@ services:
       
       stdin_open: true
 
-      networks:
-        - host
+      # networks:
+      #   - host
   # resource manager
