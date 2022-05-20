@@ -978,6 +978,7 @@ services:
       
       volumes:
           - ./services/libs:/libs
+          - /var/www/html/files:/var/www/html/files
       
       stdin_open: true
       network_mode: host
