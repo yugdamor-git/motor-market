@@ -33,6 +33,9 @@ class Graphql:
                 adminFee
                 vehicleCheckStatus
                 tradeLifecycleStatus
+                specification{
+                    seats
+                }
                 }
             }
         }        
@@ -728,6 +731,8 @@ class Graphql:
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
+        carData["seats"] = int(float(jsonData.get("seats",None)))
+        
         return carData
         
         
@@ -850,6 +855,15 @@ class ListingScraperPipeline:
             }
         })
     
+    def update_listing(self,what,where):
+        
+        self.fl_listings_update_producer.produce_message({
+            "data":{
+                "what":what,
+                "where":where
+            }
+        })
+    
     def process_item(self,item,spider):
         
         data = item["data"]
@@ -861,6 +875,23 @@ class ListingScraperPipeline:
         vehicleCheckStatus = data["data"].get("vehicleCheckStatus",None)
         
         scraperType = data["data"].get("scraperType")
+        
+        seats = data["data"].get("seats")
+        
+        if scraperType == "validator":
+            what = {
+                "seats":seats,
+                "predictedSeats":seats
+            }
+            
+            where = {
+                "sourceId":sourceId
+            }
+            
+            self.update_listing(what,where)
+            
+            return item
+        
         
         if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
             if scraperType == "validator":

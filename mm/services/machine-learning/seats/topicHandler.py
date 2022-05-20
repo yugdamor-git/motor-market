@@ -35,9 +35,13 @@ class topicHandler:
                 
                 model = data["data"]["predictedModel"]
                 
-                prediction = self.predictor.predict(make,model)
+                seats = data["data"].get("seats",None)
                 
-                data["data"].update(prediction)
+                if seats == None:
+                    
+                    prediction = self.predictor.predict(make,model)
+                    
+                    data["data"].update(prediction)
                 
                 print(data)
                 

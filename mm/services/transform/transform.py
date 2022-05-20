@@ -206,6 +206,7 @@ class Transform:
         if data["seats"] != None:
             seats = int(data["seats"])
             data["seats"] = seats
+            data["predictedSeats"] = seats
         
         # mileage
         if data["mileage"] != None:
