@@ -1,5 +1,7 @@
 import sys
 
+import shutil
+
 sys.path.append("/libs")
 
 from pathlib import Path
@@ -29,6 +31,7 @@ class Manager:
     def clean_fl_listing_photos(self):
         
         sql_query = "DELETE FROM `fl_listing_photos` where Listing_ID NOT IN(SELECT ID FROM `fl_listings` WHERE 1)"
+        # sql_query = "SELECT COUNT(ID) FROM `fl_listing_photos` where Listing_ID NOT IN(SELECT ID FROM `fl_listings` WHERE 1)"
 
         self.execute_sql(sql_query)
     
@@ -37,15 +40,11 @@ class Manager:
         max_days = 7
         
         sql_query = f'DELETE FROM `fl_listings` WHERE updated_at <= CURRENT_DATE() - {max_days} AND Status="expired"'
+        # sql_query = f'SELECT COUNT(ID) FROM `fl_listings` WHERE updated_at <= CURRENT_DATE() - {max_days} AND Status="expired"'
         
         self.execute_sql(sql_query)
         
-    def generate_image_directory_path(self,listings):
-        paths = []
-        
-        for listing in listings:
-            
-            pass
+  
             
     def get_server_directory_dict(self,website_id):
         
@@ -61,7 +60,12 @@ class Manager:
     
     
     def delete_dir(self,path):
-        print(f'deleted : {path}')
+        try:
+            shutil.rmtree(path)
+            print(f'deleted : {path}')
+        except Exception as e:
+            print(f'error : {str(e)}')
+        
     
     def delete_images(self):
         
@@ -120,6 +124,8 @@ class Manager:
                     print(f'skipping : {server_dir}')
                     
     def main(self):
+        self.clean_fl_listings()
+        self.clean_fl_listing_photos()
         self.delete_images()
 
 
