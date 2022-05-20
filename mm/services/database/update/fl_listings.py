@@ -103,8 +103,13 @@ class topicHandler:
         
         what["updated_at"] = {"func":"now()"}
         
-        print(what)
-        print(where)
+        if "Status" in what:
+            if what["Status"] == "expired":
+                self.increase_expired_count()
+        if "status" in what:
+            if what["status"] == "expired":
+                self.increase_expired_count()
+                
         
         try:
             self.db.recUpdate("fl_listings",what,where)
