@@ -118,12 +118,15 @@ class topicHandler:
                 self.increase_expired_count()
             else:
                 self.increase_update_count()
+        else:
+            self.increase_update_count()
         if "status" in what:
             if what["status"] == "expired":
                 self.increase_expired_count()
             else:
                 self.increase_update_count()
-                
+        else:
+            self.increase_update_count()
         
         try:
             self.db.recUpdate("fl_listings",what,where)
