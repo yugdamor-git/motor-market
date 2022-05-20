@@ -968,10 +968,7 @@ services:
       build:
         context: ./services/resource_manager
         dockerfile: Dockerfile.resource_manager
-
-      depends_on:
-        - pulsar
-      
+        
       environment:
         - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
         - MYSQL_HOST=${MYSQL_HOST}
