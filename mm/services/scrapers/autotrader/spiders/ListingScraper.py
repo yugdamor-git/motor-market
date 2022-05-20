@@ -1046,7 +1046,6 @@ if __name__ == "__main__":
         'CONCURRENT_REQUESTS_PER_DOMAIN':128,
         'CONCURRENT_REQUESTS':128,
         'RETRY_ENABLED':True,
-        'DOWNLOAD_DELAY':1,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
         'DOWNLOAD_TIMEOUT':6,
