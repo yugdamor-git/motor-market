@@ -731,8 +731,11 @@ class Graphql:
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
-        carData["seats"] = int(float(jsonData.get("seats",None)))
-        
+        seats = jsonData.get("seats",None)
+        if seats != None:
+            carData["seats"] = int(float(seats))
+        else:
+            carData["seats"] = seats
         return carData
         
         
@@ -955,7 +958,8 @@ class ListingScraper(scrapy.Spider):
             
             meta = {
                 "proxy":self.proxy,
-                "data":data
+                "data":data,
+                "retryCount":0
             }
             
             yield scrapy.Request(
@@ -1043,7 +1047,6 @@ if __name__ == "__main__":
         'CONCURRENT_REQUESTS':128,
         'RETRY_ENABLED':True,
         'DOWNLOAD_DELAY':1,
-        'RANDOMIZE_DOWNLOAD_DELAY':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
         'DOWNLOAD_TIMEOUT':6,
