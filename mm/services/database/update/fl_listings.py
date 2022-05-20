@@ -62,6 +62,16 @@ class topicHandler:
                         }
                     }
                 )
+    
+    def increase_update_count(self):
+        self.logs_producer.produce_message(
+                {
+                    "eventType":"listingCount",
+                    "data":{
+                            "countFor":"update"
+                        }
+                    }
+                )
 
     def handleAtUrl(self,status,id,listingId,registrationStatus):
         
@@ -106,9 +116,13 @@ class topicHandler:
         if "Status" in what:
             if what["Status"] == "expired":
                 self.increase_expired_count()
+            else:
+                self.increase_update_count()
         if "status" in what:
             if what["status"] == "expired":
                 self.increase_expired_count()
+            else:
+                self.increase_update_count()
                 
         
         try:
