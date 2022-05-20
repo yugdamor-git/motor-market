@@ -980,7 +980,7 @@ services:
           - ./services/libs:/libs
       
       stdin_open: true
-
+      network_mode: host
       # networks:
       #   - host
   # resource manager
