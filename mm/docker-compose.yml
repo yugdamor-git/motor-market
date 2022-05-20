@@ -968,7 +968,7 @@ services:
       build:
         context: ./services/resource_manager
         dockerfile: Dockerfile.resource_manager
-        
+
       environment:
         - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
         - MYSQL_HOST=${MYSQL_HOST}
@@ -980,4 +980,7 @@ services:
           - ./services/libs:/libs
       
       stdin_open: true
+
+      networks:
+        - host
   # resource manager
