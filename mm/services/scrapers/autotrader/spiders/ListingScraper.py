@@ -1047,8 +1047,8 @@ if __name__ == "__main__":
         "ITEM_PIPELINES":{
             ListingScraperPipeline:300
         },
-        'CONCURRENT_REQUESTS_PER_DOMAIN':128,
-        'CONCURRENT_REQUESTS':128,
+        'CONCURRENT_REQUESTS_PER_DOMAIN':500,
+        'CONCURRENT_REQUESTS':500,
         'RETRY_ENABLED':True,
         'RETRY_TIMES':3,
         'RETRY_HTTP_CODES':[403],
