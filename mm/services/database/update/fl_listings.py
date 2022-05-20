@@ -127,7 +127,7 @@ class topicHandler:
                 self.increase_update_count()
         else:
             self.increase_update_count()
-        
+        print(where)
         try:
             self.db.recUpdate("fl_listings",what,where)
         except Exception as e:
