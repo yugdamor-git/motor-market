@@ -11,12 +11,15 @@ class Topics(Enum):
     LOGS = "motormarket.scraper.logs"
     
     FL_LISTINGS_UPDATE = f'motormarket{SCRAPER_NAME}.database.fllistings.update'
+    
     FL_LISTINGS_INSERT = f'motormarket{SCRAPER_NAME}.database.fllistings.insert'
+    
     FL_LISTINGS_FIND = f'motormarket{SCRAPER_NAME}.database.fllistings.find'
     
     LISTING_TRANSFORM = f'motormarket{SCRAPER_NAME}.scraper.listing.transform'
     
     LISTING_PREVALIDATION = f'motormarket{SCRAPER_NAME}.scraper.listing.prevalidation'
+    
     LISTING_POSTVALIDATION = f'motormarket{SCRAPER_NAME}.scraper.listing.postvalidation'
     
     LISTING_POST_CALCULATION= f'motormarket{SCRAPER_NAME}.scraper.listing.postcalculation'
@@ -28,7 +31,6 @@ class Topics(Enum):
     LISTING_PREDICT_SEAT= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.seat'
     
     LISTING_PREDICT_IMAGE= f'motormarket{SCRAPER_NAME}.scraper.listing.predict.image'
-    
     
     FL_LISTING_PHOTOS_INSERT = f'motormarket{SCRAPER_NAME}.database.fllistingphotos.insert'
     

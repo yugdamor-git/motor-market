@@ -122,8 +122,6 @@ class topicHandler:
         
         mappedData = self.map_columns(data)
         
-        
-        
         try:
             records = self.db.recSelect("fl_listings",where)
             

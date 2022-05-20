@@ -9,4 +9,4 @@ RUN pip install -r requirements.txt
 COPY . .
 
 
-CMD ["python","-u","resource_manager.py"]
+CMD ["python","-u","manager.py"]
