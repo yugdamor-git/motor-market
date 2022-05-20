@@ -136,7 +136,7 @@ class Predictor:
         return last_out
 
 
-if __name__ == "__main__":
-    mmp = MakeModelPrediction()
+# if __name__ == "__main__":
+#     mmp = MakeModelPrediction()
     
-    print(mmp.predict("bmw 1 series"))
+#     print(mmp.predict("bmw 1 series"))
