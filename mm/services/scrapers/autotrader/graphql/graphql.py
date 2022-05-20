@@ -758,7 +758,7 @@ class Graphql:
         
         carData["built"] = jsonData.get("year",None)
         
-        carData["seats"] = jsonData.get("seats",None)
+        carData["seats"] = specification.get("seats",None)
         
         mileage = jsonData.get("mileage",None)
         
