@@ -731,11 +731,15 @@ class Graphql:
         
         carData["adminFee"] = jsonData.get("adminFee",0)
         
-        seats = jsonData.get("seats",None)
+        specification = jsonData.get("specification",None)
+        
+        seats = specification.get("seats",None)
+        
         if seats != None:
             carData["seats"] = int(float(seats))
         else:
             carData["seats"] = seats
+            
         return carData
         
         
