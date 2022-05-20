@@ -875,7 +875,7 @@ class ListingScraperPipeline:
         
         data = item["data"]
         
-        sourceId = data.get("sourceId")
+        sourceId = data["data"].get("sourceId")
         
         tradeLifecycleStatus = data["data"].get("tradeLifecycleStatus",None)
         
