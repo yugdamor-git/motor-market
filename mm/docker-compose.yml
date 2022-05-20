@@ -964,23 +964,23 @@ services:
 
 # resource manager
 
-# resource-manager:
-#     build:
-#       context: ./services/resource_manager
-#       dockerfile: Dockerfile.resource_manager
+  resource-manager:
+      build:
+        context: ./services/resource_manager
+        dockerfile: Dockerfile.resource_manager
 
-#     depends_on:
-#       - pulsar
-    
-#     environment:
-#       - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
-#       - MYSQL_HOST=${MYSQL_HOST}
-#       - MYSQL_USERNAME=${MYSQL_USERNAME}
-#       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-#       - MYSQL_DATABASE=${MYSQL_DATABASE}
-    
-#     volumes:
-#         - ./services/libs:/libs
-    
-#     stdin_open: true
-# resource manager
+      depends_on:
+        - pulsar
+      
+      environment:
+        - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+        - MYSQL_HOST=${MYSQL_HOST}
+        - MYSQL_USERNAME=${MYSQL_USERNAME}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+      
+      volumes:
+          - ./services/libs:/libs
+      
+      stdin_open: true
+  # resource manager
