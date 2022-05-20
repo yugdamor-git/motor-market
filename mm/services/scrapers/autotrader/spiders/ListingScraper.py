@@ -943,7 +943,7 @@ class ListingScraper(scrapy.Spider):
         while True:
             
             data =  self.consumer.consume_message(timeout_millis=self.message_timeout)
-            continue
+            # continue
             if data == None:
                 break
             
