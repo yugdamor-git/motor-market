@@ -883,21 +883,21 @@ class ListingScraperPipeline:
         
         scraperType = data["data"].get("scraperType")
         
-        seats = data["data"].get("seats")
+        # seats = data["data"].get("seats")
         
-        if scraperType == "validator":
-            what = {
-                "seats":seats,
-                "predictedSeats":seats
-            }
+        # if scraperType == "validator":
+        #     what = {
+        #         "seats":seats,
+        #         "predictedSeats":seats
+        #     }
             
-            where = {
-                "sourceId":sourceId
-            }
+        #     where = {
+        #         "sourceId":sourceId
+        #     }
             
-            self.update_listing(what,where)
+        #     self.update_listing(what,where)
             
-            return item
+        #     return item
         
         
         if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
