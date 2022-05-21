@@ -67,7 +67,7 @@ class topicHandler:
                     }
                     
                     
-                    what["data"]["Status"] = "active"
+                    what["Status"] = "active"
                     
                     if data["data"]["registrationStatus"] == False:
                         what["Status"] = "pending"
