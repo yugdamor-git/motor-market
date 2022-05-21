@@ -66,6 +66,16 @@ class topicHandler:
                         "ID":ID
                     }
                     
+                    
+                    what["data"]["Status"] = "active"
+                    
+                    if data["data"]["registrationStatus"] == False:
+                        what["Status"] = "pending"
+                    
+                    if data["data"]["ltv"]["ltvStatus"] == 0:
+                        what["Status"] = "pending"
+                    
+                    
                     self.fl_listings_update_producer.produce_message(
                         {
                             "data":{

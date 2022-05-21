@@ -3,6 +3,7 @@
   { "key": "customPrice", "value": "customPrice" },
   { "key": "ltvStatus", "value": "ltvStatus" },
   { "key": "status", "value": "Status" },
+  { "key": "Status", "value": "Status" },
   { "key": "customPriceEnabled", "value": "custom_price_Enable" },
   { "key": "cal_price_from_file", "value": "cal_price_from_file" },
   { "key": "adminFee", "value": "admin_fees" },
