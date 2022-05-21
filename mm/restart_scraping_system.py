@@ -9,6 +9,7 @@ print(f'all services are down...')
 # wait for 10 seconds..
 delay = 10
 for t in range(0,delay):
+    time.sleep(1)
     print(f'restarting in {delay - t} seconds')
 
 # start parent services
@@ -19,6 +20,7 @@ print(f'parent services are up and running...')
 
 delay = 60
 for t in range(0,delay):
+    time.sleep(1)
     print(f'starting in {delay - t} seconds')
 
 
