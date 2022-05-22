@@ -1001,6 +1001,4 @@ services:
 
       stdin_open: true
 
-      command: start-notebook.sh --NotebookApp.password=${FLASK_AUTH_TOKEN}
-
   # notebook
