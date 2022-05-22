@@ -985,3 +985,22 @@ services:
       # networks:
       #   - host
   # resource manager
+
+
+  # notebook
+
+  notebook:
+      build:
+        image: jupyter/base-notebook:latest
+      
+      volumes:
+          - ./services/notebook:/home/jovyan/work
+        
+      ports:
+        - 20220:8888
+        
+      stdin_open: true
+
+      command: start-notebook.sh --NotebookApp.password=$${FLASK_AUTH_TOKEN}
+
+  # notebook
