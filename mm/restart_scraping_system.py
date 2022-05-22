@@ -24,8 +24,59 @@ for t in range(0,delay):
     print(f'starting in {delay - t} seconds')
 
 
+services = [
+    "logs",
+    
+    "fl-listings-find",
+    "fl-listings-find-at-urls",
+    
+    "fl-listings-update",
+    "fl-listings-update-at-urls",
+    
+    "at-urls-update",
+    
+    "fl-listings-insert",
+    "fl-listings-insert-at-urls",
+    
+    "fl-listingphotos-insert",
+    "fl-listingphotos-insert-at-urls",
+    
+    "listing-scraper-scrapy",
+    "listing-scraper-at-urls",
+    
+    "transform",
+    "transform-at-urls",
+    
+    "pre-validation",
+    "pre-validation-at-urls",
+    
+    "makemodel-prediction",
+    "makemodel-prediction-at-urls",
+    
+    "seat-prediction",
+    "seat-prediction-at-urls",
+    
+    "image-prediction",
+    "image-prediction-at-urls",
+    
+    "post-validation",
+    "post-validation-at-urls",
+    
+    "numberplate-prediction",
+    "numberplate-prediction-at-urls",
+    
+    "post-calculation",
+    "post-calculation-at-urls",
+    
+    "image-generation",
+    "image-generation-at-urls",
+    
+    "at-urls-scraper"
+]
+
 # start child services
-start_child_services_command = "docker-compose --compatibility up -d logs fl-listings-find fl-listings-find-at-urls fl-listings-update fl-listings-update-at-urls at-urls-update fl-listings-insert fl-listings-insert-at-urls fl-listingphotos-insert fl-listingphotos-insert-at-urls listing-scraper listing-scraper-at-urls transform transform-at-urls pre-validation pre-validation-at-urls makemodel-prediction makemodel-prediction-at-urls seat-prediction seat-prediction-at-urls image-prediction image-prediction-at-urls post-validation post-validation-at-urls numberplate-prediction numberplate-prediction-at-urls post-calculation post-calculation-at-urls image-generation image-generation-at-urls at-urls-scraper"
+start_child_services_command = f'docker-compose --compatibility up -d {" ".join(services)}'
+
 os.system(start_child_services_command)
 
 print(f'child services are up and running...')
