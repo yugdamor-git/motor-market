@@ -844,12 +844,13 @@ class ListingScraperPipeline:
     def close_spider(self,spider):
         pass
     
-    def expire_listing(self,sourceId,reason):
+    def expire_listing(self,sourceId,extra_data):
         
         what = {
-            "why":reason,
             "Status":"expired"
         }
+        
+        what.update(extra_data)
         
         where = {
             "sourceId":sourceId
@@ -902,12 +903,12 @@ class ListingScraperPipeline:
         
         if tradeLifecycleStatus in ["WASTEBIN","SALE_IN_PROGRESS"]:
             if scraperType == "validator":
-                self.expire_listing(sourceId,f'tradeLifecycleStatus is {tradeLifecycleStatus}')
+                self.expire_listing(sourceId,{"why":f'tradeLifecycleStatus is {tradeLifecycleStatus}',"tradeLifecycleStatus":tradeLifecycleStatus})
             return item
         
         if vehicleCheckStatus != "PASSED":
             if scraperType == "validator":
-                self.expire_listing(sourceId,f'vehicleCheckStatus is {vehicleCheckStatus}')
+                self.expire_listing(sourceId,{"why":f'vehicleCheckStatus is {vehicleCheckStatus}'})
             return item
         
         self.producer.produce_message(data)
