@@ -132,7 +132,29 @@ class Helper:
         
         return groupByDealerId
     
+    def get_all_dealers(self):
+        retry = 5
+        dealers = []
+        self.db.connect()
+        for i in range(0,retry):
+            try:
+                dealers = self.db.recCustomQuery('SELECT dealer_id FROM fl_dealer_scraper WHERE dealer_id NOT IN(SELECT dealer_id FROM fl_dealer_blacklist WHERE 1) AND status="active"')
+                break
+            except:
+                pass
+        self.db.disconnect()
+        
+        return dealers
     
+    def add_new_dealers(self,groups):
+        dealers = self.get_all_dealers()
+        
+        for item in dealers:
+            dealer_id = str(item["dealer_id"])
+            if not dealer_id in groups:
+                groups[str(dealer_id)] = []
+        return groups
+
 
 class DealerListingValidatorPipeline:
     def __init__(self) -> None:
@@ -235,7 +257,11 @@ class DealerListingValidator(scrapy.Spider):
         listings = self.helper.get_all_db_listing()
         
         groupByDealerId = self.helper.group_by_dealer_id(listings)
+        
+        self.helper.add_new_dealers(groupByDealerId)
+        
         index = 0
+        
         for dealerId in groupByDealerId:
             oldListingIds = {str(id) for id in groupByDealerId[dealerId]}
             
