@@ -154,6 +154,32 @@ class Helper:
             if not dealer_id in groups:
                 groups[str(dealer_id)] = []
         return groups
+    
+    def get_blacklist_dealers(self):
+        retry = 5
+        dealers = {}
+        self.db.connect()
+        for i in range(0,retry):
+            try:
+                tmp_dealers = self.db.recCustomQuery('SELECT dealer_id FROM fl_dealer_blacklist WHERE 1')
+                
+                for dealer in tmp_dealers:
+                    dealers[str(dealer["dealer_id"])] = 1
+                                        
+                break
+            except:
+                pass
+        self.db.disconnect()
+        
+        return dealers
+    
+    def remove_blacklist_dealers(self,groups):
+        blacklist_dealers = self.get_blacklist_dealers()
+        
+        for dealer_id in groups:
+            if dealer_id in blacklist_dealers:
+                del groups[dealer_id]
+        return groups
 
 
 class DealerListingValidatorPipeline:
@@ -259,6 +285,7 @@ class DealerListingValidator(scrapy.Spider):
         groupByDealerId = self.helper.group_by_dealer_id(listings)
         
         self.helper.add_new_dealers(groupByDealerId)
+        self.helper.remove_blacklist_dealers(groupByDealerId)
         
         index = 0
         
