@@ -4,6 +4,8 @@ sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
 
+from datetime import datetime
+
 
 from Database import Database
 
@@ -56,6 +58,20 @@ class validator:
             
             print(tmp["ID"])
 
+def is_working_hour():
+    start = 5
+    end = 20
+    now = datetime.now()
+    
+    if now.hour >= start and now.hour <= end:
+        return True
+    else:
+        return False
+
 if __name__ == "__main__":
-    v = validator()
-    v.main()
+    
+    if is_working_hour() == True:
+        v = validator()
+        v.main()
+    else:
+        print(f'skipping execution, its not working hour... ')

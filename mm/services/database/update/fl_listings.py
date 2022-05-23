@@ -120,6 +120,7 @@ class topicHandler:
                 self.increase_update_count()
         else:
             self.increase_update_count()
+            
         if "status" in what:
             if what["status"] == "expired":
                 self.increase_expired_count()
