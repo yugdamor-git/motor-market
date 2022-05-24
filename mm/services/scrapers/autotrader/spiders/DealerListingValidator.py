@@ -176,7 +176,7 @@ class Helper:
     def remove_blacklist_dealers(self,groups):
         blacklist_dealers = self.get_blacklist_dealers()
         
-        for dealer_id in groups:
+        for dealer_id in groups.copy():
             if dealer_id in blacklist_dealers:
                 del groups[dealer_id]
         return groups
@@ -285,6 +285,7 @@ class DealerListingValidator(scrapy.Spider):
         groupByDealerId = self.helper.group_by_dealer_id(listings)
         
         self.helper.add_new_dealers(groupByDealerId)
+        
         self.helper.remove_blacklist_dealers(groupByDealerId)
         
         index = 0
