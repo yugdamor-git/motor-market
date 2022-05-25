@@ -37,7 +37,7 @@ class Manager:
     
     def clean_fl_listings(self):
         
-        max_days = 7
+        max_days = 4
         
         sql_query = f'DELETE FROM `fl_listings` WHERE updated_at <= CURRENT_DATE() - {max_days} AND Status="expired"'
         # sql_query = f'SELECT COUNT(ID) FROM `fl_listings` WHERE updated_at <= CURRENT_DATE() - {max_days} AND Status="expired"'
