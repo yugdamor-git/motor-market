@@ -12,6 +12,8 @@ import json
 
 from redisHandler import redisHandler
 
+from unidecode import unidecode
+
 class Predictor:
     
     def __init__(self) -> None:
@@ -48,6 +50,12 @@ class Predictor:
             cacheJson = json.loads(cache)
             make = cacheJson["make"]
             model = cacheJson["model"]
+            
+            if make != None:
+                make = unidecode(make)
+            if model != None:
+                model = unidecode(model)
+            
             return {
             "predictedMake":make.title(),
             "predictedModel":model.title()
@@ -62,6 +70,11 @@ class Predictor:
         make = label.split(";")[0]
         
         model = label.split(";")[1]
+        
+        if make != None:
+            make = unidecode(make)
+        if model != None:
+            model = unidecode(model)
         
         cacheVal = {
             "make":make,
