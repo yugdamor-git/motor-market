@@ -5,7 +5,7 @@ sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
 
-from flask import Blueprint,request,jsonify
+from flask import Blueprint,request,jsonify,make_response
 import os
 
 from listingScraper import listingScraper
@@ -19,6 +19,8 @@ import pymongo
 scraper = listingScraper()
 
 pm = PulsarManager()
+
+import json
 
 autotrader = Blueprint("autotrader",__name__)
 
@@ -45,11 +47,18 @@ def listing_count():
     
     logs = list(db.listing_count.find(where,{"_id":0}).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
     
-    return jsonify({
+    data = {
         "data":logs,
         "status":True,
         "page":page
-    })
+    }
+    
+    response = make_response(json.dumps(data,indent=4))
+    response.status_code = 200
+    response.headers['Content-Type'] = 'application/json; charset=utf-8'
+    response.headers['mimetype'] = 'application/json'
+    
+    return response
 
 
 @autotrader.route("/scrape-listing",methods=['POST'])
