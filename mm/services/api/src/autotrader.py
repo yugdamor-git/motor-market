@@ -49,8 +49,8 @@ def listing_count():
     logs = list(db.listing_count.find(where,{"_id":0}).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
     
     for log in logs:
-        log["updatedAt"] = datetime.timestamp(log["updatedAt])
-        log["createdAt"] = datetime.timestamp(log["createdAt])
+        log["updatedAt"] = datetime.timestamp(log["updatedAt"])
+        log["createdAt"] = datetime.timestamp(log["createdAt"])
                            
     
     data = {
