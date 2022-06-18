@@ -1,6 +1,6 @@
 
 import sys
-
+from datetime import datetime
 sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
@@ -21,6 +21,7 @@ scraper = listingScraper()
 pm = PulsarManager()
 
 import json
+
 
 autotrader = Blueprint("autotrader",__name__)
 
@@ -46,6 +47,11 @@ def listing_count():
     }
     
     logs = list(db.listing_count.find(where,{"_id":0}).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
+    
+    for log in logs:
+        log["updatedAt"] = datetime.timestamp(log["updatedAt])
+        log["createdAt"] = datetime.timestamp(log["createdAt])
+                           
     
     data = {
         "data":logs,
