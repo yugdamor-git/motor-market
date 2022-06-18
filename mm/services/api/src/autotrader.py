@@ -28,11 +28,10 @@ finderTopic = pm.topics.FL_LISTINGS_FIND.value
 
 dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
-db = Database()
-
 
 @autotrader.route("/listing-count",methods=['GET'])
 def listing_count():
+    db = Database()
     
     perPage = 10
     
