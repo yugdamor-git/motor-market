@@ -2,7 +2,7 @@ import os
 
 user = os.environ.get("MONGO_USERNAME")
 password = os.environ.get("MONGO_PASSWORD")
-host = "mongodb:27017"
+host = "mongodb"
 database = "motormarket-logs"
 
 import pymongo
