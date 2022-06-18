@@ -43,7 +43,7 @@ def listing_count():
         "type":"insert"
     }
     
-    logs = list(db.listing_count.find(where).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
+    logs = list(db.listing_count.find(where,{"_id":0}).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
     
     return jsonify({
         "data":logs,
