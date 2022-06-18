@@ -12,6 +12,10 @@ from listingScraper import listingScraper
 
 from topic import producer,consumer
 
+from database import Database
+
+import pymongo
+
 scraper = listingScraper()
 
 pm = PulsarManager()
@@ -24,9 +28,29 @@ finderTopic = pm.topics.FL_LISTINGS_FIND.value
 
 dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
+db = Database()
 
 
-
+@autotrader.route("/listing-count",methods=['GET'])
+def listing_count():
+    
+    perPage = 10
+    
+    page = int(request.args.get("p",0))
+    
+    skip = page * perPage
+    
+    where = {
+        "type":"insert"
+    }
+    
+    logs = list(db.listing_count.find(where).sort("updatedAt",pymongo.DESCENDING).skip(skip).limit(perPage))
+    
+    return jsonify({
+        "data":logs,
+        "status":True,
+        "page":page
+    })
 
 
 @autotrader.route("/scrape-listing",methods=['POST'])
