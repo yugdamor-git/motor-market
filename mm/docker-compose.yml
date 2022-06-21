@@ -236,8 +236,8 @@ services:
       - "18800-18810:18700-18710"
 
     environment:
-      - MARKETCHECK_FTPS_USER=${FTPS_USERNAME}
-      - MARKETCHECK_FTPS_PASS=${FTPS_PASSWORD}
+      - FTPS_USER=${MARKETCHECK_FTPS_USER}
+      - FTPS_PASS=${MARKETCHECK_FTPS_PASS}
       - FTPS_EXTERNAL_URI=${FTPS_IP}
   
   # local-db-handler:
