@@ -82,7 +82,7 @@ class Calculation:
             data["margin"] = customPrice - data["sourcePrice"]
             
         else:
-            data["mmPrice"] = data.get("price") + margin
+            data["mmPrice"] = data.get("sourcePrice") + margin
             
     def calculateSourcePrice(self,data):
         
