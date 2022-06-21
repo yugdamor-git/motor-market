@@ -233,7 +233,7 @@ services:
     ports:
       - "${MARKETCHECK_FTPS_PORT}:21"
       - "5026:990"
-      - "18700-18710:18700-18710"
+      - "18800-18810:18700-18710"
 
     environment:
       - MARKETCHECK_FTPS_USER=${FTPS_USERNAME}
