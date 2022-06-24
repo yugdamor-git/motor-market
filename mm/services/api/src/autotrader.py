@@ -20,6 +20,8 @@ scraper = listingScraper()
 
 pm = PulsarManager()
 
+db = Database()
+
 import json
 
 
