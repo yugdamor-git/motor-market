@@ -14,3 +14,4 @@ class Database:
         client = pymongo.MongoClient(connection_uri)
         db = client[db_name]
         self.listing_count = db["listing-count"]
+        self.car_cutter = db["car-cutter"]
