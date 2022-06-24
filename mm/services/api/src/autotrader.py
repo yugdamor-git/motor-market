@@ -20,7 +20,7 @@ scraper = listingScraper()
 
 pm = PulsarManager()
 
-db = Database()
+
 
 import json
 
@@ -35,6 +35,7 @@ dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
 @autotrader.route("/car-cutter-webhook",methods=['GET','POST'])
 def car_cutter():
+    db = Database()
     data = request.get_json()
     
     db.car_cutter.insert_one(data)
