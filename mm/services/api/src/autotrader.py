@@ -31,6 +31,13 @@ finderTopic = pm.topics.FL_LISTINGS_FIND.value
 
 dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 
+@autotrader.route("/car-cutter-webhook",methods=['GET','POST'])
+def car_cutter():
+    data = request.get_json()
+    
+    db.car_cutter.insert_one(data)
+    
+    return jsonify({})
 
 @autotrader.route("/listing-count",methods=['GET'])
 def listing_count():
