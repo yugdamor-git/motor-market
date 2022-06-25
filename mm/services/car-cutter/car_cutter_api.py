@@ -71,6 +71,8 @@ class CarCutter:
             print(f'deleted existing file')
             file_path.unlink()
         
+        time.sleep(2)
+        
         with open(file_path,"wb") as f:
             f.write(content)
         
@@ -112,7 +114,7 @@ class CarCutter:
         processed_images = []
         
         result = self.submit_images(car_cutter_images)
-        
+        time.sleep(10)
         index = 0
         for item in result["data"]["images"]:
             
