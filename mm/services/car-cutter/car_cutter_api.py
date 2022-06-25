@@ -122,20 +122,31 @@ class CarCutter:
                     if "front" in angle:
                         if id in all_images_by_id:
                             img_item = all_images_by_id[id].copy()
+                            img_item["angle"] = angle
                             exterior.insert(0,img_item)
-                    else:
+                    elif "rear" in angle:
                         if id in all_images_by_id:
                             img_item = all_images_by_id[id].copy()
+                            img_item["angle"] = angle
                             exterior.append(img_item)
                 else:
                     pass
-            else:
+            elif "interior" in angle:
                 if id in all_images_by_id:
                     img_item = all_images_by_id[id].copy()
+                    img_item["angle"] = angle
                     interior.append(img_item)
         index = 0
         
+        for i in exterior:
+            tmp = i.copy()
+            tmp["position"] = index
+            processed_images.append(tmp)
+            # print(i)
+            index += 1
+        
         for i in interior:
+            print(i)
             tmp = i.copy()
             tmp["position"] = index
             
@@ -145,18 +156,13 @@ class CarCutter:
             processed_images.append(tmp)
             index += 1
         
-        for i in exterior:
-            tmp = i.copy()
-            tmp["position"] = index
-            processed_images.append(i)
-            index += 1
-        
         return processed_images
 
 
 # if __name__ == "__main__":
 #     cc = CarCutter()
 #     images = load_images()
-#     for i in images:
-#         print(f'image_url:{i}')
-#     # cc.main(images)
+#     # for i in images:
+#     #     print(f'image_url:{i}')
+#     for i in cc.process_images(images):
+#         print(i)

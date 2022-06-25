@@ -85,12 +85,15 @@ class imageGenerator:
                 
                 processedImages["exists"] = True
                 
-                return processedImages
-            
+                # return processedImages
+            else:
+                processedImages["status"] = True
+                processedImages["exists"] = False
             
             _,orgImage = self.convert_image(rawImage)
             # upload image in server through ftp
             ftp.uploadFile(orgImagePath,orgImage)
+            
             
             for size in self.sizes:
                 _,buff = self.convert_image(rawImage,size)
@@ -98,8 +101,7 @@ class imageGenerator:
                 # upload image in server through ftp
                 ftp.uploadFile(imagePathTmp,buff)
             
-            processedImages["status"] = True
-            processedImages["exists"] = False
+            
             
             try:
                 deletePath = Path(imagePath)

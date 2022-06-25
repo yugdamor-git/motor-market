@@ -8,8 +8,12 @@ def load_images():
     with open("input.json","rb") as f:
         data = json.loads(f.read())
     
-    for i in data:
-        images.append(i["url"])
+    for index,i in enumerate(data):
+        images.append({
+            "url":i["url"],
+            "id":generate_sha1_hash(i["url"]),
+            "position":index
+        })
     
     return images
 
