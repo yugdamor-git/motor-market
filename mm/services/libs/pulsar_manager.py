@@ -38,6 +38,8 @@ class Topics(Enum):
     
     GENERATE_IMAGE = f'motormarket{SCRAPER_NAME}.listing.generate.image'
     
+    CAR_CUTTER = f'motormarket{SCRAPER_NAME}.listing.replace.background.image'
+    
     AUTOTRADER_LISTING_SCRAPER = f'motormarket{SCRAPER_NAME}.scraper.autotrader.listing.scrape'
 
 class Producer:

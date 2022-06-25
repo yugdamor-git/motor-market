@@ -22,8 +22,8 @@ class topicHandler:
         self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
         self.fl_listings_update_consumer = pulsar_manager.create_consumer(pulsar_manager.topics.FL_LISTINGS_INSERT)
-        
-        self.generate_image_producer = pulsar_manager.create_producer(pulsar_manager.topics.GENERATE_IMAGE)
+                
+        self.car_cutter_producer = pulsar_manager.create_producer(pulsar_manager.topics.CAR_CUTTER)
         
         self.at_urls_update_producer = pulsar_manager.create_producer(self.topics.AT_URLS_UPDATE)
         
@@ -157,7 +157,7 @@ class topicHandler:
                 
                 print(data)
                 
-                self.generate_image_producer.produce_message(data)
+                self.car_cutter_producer.produce_message(data)
             
             if scraperName == "url-scraper":
                 status = None

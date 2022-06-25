@@ -1,0 +1,3 @@
+pulsar-client==2.9.1
+scrapy
+Pillow
