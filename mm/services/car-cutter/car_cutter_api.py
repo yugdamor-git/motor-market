@@ -114,7 +114,7 @@ class CarCutter:
         processed_images = []
         
         result = self.submit_images(car_cutter_images)
-        time.sleep(10)
+        time.sleep(1 * 60)
         index = 0
         for item in result["data"]["images"]:
             
