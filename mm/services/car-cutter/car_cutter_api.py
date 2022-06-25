@@ -114,7 +114,9 @@ class CarCutter:
         processed_images = []
         
         result = self.submit_images(car_cutter_images)
-        time.sleep(1 * 60)
+        
+        time.sleep(2)
+        
         index = 0
         for item in result["data"]["images"]:
             
@@ -149,18 +151,18 @@ class CarCutter:
         for i in exterior:
             tmp = i.copy()
             tmp["position"] = index
+            
+            if self.get_result(tmp["url"],tmp["path"]) == False:
+                
+                continue
+            
             processed_images.append(tmp)
-            # print(i)
             index += 1
         
         for i in interior:
             print(i)
             tmp = i.copy()
             tmp["position"] = index
-            
-            if self.get_result(tmp["url"],tmp["path"]) == False:
-                continue
-            
             processed_images.append(tmp)
             index += 1
         
