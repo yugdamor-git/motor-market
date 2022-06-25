@@ -65,7 +65,13 @@ class CarCutter:
     
     def save_image(self,content,path):
         
-        with open(path,"wb") as f:
+        file_path = Path(path)
+        
+        if file_path.exists() == True:
+            print(f'deleted existing file')
+            file_path.unlink()
+        
+        with open(file_path,"wb") as f:
             f.write(content)
         
     
