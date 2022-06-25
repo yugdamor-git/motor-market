@@ -36,7 +36,7 @@ dealerScraperTopic = 'motormarket.scraper.autotrader.dealer.scrape'
 @autotrader.route("/car-cutter-webhook",methods=['GET','POST'])
 def car_cutter():
     db = Database()
-    data = json.loads(request.body)
+    data = json.loads(request.data)
     
     db.car_cutter.insert_one(data)
     
