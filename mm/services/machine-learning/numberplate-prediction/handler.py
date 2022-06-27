@@ -8,6 +8,7 @@ class Handler:
         self.predictor = Predictor()
         self.pathPrefix = Path('/usr/src/app/files')
         self.PlateRecognizer = PlateRecognizer()
+        self.deep_learning_dir = Path("/usr/src/app/deep_learning")
     
     def validateRegistration(self,predicted,actual):
         regNo = str(predicted).strip().upper()
@@ -26,6 +27,18 @@ class Handler:
             return False,regNo
         
         return True,regNo
+    
+    def generate_file_name(self,box,id):
+        file_name = f'{id}_{box["xmin"]}_{box["ymin"]}_{box["xmax"]}_{box["ymax"]}.jpg'
+        return file_name
+    
+    def handle_deep_learning(self,box,id,imgPath):
+        try:
+            filename = self.generate_file_name(box,id)
+            filepath = self.deep_learning_dir.joinpath(filename)
+            imgPath.copy(filepath)
+        except Exception as e:
+            print(str(e))
     
     def getRegistrationFromImages(self,images,rawRegistration):
         
@@ -47,7 +60,7 @@ class Handler:
             
             
             with open(imgPath,"rb") as f:
-                result = self.PlateRecognizer.fetchRegistrationNumber(f,image["id"],imgPath)
+                result = self.PlateRecognizer.fetchRegistrationNumber(f)
 
             if result["status"] == False:
                 continue
@@ -55,6 +68,11 @@ class Handler:
             status,regno = self.validateRegistration(result["registration"],rawRegistration)
             
             if status == True:
+                try:
+                    self.handle_deep_learning(result["box"],image["id"],imgPath)
+                except Exception as e:
+                    print(f'error : {str(e)}')
+                
                 registration = regno
                 break
             else:

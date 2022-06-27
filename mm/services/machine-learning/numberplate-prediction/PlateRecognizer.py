@@ -56,7 +56,7 @@ class PlateRecognizer:
         src.copy(dest)
         
     
-    def fetchRegistrationNumber(self,image,id,imgPath):
+    def fetchRegistrationNumber(self,image):
         
         self.updateApiRemainingCallCount()
         
@@ -79,17 +79,13 @@ class PlateRecognizer:
             jsonDict = response.json()
             
             plate = jsonDict["results"][0]["plate"]
-            try:
-                box = jsonDict["results"][0]["box"]
-                filename = self.generate_file_name(box,id)
-                filepath = self.deep_learning_dir.joinpath(filename)
-                imgPath.copy(filepath)
-            except Exception as e:
-                print(str(e))
+            box = jsonDict["results"][0]["box"]
+            
             return {
                 "registration":plate,
                 "status":True,
-                "message":""
+                "message":"",
+                "box":box
             }
         
         except Exception as e:
