@@ -118,7 +118,13 @@ class CarCutter:
         
         website_dir = self.media.joinpath(f'S{websiteId}')
         
+        if not website_dir.exists():
+            website_dir.mkdir()
+        
         listing_dir = website_dir.joinpath(str(listingId))
+        
+        if not listing_dir.exists():
+            listing_dir.mkdir()
         
         # car_cutter_images = []
         
