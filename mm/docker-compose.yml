@@ -777,6 +777,7 @@ services:
       volumes:
         - ./media:/usr/src/app/media
         - ./services/libs:/libs
+        - ./services/deep_learning:/deep_learning
       
       environment:
         PLATE_RECOGNIZER_TOKEN : ${PLATE_RECOGNIZER_TOKEN}
@@ -797,6 +798,7 @@ services:
       volumes:
         - ./media:/usr/src/app/media
         - ./services/libs:/libs
+        - ./services/deep_learning:/deep_learning
       
       environment:
         - PLATE_RECOGNIZER_TOKEN=${PLATE_RECOGNIZER_TOKEN}

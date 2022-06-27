@@ -1,6 +1,7 @@
-from distutils.command.upload import upload
+
 import os
 import requests
+from pathlib import Path
 
 class PlateRecognizer:
     
@@ -23,6 +24,11 @@ class PlateRecognizer:
         
         self.updateApiRemainingCallCount()
         
+        self.cwd = Path.cwd()
+        
+        self.deep_learning_dir = Path("/deep_learning")
+        
+        
     
     def updateApiRemainingCallCount(self):
         
@@ -41,8 +47,16 @@ class PlateRecognizer:
             print(f'apiRemainingCallCount : {self.apiRemainingCallCount}')
         except Exception as e:
             print(f'error : {str(e)}')
+            
+    def generate_file_name(self,box,id):
+        file_name = f'{id}_{box["xmin"]}_{box["ymin"]}_{box["xmax"]}_{box["ymax"]}.png'
+        return file_name
     
-    def fetchRegistrationNumber(self,image):
+    def save_box_file(self,src,dest):
+        src.copy(dest)
+        
+    
+    def fetchRegistrationNumber(self,image,id,imgPath):
         
         self.updateApiRemainingCallCount()
         
@@ -65,7 +79,13 @@ class PlateRecognizer:
             jsonDict = response.json()
             
             plate = jsonDict["results"][0]["plate"]
-            
+            try:
+                box = jsonDict["results"][0]["box"]
+                filename = self.generate_file_name(box,id)
+                filepath = self.deep_learning_dir.joinpath(filename)
+                imgPath.copy(filepath)
+            except:
+                pass
             return {
                 "registration":plate,
                 "status":True,

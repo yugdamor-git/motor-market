@@ -47,7 +47,7 @@ class Handler:
             
             
             with open(imgPath,"rb") as f:
-                result = self.PlateRecognizer.fetchRegistrationNumber(f)
+                result = self.PlateRecognizer.fetchRegistrationNumber(f,image["id"],imgPath)
 
             if result["status"] == False:
                 continue
