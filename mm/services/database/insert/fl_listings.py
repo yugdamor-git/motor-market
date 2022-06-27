@@ -147,7 +147,7 @@ class topicHandler:
                 
                 mmUrl = self.urlGenerator.generateMMUrl(make,model,title,id)
                 
-                data["data"]["status"] = "to_parse"
+                data["data"]["status"] = mappedData["Status"]
                 
                 data["data"]["mmUrl"] = mmUrl
                 

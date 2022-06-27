@@ -33,10 +33,10 @@ class topicHandler:
                 websiteId = data["data"]["websiteId"]
                 
                 listingId = data["data"]["ID"]
-
-                processed_images = self.car_cutter.process_images(images,websiteId,listingId)
                 
-                data["data"]["images"] = processed_images
+                if data["data"]["status"] == "to_parse":
+                    processed_images = self.car_cutter.process_images(images,websiteId,listingId)
+                    data["data"]["images"] = processed_images
 
                 self.generate_image_producer.produce_message(data)
             

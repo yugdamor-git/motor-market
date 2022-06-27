@@ -2,6 +2,7 @@ from pathlib import Path
 import time
 import requests
 from helper import load_images,generate_sha1_hash
+from concurrent.futures import ThreadPoolExecutor,as_completed
 
 from imageDownloader import ImageDownloader
 
@@ -65,7 +66,7 @@ class CarCutter:
         'Authorization': f'Bearer {self.api_key}'
         }
 
-        response = requests.request("GET", url, headers=headers,)
+        response = requests.request("GET", url, headers=headers)
 
         json_response = response.json()
         
@@ -85,7 +86,7 @@ class CarCutter:
             f.write(content)
         
     
-    def get_result(self,image_url,file_path):
+    def get_result(self,image_url,file_path,item):
         status = False
         url = f'https://api.car-cutter.com/vehicle/image/result?image_url={image_url}'
         
@@ -102,7 +103,7 @@ class CarCutter:
                 break
             time.sleep(1)
             
-        return status
+        return status,item
         
     # def generate_image_id_path(self,images,websiteId,listingId):
     #     data = []
@@ -110,6 +111,26 @@ class CarCutter:
     #     for img in images:
     #         id = generate_sha1_hash(img)
 
+    def download_multiple_images(self,urls):
+        
+        downloadedImages = []
+        
+        threads = []
+        
+        with ThreadPoolExecutor(max_workers=30) as executor:
+            for position,url in enumerate(urls):
+                threads.append(executor.submit(self.get_result,url["url"],url["path"],url))
+        
+            for task in as_completed(threads):
+                status,data = task.result()
+                
+                if status == False:
+                    print(f'failed to donwload image : {data["url"]}')
+                    continue
+                
+                downloadedImages.append(data)
+                
+        return downloadedImages
     
     def process_images(self,car_cutter_images,websiteId,listingId):
         interior = []
@@ -169,8 +190,8 @@ class CarCutter:
             tmp = i.copy()
             tmp["position"] = index
             
-            if self.get_result(tmp["url"],tmp["path"]) == False:
-                continue
+            # if self.get_result(tmp["url"],tmp["path"]) == False:
+            #     continue
             
             processed_images.append(tmp)
             index += 1
@@ -179,11 +200,13 @@ class CarCutter:
             tmp = i.copy()
             tmp["position"] = index
             
-            if self.get_result(tmp["url"],tmp["path"]) == False:
-                continue
+            # if self.get_result(tmp["url"],tmp["path"]) == False:
+            #     continue
             
             processed_images.append(tmp)
             index += 1
+        
+        processed_images = self.download_multiple_images(processed_images)
         
         return processed_images
 
