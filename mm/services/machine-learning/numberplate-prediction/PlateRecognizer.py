@@ -49,7 +49,7 @@ class PlateRecognizer:
             print(f'error : {str(e)}')
             
     def generate_file_name(self,box,id):
-        file_name = f'{id}_{box["xmin"]}_{box["ymin"]}_{box["xmax"]}_{box["ymax"]}.png'
+        file_name = f'{id}_{box["xmin"]}_{box["ymin"]}_{box["xmax"]}_{box["ymax"]}.jpg'
         return file_name
     
     def save_box_file(self,src,dest):
@@ -84,8 +84,8 @@ class PlateRecognizer:
                 filename = self.generate_file_name(box,id)
                 filepath = self.deep_learning_dir.joinpath(filename)
                 imgPath.copy(filepath)
-            except:
-                pass
+            except Exception as e:
+                print(str(e))
             return {
                 "registration":plate,
                 "status":True,
