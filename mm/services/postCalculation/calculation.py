@@ -176,18 +176,11 @@ class Calculation:
             return
         
         mmPrice = data["mmPrice"]
-        
         forecourt = data["dealerForecourtPrice"]
-        
-        
         percentage = 110
-        
         extra_margin = 0
-        
         forecourt_110 = int(float( (percentage/100) * forecourt ),2)
-        
         maximum_allowed_margin = forecourt_110 - mmPrice
-        
         data["forecourt_110"] = forecourt_110
         
         if maximum_allowed_margin < 0:
