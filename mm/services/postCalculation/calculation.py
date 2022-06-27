@@ -193,14 +193,18 @@ class Calculation:
         if maximum_allowed_margin < 0:
             data["cc_extra_margin"] = extra_margin
             data["mmPrice"] = mmPrice + extra_margin
+            data["margin"] = data["margin"] + extra_margin
             return
         
         if maximum_allowed_margin >= 200:
             extra_margin = 200
             data["cc_extra_margin"] = extra_margin
             data["mmPrice"] = mmPrice + extra_margin
+            data["margin"] = data["margin"] + extra_margin
             return
         else:
             extra_margin = 200 - maximum_allowed_margin
             data["cc_extra_margin"] = extra_margin
             data["mmPrice"] = mmPrice + extra_margin
+            data["margin"] = data["margin"] + extra_margin
+            return
