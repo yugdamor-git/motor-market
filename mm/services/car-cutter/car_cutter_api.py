@@ -102,32 +102,20 @@ class CarCutter:
     def process_images(self,images):
         interior = []
         exterior = []
-        
         all_images_by_id = {}
-        
         car_cutter_images = []
-        
         for image in images:
             all_images_by_id[image["id"]] = image
             car_cutter_images.append(image["url"])
-        
         processed_images = []
-        
         result = self.submit_images(car_cutter_images)
-        
         time.sleep(2)
-        
         index = 0
         for item in result["data"]["images"]:
-            
             url = item["image"]
-            
             id = generate_sha1_hash(url)
-            
             angle = "_".join(item["angle"]).lower()
-            
             if "exterior" in angle:
-                
                 if angle in self.background_remove_angles:
                     if "front" in angle:
                         if id in all_images_by_id:
@@ -147,7 +135,6 @@ class CarCutter:
                     img_item["angle"] = angle
                     interior.append(img_item)
         index = 0
-        
         for i in exterior:
             tmp = i.copy()
             tmp["position"] = index

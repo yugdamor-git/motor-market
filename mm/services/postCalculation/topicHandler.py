@@ -58,6 +58,9 @@ class topicHandler:
                     # ltv
                     self.calculation.calculateLtv(data["data"])
                     
+                    # extra margin - car cutter
+                    self.calculation.car_cutter_extra_margin(data["data"])
+                    
                     ID = data["data"].get("ID")
                     
                     what = self.column_mapping.map_columns(data,self.column_mapping.update_mapping)
@@ -111,6 +114,10 @@ class topicHandler:
                     self.calculation.calculateCategoryId(data["data"])
                     
                     categoryId = data["data"].get("categoryId",None)
+                    
+                    # extra margin - car cutter
+                    
+                    self.calculation.car_cutter_extra_margin(data["data"])
                     
                     if categoryId == None:
                         

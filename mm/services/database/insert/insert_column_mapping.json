@@ -126,5 +126,7 @@
   { "key": "dealerForecourtPrice", "value": "dealerForecourtPrice" },
   { "key": "tradeLifecycleStatus", "value": "tradeLifecycleStatus" },
   { "key": "registration_date", "value": "registration_date" },
-  { "key": "photosCount", "value": "Photos_count" }
+  { "key": "photosCount", "value": "Photos_count" },
+  { "key": "cc_extra_margin","value": "cc_extra_margin"},
+  { "key": "forecourt_110", "value" : "forecourt_110"}
 ]
