@@ -34,7 +34,7 @@ class topicHandler:
                 
                 listingId = data["data"]["ID"]
                 
-                if data["data"]["status"] == "to_parse":
+                if data["data"]["status"] == "to_parse" and data["data"]["sourcePrice"] > 10000:
                     processed_images = self.car_cutter.process_images(images,websiteId,listingId)
                     data["data"]["images"] = processed_images
 
