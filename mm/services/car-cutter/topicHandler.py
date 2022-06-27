@@ -28,15 +28,15 @@ class topicHandler:
             try:
                 data =  self.consumer.consume_message()
                 
-                images = data["data"]["car_cutter_images"]
+                # images = data["data"]["car_cutter_images"]
                 
-                websiteId = data["data"]["websiteId"]
+                # websiteId = data["data"]["websiteId"]
                 
-                listingId = data["data"]["ID"]
+                # listingId = data["data"]["ID"]
                 
-                if data["data"]["status"] == "to_parse" and data["data"]["sourcePrice"] > 10000:
-                    processed_images = self.car_cutter.process_images(images,websiteId,listingId)
-                    data["data"]["images"] = processed_images
+                # if data["data"]["status"] == "to_parse" and data["data"]["sourcePrice"] > 10000:
+                #     processed_images = self.car_cutter.process_images(images,websiteId,listingId)
+                #     data["data"]["images"] = processed_images
 
                 self.generate_image_producer.produce_message(data)
             
