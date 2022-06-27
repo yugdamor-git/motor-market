@@ -171,15 +171,13 @@ class Calculation:
             data["videoId"] = videoId
     
     def car_cutter_extra_margin(self,data):
-        
-        if data["ltvStatus"] == 0:
             
-            if data["sourcePrice"] > 10000:
-                mmPrice = data["mmPrice"]
-                extra_margin = 200
-                data["cc_extra_margin"] = extra_margin
-                data["mmPrice"] = mmPrice + extra_margin
-                data["margin"] = data["margin"] + extra_margin
+        if data["sourcePrice"] > 10000:
+            mmPrice = data["mmPrice"]
+            extra_margin = 200
+            data["cc_extra_margin"] = extra_margin
+            data["mmPrice"] = mmPrice + extra_margin
+            data["margin"] = data["margin"] + extra_margin
             # return
         
         # mmPrice = data["mmPrice"]
