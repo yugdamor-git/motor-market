@@ -5,6 +5,11 @@ import time
 stop_command = "docker-compose down"
 os.system(stop_command)
 
+# remove media folders
+os.system("rm -r media/")
+time.sleep(5)
+os.system("mkdir media")
+
 print(f'all services are down...')
 # wait for 10 seconds..
 delay = 10
