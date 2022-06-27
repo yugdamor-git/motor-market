@@ -3,6 +3,8 @@ import time
 import requests
 from helper import load_images,generate_sha1_hash
 
+from imageDownloader import ImageDownloader
+
 class CarCutter:
     def __init__(self) -> None:
         self.api_key = "pidiw7jdlul9p36xeie1"
@@ -27,6 +29,12 @@ class CarCutter:
             self.raw_images.mkdir()
             
         self.max_retry = 20
+        
+        self.max_images = 15
+        
+        self.media = self.cwd.joinpath("media")
+        
+        self.downloader = ImageDownloader()
     
     
     def submit_images(self,images):
@@ -96,60 +104,78 @@ class CarCutter:
             
         return status
         
+    # def generate_image_id_path(self,images,websiteId,listingId):
+    #     data = []
         
+    #     for img in images:
+    #         id = generate_sha1_hash(img)
 
     
-    def process_images(self,images):
+    def process_images(self,car_cutter_images,websiteId,listingId):
         interior = []
         exterior = []
-        all_images_by_id = {}
-        car_cutter_images = []
-        for image in images:
-            all_images_by_id[image["id"]] = image
-            car_cutter_images.append(image["url"])
+        images = []
+        
+        website_dir = self.media.joinpath(f'S{websiteId}')
+        
+        listing_dir = website_dir.joinpath(str(listingId))
+        
+        # car_cutter_images = []
+        
+        # for image in images:
+        #     all_images_by_id[image["id"]] = image
+        #     car_cutter_images.append(image["url"])
+        
         processed_images = []
         result = self.submit_images(car_cutter_images)
         time.sleep(2)
         index = 0
+        
         for item in result["data"]["images"]:
+            img_item = {}
+            
             url = item["image"]
             id = generate_sha1_hash(url)
+            file_name = f'{id}.png'
+            file_path = listing_dir.joinpath(file_name)
+            img_item["id"] = id
+            img_item["angle"] = angle
+            img_item["url"] = url
+            img_item["path"] = str(file_path)
             angle = "_".join(item["angle"]).lower()
             if "exterior" in angle:
                 if angle in self.background_remove_angles:
                     if "front" in angle:
-                        if id in all_images_by_id:
-                            img_item = all_images_by_id[id].copy()
-                            img_item["angle"] = angle
-                            exterior.insert(0,img_item)
+                        images.append(url)
+                        exterior.insert(0,img_item)
                     elif "rear" in angle:
-                        if id in all_images_by_id:
-                            img_item = all_images_by_id[id].copy()
-                            img_item["angle"] = angle
-                            exterior.append(img_item)
+                        images.append(url)
+                        exterior.append(img_item)
                 else:
                     pass
             elif "interior" in angle:
-                if id in all_images_by_id:
-                    img_item = all_images_by_id[id].copy()
-                    img_item["angle"] = angle
+                if len(interior) <= self.max_images - 4:
+                    images.append(url)
                     interior.append(img_item)
+                    
         index = 0
         for i in exterior:
             tmp = i.copy()
             tmp["position"] = index
             
             if self.get_result(tmp["url"],tmp["path"]) == False:
-                
                 continue
             
             processed_images.append(tmp)
             index += 1
         
         for i in interior:
-            print(i)
             tmp = i.copy()
             tmp["position"] = index
+            
+            if self.get_result(tmp["url"],tmp["path"]) == False:
+                continue
+            
             processed_images.append(tmp)
             index += 1
         

@@ -288,6 +288,8 @@ class Transform:
         
         data["images"] = images
         
+        data["car_cutter_images"] = images
+        
         # url
         
         # add / calc new fields

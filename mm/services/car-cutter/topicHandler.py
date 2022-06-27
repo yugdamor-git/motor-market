@@ -28,9 +28,13 @@ class topicHandler:
             try:
                 data =  self.consumer.consume_message()
                 
-                images = data["data"]["images"]
+                images = data["data"]["car_cutter_images"]
+                
+                websiteId = data["data"]["websiteId"]
+                
+                listingId = data["data"]["ID"]
 
-                processed_images = self.car_cutter.process_images(images)
+                processed_images = self.car_cutter.process_images(images,websiteId,listingId)
                 
                 data["data"]["images"] = processed_images
 
