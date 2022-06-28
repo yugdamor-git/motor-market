@@ -912,7 +912,7 @@ services:
         context: ./services/car-cutter
         dockerfile: Dockerfile.car_cutter
 
-      restart: on-failure
+      restart: always
       
       environment:
         - PRODUCTION_SERVER_FTP_USERNAME=${PRODUCTION_SERVER_FTP_USERNAME}
