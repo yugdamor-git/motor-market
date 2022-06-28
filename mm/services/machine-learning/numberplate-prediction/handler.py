@@ -2,6 +2,8 @@ from pathlib import Path
 from predictor import Predictor
 from PlateRecognizer import PlateRecognizer
 
+import shutil
+
 
 class Handler:
     def __init__(self) -> None:
@@ -36,7 +38,8 @@ class Handler:
         try:
             filename = self.generate_file_name(box,id)
             filepath = self.deep_learning_dir.joinpath(filename)
-            imgPath.copy(filepath)
+            # imgPath.copy(filepath)
+            shutil.copy(str(imgPath),str(filepath))
         except Exception as e:
             print(str(e))
     
