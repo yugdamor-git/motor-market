@@ -159,8 +159,10 @@ class CarCutter:
         index = 0
         
         for item in result["data"]["images"]:
-            img_item = {}
+            if item["quality"] != 'ok':
+                continue
             
+            img_item = {}
             url = item["image"]
             angle = "_".join(item["angle"]).lower()
             id = generate_sha1_hash(url)
@@ -170,6 +172,7 @@ class CarCutter:
             img_item["angle"] = angle
             img_item["url"] = url
             img_item["path"] = str(file_path)
+            
             if "exterior" in angle:
                 if angle in self.background_remove_angles:
                     if "front" in angle:

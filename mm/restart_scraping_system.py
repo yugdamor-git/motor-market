@@ -76,7 +76,9 @@ services = [
     "image-generation",
     "image-generation-at-urls",
     
-    "at-urls-scraper"
+    "at-urls-scraper",
+    
+    "car-cutter-at-urls"
 ]
 
 # start child services

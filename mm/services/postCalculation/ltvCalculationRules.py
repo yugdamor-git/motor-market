@@ -23,7 +23,6 @@ class ltvCalculationRules:
     
     def calculate(self,mmPrice:int,glassPrice:int):
         tmp = {}
-        
         for item in self.personalized_percentage:
             max_lend = float(glassPrice) * item["percentage"]
             
