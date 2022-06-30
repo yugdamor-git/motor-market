@@ -6,8 +6,6 @@ from pulsar_manager import PulsarManager
 
 from transform import Transform
 
-import traceback
-
 from market_check import MarketCheck
 
 
@@ -30,12 +28,17 @@ class topicHandler:
     def main(self):
         print("listening for new messages")
         
-        listings = self.marketcheck.parse_csv()
+        status,listings,dealers = self.marketcheck.parse_csv()
+        
+        if status == False:
+            return
         
         for listing in listings:
             self.producer.produce_message({
                 "data":listing
             })
+            break
+            
         
 if __name__ == "__main__":
     th = topicHandler()

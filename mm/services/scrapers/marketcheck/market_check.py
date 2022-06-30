@@ -1,4 +1,5 @@
 from pathlib import Path
+import shutil
 import pandas as pd
 
 class MarketCheck:
@@ -106,6 +107,24 @@ class MarketCheck:
         
         listings = self.parse_listings(df)
         
-        
-        
+        return listings,dealers
     
+    def move_file(self,src,dest):
+        try:
+            shutil.move(src,dest)
+        except Exception as e:
+            print(f'error : {str(e)}')
+    
+    def main(self):
+        for file in self.new_files_dir.glob("*.csv.gz"):
+            
+            if file.is_dir() == True:
+                print(f'skipping : it is directory : {str(file)}')
+                continue
+            
+            listings,dealers = self.parse_csv(file)
+            dest_file = self.processed_files_dir.joinpath(file.name)
+            # self.move_file(str(file),str(dest_file))
+            return True,listings,dealers
+
+        return False,None,None
