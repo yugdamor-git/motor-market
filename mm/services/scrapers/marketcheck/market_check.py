@@ -110,7 +110,7 @@ class MarketCheck:
         return listings
     
     def parse_csv(self,filepath):
-        df = pd.read_csv(filepath)
+        df = pd.read_csv(filepath,nrows=10)
         
         dealers = self.parse_dealers(df)
         
