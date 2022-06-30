@@ -173,7 +173,7 @@ class Calculation:
     def car_cutter_extra_margin(self,data):
             
         if data["sourcePrice"] > 10000:
-            if data["registrationStatus"] == 1:
+            if data["ltvStatus"] == 1:
                 mmPrice = data["mmPrice"]
                 extra_margin = 200
                 data["cc_extra_margin"] = extra_margin
