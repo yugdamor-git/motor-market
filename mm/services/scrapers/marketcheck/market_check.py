@@ -86,7 +86,8 @@ class MarketCheck:
             
             tmp["dealer_location"] = row_dict["postal_code"]
             
-            tmp["images"] = row_dict["photo_links"].split("|")
+            if row_dict["photo_links"] != None:
+                tmp["images"] = row_dict["photo_links"].split("|")
             
             tmp["engineCylinders"] = self.parse_engine_size(row_dict["engine_size"])
             
