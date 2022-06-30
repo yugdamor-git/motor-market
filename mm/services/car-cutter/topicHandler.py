@@ -40,7 +40,7 @@ class topicHandler:
                 #     processed_images,cc_total_img = self.car_cutter.process_images(images,websiteId,listingId)
                 #     data["data"]["images"] = processed_images
                 
-                data["data"]["cc_total_img"] = cc_total_img
+                # data["data"]["cc_total_img"] = cc_total_img
 
                 self.generate_image_producer.produce_message(data)
             
