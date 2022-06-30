@@ -61,7 +61,7 @@ class MarketCheck:
             tmp["sourceUrl"] = row_dict["vdp_url"]
             tmp["price"] = row_dict["price"]
             tmp["mileage"] = row_dict["miles"]
-            tmp["built"] = row_dict["built"]
+            tmp["built"] = row_dict["year"]
             tmp["make"] = row_dict["make"]
             tmp["model"] = row_dict["model"]
             tmp["trim"] = row_dict["variant"]
