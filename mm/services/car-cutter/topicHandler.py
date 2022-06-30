@@ -38,7 +38,7 @@ class topicHandler:
                 
                 data["data"]["car_cutter"] = 0
                 
-                if data["data"]["ltvStatus"] == 1 and data["data"]["sourcePrice"] > 10000:
+                if data["data"]["registrationStatus"] == 1 and data["data"]["sourcePrice"] > 10000:
                     processed_images,cc_total_img = self.car_cutter.process_images(images,websiteId,listingId)
                     data["data"]["images"] = processed_images
                     data["data"]["car_cutter"] = 1
