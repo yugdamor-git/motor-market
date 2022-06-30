@@ -1,6 +1,7 @@
 from pathlib import Path
 import shutil
 import pandas as pd
+import numpy as np
 
 class MarketCheck:
     
@@ -85,9 +86,12 @@ class MarketCheck:
             }
             
             tmp["dealer_location"] = row_dict["postal_code"]
-            
-            if row_dict["photo_links"] != None:
-                tmp["images"] = row_dict["photo_links"].split("|")
+            tmp["images"] = []
+            if row_dict["photo_links"] != np.nan:
+                for i in row_dict["photo_links"].split("|"):
+                    if len(i) < 6:
+                        continue
+                    tmp["images"].append(i)
             
             tmp["engineCylinders"] = self.parse_engine_size(row_dict["engine_size"])
             
