@@ -103,7 +103,9 @@ class MarketCheck:
                     for i in row_dict["photo_links"].split("|"):
                         if len(i) < 6:
                             continue
-                        tmp["images"].append(i)
+                        tmp["images"].append({
+                            "url":i
+                        })
                 
                 tmp["engineCylinders"] = self.parse_engine_size(row_dict["engine_size"])
                 
