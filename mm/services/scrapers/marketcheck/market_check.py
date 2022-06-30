@@ -84,7 +84,7 @@ class MarketCheck:
                 tmp["writeOffCategory"] = None
                 tmp["doors"] = None
                 tmp["priceIndicator"] = None
-                tmp["adminFee"] = 0
+                tmp["adminFee"] = "0"
                 tmp["vehicleType"] = "car"
                 
                 
