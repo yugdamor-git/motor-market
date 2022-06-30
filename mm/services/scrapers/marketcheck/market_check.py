@@ -60,6 +60,7 @@ class MarketCheck:
                 tmp = {}
                 
                 tmp["sourceId"] = row_dict["id"]
+                tmp["id"] = row_dict["id"]
                 tmp["sourceUrl"] = row_dict["vdp_url"]
                 tmp["price"] = row_dict["price"]
                 tmp["mileage"] = row_dict["miles"]
