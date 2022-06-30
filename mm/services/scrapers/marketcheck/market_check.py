@@ -100,6 +100,7 @@ class MarketCheck:
                 tmp["featuredId"] = self.featureId
                 tmp["planId"] = self.planId
                 tmp["priority"] = self.priority
+                tmp["scraperType"] = "normal"
                 
                 yield tmp
             except Exception as e:
