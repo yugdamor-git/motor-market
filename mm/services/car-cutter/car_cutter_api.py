@@ -158,6 +158,7 @@ class CarCutter:
         time.sleep(2)
         index = 0
         cc_total_img = 0
+        unique_angles_found = {}
         for item in result["data"]["images"]:
             if item["quality"] != 'ok':
                 continue
@@ -178,11 +179,13 @@ class CarCutter:
                 if angle in self.background_remove_angles:
                     if "front" in angle:
                         img_item["cc_status"] = 1
+                        unique_angles_found[angle] = 1
                         cc_total_img += 1
                         images.append(url)
                         exterior.insert(0,img_item)
                     elif "rear" in angle:
                         img_item["cc_status"] = 1
+                        unique_angles_found[angle] = 1
                         cc_total_img += 1
                         images.append(url)
                         exterior.append(img_item)
@@ -216,7 +219,7 @@ class CarCutter:
         
         processed_images = self.download_multiple_images(processed_images)
         
-        return processed_images,cc_total_img
+        return processed_images,len(unique_angles_found)
 
 
 # if __name__ == "__main__":
