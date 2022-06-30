@@ -4,8 +4,6 @@ sys.path.append("/libs")
 
 from pulsar_manager import PulsarManager
 
-from transform import Transform
-
 from market_check import MarketCheck
 
 
