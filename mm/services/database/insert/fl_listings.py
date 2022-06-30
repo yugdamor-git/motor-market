@@ -183,7 +183,9 @@ class topicHandler:
             try:
                 message =  self.fl_listings_update_consumer.consume_message()
                 print(message)
+                
                 source_url = message["data"].get("sourceUrl")
+                continue
                 self.handle_insert_event(message)
                 
             except Exception as e:
