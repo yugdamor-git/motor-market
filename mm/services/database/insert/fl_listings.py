@@ -185,7 +185,7 @@ class topicHandler:
                 print(message)
                 
                 source_url = message["data"].get("sourceUrl")
-                continue
+                # continue
                 self.handle_insert_event(message)
                 
             except Exception as e:
