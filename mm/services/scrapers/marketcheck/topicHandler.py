@@ -24,7 +24,7 @@ class topicHandler:
     def main(self):
         print("listening for new messages")
         
-        status,listings,dealers = self.marketcheck.parse_csv()
+        status,listings,dealers = self.marketcheck.main()
         
         if status == False:
             return
