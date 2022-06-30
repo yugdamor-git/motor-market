@@ -59,9 +59,9 @@ class topicHandler:
                     self.calculation.calculateLtv(data["data"])
                     
                     # extra margin - car cutter
-                    if "car_cutter" in data["data"]:
-                        if data["data"]["car_cutter"] == 1:
-                            self.calculation.car_cutter_extra_margin(data["data"])
+                    # if "car_cutter" in data["data"]:
+                    #     if data["data"]["car_cutter"] == 1:
+                    #         self.calculation.car_cutter_extra_margin(data["data"])
                     
                     ID = data["data"].get("ID")
                     
@@ -118,7 +118,7 @@ class topicHandler:
                     categoryId = data["data"].get("categoryId",None)
                     
                     # extra margin - car cutter
-                    self.calculation.car_cutter_extra_margin(data["data"])
+                    # self.calculation.car_cutter_extra_margin(data["data"])
                     
                     if categoryId == None:
                         
