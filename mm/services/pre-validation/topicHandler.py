@@ -77,13 +77,14 @@ class topicHandler:
                 # break
                 
             except Exception as e:
-                print(f'error : {str(e)}')
+                error = traceback.format_exc()
+                print(f'error : {str(error)}')
                 
                 log = {}
                 
                 log["sourceUrl"] = data["data"]["sourceUrl"]
                 log["service"] = self.topics.LISTING_PREVALIDATION
-                log["errorMessage"] = traceback.format_exc()
+                log["errorMessage"] = error
                 
                 self.logs_producer.produce_message({
                     "eventType":"insertLog",
