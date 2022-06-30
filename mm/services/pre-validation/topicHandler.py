@@ -34,7 +34,7 @@ class topicHandler:
         while True:
             try:
                 data =  self.consumer.consume_message()
-                
+                print(data)
                 status,log = self.validator.validate(data["data"])
                 
                 if status == False:
