@@ -19,8 +19,6 @@ class topicHandler:
         
         self.logs_producer = pulsar_manager.create_producer(pulsar_manager.topics.LOGS)
         
-        self.transform = Transform()
-        
         self.marketcheck = MarketCheck()
         
     def main(self):
