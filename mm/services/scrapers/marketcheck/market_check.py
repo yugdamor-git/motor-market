@@ -37,9 +37,8 @@ class MarketCheck:
         
         for index,row in dealer_df.iterrows():
             row_dict = row.to_dict()
-            dealers.append(row_dict)
-        return dealers
-    
+            yield row_dict
+            
     def parse_engine_size(self,text):
         try:
             tmp = float(text.replace("L","").strip())
@@ -48,7 +47,7 @@ class MarketCheck:
             return None
     
     def parse_listings(self,df:pd.DataFrame):
-        listings = []
+        # listings = []
         # columns = []
         
         listing_df = df
@@ -102,12 +101,10 @@ class MarketCheck:
                 tmp["planId"] = self.planId
                 tmp["priority"] = self.priority
                 
-                listings.append(tmp)
+                yield tmp
             except Exception as e:
                 print(f'error : {str(e)}')
                 print(row_dict)
-            
-        return listings
     
     def parse_csv(self,filepath):
         df = pd.read_csv(filepath,nrows=10)
