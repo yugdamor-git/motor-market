@@ -29,8 +29,8 @@ class topicHandler:
         
     def main(self):
         print("listening for new messages")
-        # while True:
-        for i in range(0,10):
+        while True:
+        # for i in range(0,10):
             try:
                 data =  self.consumer.consume_message()
                 
