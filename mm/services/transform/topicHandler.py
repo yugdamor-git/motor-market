@@ -53,6 +53,8 @@ class topicHandler:
                 
                 self.producer.produce_message(data)
                 
+                break
+                
             except Exception as e:
                 print(f'error : {str(e)}')
                 print(traceback.format_exc())
