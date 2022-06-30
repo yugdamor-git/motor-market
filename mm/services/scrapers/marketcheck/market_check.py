@@ -1,3 +1,4 @@
+import json
 from pathlib import Path
 import shutil
 import pandas as pd
@@ -78,13 +79,22 @@ class MarketCheck:
                 tmp["dealerNumber"] = row_dict["seller_phone"]
                 tmp["dealerLocation"] = row_dict["postal_code"]
                 
-                tmp["location_json"] = {
+                tmp["cabType"] = None
+                tmp["seats"] = None
+                tmp["writeOffCategory"] = None
+                tmp["doors"] = None
+                tmp["priceIndicator"] = None
+                tmp["adminFee"] = 0
+                tmp["vehicleType"] = "car"
+                
+                
+                tmp["location"] = json.dumps({
                     "street":row_dict["street"],
                     "city":row_dict["city"],
                     "county":row_dict["county"],
                     "postal_code":row_dict["postal_code"],
                     "country":row_dict["country"]
-                }
+                })
                 
                 tmp["dealer_location"] = row_dict["postal_code"]
                 tmp["images"] = []
