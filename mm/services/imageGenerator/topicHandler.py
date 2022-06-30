@@ -87,6 +87,7 @@ class topicHandler:
                     what["Main_photo"] = mainPhoto
                     
                     what["mm_product_url"] = data["data"]["mmUrl"]
+                    what["cc_total_img"] = data["data"]["cc_total_img"]
                     
                     if status in ["to_parse","expired"]:
                         what["Status"] = "active"
@@ -115,6 +116,7 @@ class topicHandler:
                                 what["status"] = "pending"
                             
                             data["data"]["what"] = what
+                            
                             data["data"]["where"] = where
                         
                     else:

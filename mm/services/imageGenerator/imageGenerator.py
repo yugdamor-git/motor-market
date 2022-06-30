@@ -49,8 +49,7 @@ class imageGenerator:
             img = Image.open(BytesIO(f.read()))  
         return img
     
-    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position):
-        processedImages = {}
+    def generateImages(self,websiteId,listingId,imageId,imagePath,imageUrl,position,processedImages):
         processedImages["id"] = imageId
         processedImages["url"] = imageUrl
         processedImages["position"] = position
@@ -139,7 +138,7 @@ class imageGenerator:
                 
                 position = item["position"]
                 
-                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position))
+                threads.append(executor.submit(self.generateImages,websiteId,listingId,imageId,imagePath,imageUrl,position,item))
         
             for task in as_completed(threads):
                 data = task.result()

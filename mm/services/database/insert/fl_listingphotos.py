@@ -54,6 +54,9 @@ class topicHandler:
             
             tmp["approved_from_dashboard"] = 1
             
+            if "cc_status" in img:
+                tmp["cc_status"] = img["cc_status"]
+            
             try:
                 print(tmp)
                 self.db.recInsert("fl_listing_photos",tmp)
