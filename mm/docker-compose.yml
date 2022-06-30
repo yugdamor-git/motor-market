@@ -1039,6 +1039,26 @@ services:
   # resource manager
 
 
+  # market check
+  marketcheck-scraper:
+    build:
+      context: ./services/scrapers/marketcheck
+      dockerfile: Dockerfile.marketcheck
+
+    depends_on:
+      - pulsar
+    
+    volumes:
+      - ./services/scrapers/marketcheck/new_files:/new_files
+      - ./services/scrapers/marketcheck/processed_files:/processed_files
+      - ./services/libs:/libs
+
+    stdin_open: true
+
+  # market check
+
+
+
   # notebook
 
   notebook:
