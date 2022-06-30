@@ -76,6 +76,7 @@ class MarketCheck:
                 tmp["dealerId"] = row_dict["dealer_id"]
                 tmp["dealerName"] = row_dict["seller_name"]
                 tmp["dealerNumber"] = row_dict["seller_phone"]
+                tmp["dealerLocation"] = row_dict["postal_code"]
                 
                 tmp["location_json"] = {
                     "street":row_dict["street"],
