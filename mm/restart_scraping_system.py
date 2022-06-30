@@ -78,7 +78,8 @@ services = [
     
     "at-urls-scraper",
     
-    "car-cutter-at-urls"
+    "car-cutter-at-urls",
+    "car-cutter"
 ]
 
 # start child services
