@@ -55,6 +55,7 @@ class topicHandler:
                 
             except Exception as e:
                 print(f'error : {str(e)}')
+                print(traceback.format_exc())
                 
                 log = {}
                 
