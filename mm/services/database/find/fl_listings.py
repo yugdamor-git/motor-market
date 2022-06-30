@@ -36,7 +36,7 @@ class topicHandler:
 
         try:
             
-            result = self.db.recCustomQuery(f'SELECT ID,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM fl_listings WHERE sourceId="{source_id}"')
+            result = self.db.recCustomQuery(f'SELECT ID,car_cutter,dealer_id,Status,predictedMake,predictedModel,engineCylindersCC,mileage,built,registrationStatus,predictedRegistration FROM fl_listings WHERE sourceId="{source_id}"')
             
             
             if len(result) > 0:
