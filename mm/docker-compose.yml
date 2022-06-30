@@ -1052,6 +1052,7 @@ services:
       - ./services/scrapers/marketcheck/new_files:/new_files
       - ./services/scrapers/marketcheck/processed_files:/processed_files
       - ./services/libs:/libs
+    environment:
       - SCRAPER_NAME=.at.urls
 
     stdin_open: true
