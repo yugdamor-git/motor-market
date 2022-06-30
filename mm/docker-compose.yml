@@ -1040,7 +1040,7 @@ services:
 
 
   # market check
-  marketcheck-scraper:
+  marketcheck-scraper-at-urls:
     build:
       context: ./services/scrapers/marketcheck
       dockerfile: Dockerfile.marketcheck
@@ -1052,6 +1052,7 @@ services:
       - ./services/scrapers/marketcheck/new_files:/new_files
       - ./services/scrapers/marketcheck/processed_files:/processed_files
       - ./services/libs:/libs
+      - SCRAPER_NAME=.at.urls
 
     stdin_open: true
 
