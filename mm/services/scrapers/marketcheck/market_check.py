@@ -73,9 +73,9 @@ class MarketCheck:
                 tmp["registration"] = row_dict["vehicle_registration_mark"]
                 tmp["registration_date"] = row_dict["vehicle_registration_date"]
                 tmp["exterior_color"] = row_dict["exterior_color"]
-                tmp["dealer_id"] = row_dict["dealer_id"]
-                tmp["dealer_name"] = row_dict["seller_name"]
-                tmp["dealer_number"] = row_dict["seller_phone"]
+                tmp["dealerId"] = row_dict["dealer_id"]
+                tmp["dealerName"] = row_dict["seller_name"]
+                tmp["dealerNumber"] = row_dict["seller_phone"]
                 
                 tmp["location_json"] = {
                     "street":row_dict["street"],
