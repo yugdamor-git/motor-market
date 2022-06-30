@@ -88,14 +88,13 @@ class topicHandler:
                     
                     what["mm_product_url"] = data["data"]["mmUrl"]
                     what["cc_total_img"] = data["data"]["cc_total_img"]
+                    what["car_cutter"] = data["data"]["car_cutter"]
                     
                     if status in ["to_parse","expired"]:
                         what["Status"] = "active"
                     
                     if data["data"]["registrationStatus"] == False:
                         what["status"] = "pending"
-                    
-                    
                     
                     data["data"]["what"] = what
                     data["data"]["where"] = where

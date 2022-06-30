@@ -34,13 +34,16 @@ class topicHandler:
                 
                 listingId = data["data"]["ID"]
                 
-                # cc_total_img = 0
+                cc_total_img = 0
                 
-                # if data["data"]["status"] == "to_parse" and data["data"]["sourcePrice"] > 10000:
-                #     processed_images,cc_total_img = self.car_cutter.process_images(images,websiteId,listingId)
-                #     data["data"]["images"] = processed_images
+                data["data"]["car_cutter"] = 0
                 
-                # data["data"]["cc_total_img"] = cc_total_img
+                if data["data"]["status"] == "to_parse" and data["data"]["sourcePrice"] > 10000:
+                    processed_images,cc_total_img = self.car_cutter.process_images(images,websiteId,listingId)
+                    data["data"]["images"] = processed_images
+                    data["data"]["car_cutter"] = 1
+                
+                data["data"]["cc_total_img"] = cc_total_img
 
                 self.generate_image_producer.produce_message(data)
             
