@@ -30,7 +30,7 @@ class MarketCheck:
         
     def parse_dealers(self,df:pd.DataFrame):
         dealers = []
-        columns = ["dealer_id","seller_name"]       
+        columns = ["dealer_id","seller_name"]
         dealer_df = df[columns]
         dealer_df.drop_duplicates(inplace=True)
         
@@ -48,9 +48,9 @@ class MarketCheck:
     
     def parse_listings(self,df:pd.DataFrame):
         listings = []
-        columns = []
+        # columns = []
         
-        listing_df = df[columns]
+        listing_df = df
         listing_df.drop_duplicates(inplace=True)
         
         for index,row in listing_df.iterrows():

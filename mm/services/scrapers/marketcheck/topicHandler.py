@@ -30,6 +30,7 @@ class topicHandler:
             return
         
         for listing in listings:
+            print(listing)
             self.producer.produce_message({
                 "data":listing
             })
