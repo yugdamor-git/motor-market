@@ -29,7 +29,8 @@ class topicHandler:
         
     def main(self):
         print("listening for new messages")
-        while True:
+        # while True:
+        for i in range(0,10):
             try:
                 data =  self.consumer.consume_message()
                 
@@ -53,7 +54,7 @@ class topicHandler:
                 
                 self.producer.produce_message(data)
                 
-                break
+                # break
                 
             except Exception as e:
                 print(f'error : {str(e)}')
