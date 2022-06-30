@@ -87,8 +87,10 @@ class topicHandler:
                     what["Main_photo"] = mainPhoto
                     
                     what["mm_product_url"] = data["data"]["mmUrl"]
-                    what["cc_total_img"] = data["data"]["cc_total_img"]
-                    what["car_cutter"] = data["data"]["car_cutter"]
+                    if "cc_total_img" in data["data"]:
+                        what["cc_total_img"] = data["data"]["cc_total_img"]
+                    if "car_cutter" in data["data"]:
+                        what["car_cutter"] = data["data"]["car_cutter"]
                     
                     if status in ["to_parse","expired"]:
                         what["Status"] = "active"
