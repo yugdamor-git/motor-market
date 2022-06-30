@@ -145,7 +145,7 @@ class Transform:
             
         # dealer Number
         if data["dealerNumber"] != None:
-            dealerNumber = data["dealerNumber"].strip().lower()
+            dealerNumber = str(data["dealerNumber"]).strip().lower()
             data["dealerNumber"] = dealerNumber
             
         # dealer Location
@@ -160,7 +160,7 @@ class Transform:
             
         # dealer Id
         if data["dealerId"] != None:
-            dealerId = data["dealerId"].strip()
+            dealerId = str(data["dealerId"]).strip()
             data["dealerId"] = dealerId
         
         #  wheelBase
