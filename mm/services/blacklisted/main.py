@@ -61,16 +61,16 @@ class HandleBlackListedDealers:
         return listings
     
     def get_blacklisted_registration(self):
-        listings= []
+        blacklist_reg = {}
 
         sql_query = "SELECT registration from fl_blacklist"
         
         listings = self.execute_sql(sql_query)
         
         for listing in listings:
-            listing[str(listing["registration"]).strip().lower()] = 1
+            blacklist_reg[str(listing["registration"]).strip().lower()] = 1
             
-        return listings
+        return blacklist_reg
     
     def get_all_registration(self):
         listings= []
@@ -93,7 +93,7 @@ class HandleBlackListedDealers:
             if item["registration"] == None:
                 continue
             
-            reg = item["registration"].lower().strip()
+            reg = item["registration"].strip().lower()
             
             if reg in blacklisted_reg:
                 
