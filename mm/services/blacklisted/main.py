@@ -88,7 +88,7 @@ class HandleBlackListedDealers:
         all_reg = self.get_all_registration()
         
         expire = []
-        
+        print(f'total blacklisted registration : {len(blacklisted_reg)}')
         for item in all_reg:
             if item["registration"] == None:
                 continue
