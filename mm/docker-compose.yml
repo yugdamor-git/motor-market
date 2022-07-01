@@ -1104,3 +1104,22 @@ services:
       stdin_open: true
 
   # notebook
+
+
+
+  blacklisted-handler:
+      build:
+        context: ./services/blacklisted
+        dockerfile: Dockerfile.blacklisted
+
+      environment:
+        - RESIDENTIAL_PROXY=${RESIDENTIAL_PROXY}
+        - MYSQL_HOST=${MYSQL_HOST}
+        - MYSQL_USERNAME=${MYSQL_USERNAME}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+      
+      volumes:
+          - ./services/libs:/libs
+      
+      stdin_open: true
