@@ -129,9 +129,9 @@ class HandleBlackListedDealers:
             if listing["dealer_id"] in blacklisted_dealers:
                 expire_listings.append(listing)
         
-        for listing in manual_expire:
-            if not listing["dealer_id"] in blacklisted_dealers:
-                activate_listings.append(listing)
+        # for listing in manual_expire:
+        #     if not listing["dealer_id"] in blacklisted_dealers:
+        #         activate_listings.append(listing)
         
         self.db.connect()
         for listing in activate_listings:
