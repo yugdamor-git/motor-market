@@ -5,7 +5,7 @@ class ltvCalculationRules:
         self.personalized_percentage = [
         {"name":"QCF_Oodle_AB","percentage":1.25 + 0.01},
         {"name":"QCF_Oodle_C","percentage":1.2 + 0.01},
-        {"name":"QCF_Billing","percentage":1.02 + 0.01},
+        {"name":"QCF_Billing","percentage":1.11 + 0.01},
         {"name":"GCC","percentage":1.10 + 0.01},
         {"name":"AM_TierIn","percentage":1.1 + 0.01},
         {"name":"AM_TierEx","percentage":1 + 0.01},
