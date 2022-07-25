@@ -202,43 +202,43 @@ services:
   #   ports:
   #     - 8090:80
   
-  ftps:
-    image: bfren/ftps
+#   ftps:
+#     image: bfren/ftps
 
-    restart: on-failure
+#     restart: on-failure
 
-    volumes:
-      - ./services/ftp/files:/files
-      - ./services/ftp/ssl:/ssl
+#     volumes:
+#       - ./services/ftp/files:/files
+#       - ./services/ftp/ssl:/ssl
     
-    ports:
-      - "${FTPS_PORT}:21"
-      - "5026:990"
-      - "18700-18710:18700-18710"
+#     ports:
+#       - "${FTPS_PORT}:21"
+#       - "5026:990"
+#       - "18700-18710:18700-18710"
     
-    environment:
-      - FTPS_USER=${FTPS_USERNAME}
-      - FTPS_PASS=${FTPS_PASSWORD}
-      - FTPS_EXTERNAL_URI=${FTPS_IP}
+#     environment:
+#       - FTPS_USER=${FTPS_USERNAME}
+#       - FTPS_PASS=${FTPS_PASSWORD}
+#       - FTPS_EXTERNAL_URI=${FTPS_IP}
   
-  marketcheck-ftps:
-    image: bfren/ftps
+#   marketcheck-ftps:
+#     image: bfren/ftps
 
-    restart: on-failure
+#     restart: on-failure
 
-    volumes:
-      - ./services/marketcheck/files:/files
-      - ./services/marketcheck/ssl:/ssl
+#     volumes:
+#       - ./services/marketcheck/files:/files
+#       - ./services/marketcheck/ssl:/ssl
 
-    ports:
-      - "${MARKETCHECK_FTPS_PORT}:21"
-      - "5028:990"
-      - "18900-18910:18700-18710"
+#     ports:
+#       - "${MARKETCHECK_FTPS_PORT}:21"
+#       - "5028:990"
+#       - "18900-18910:18700-18710"
 
-    environment:
-      - FTPS_USER=${MARKETCHECK_FTPS_USER}
-      - FTPS_PASS=${MARKETCHECK_FTPS_PASS}
-      - FTPS_EXTERNAL_URI=${FTPS_IP}
+#     environment:
+#       - FTPS_USER=${MARKETCHECK_FTPS_USER}
+#       - FTPS_PASS=${MARKETCHECK_FTPS_PASS}
+#       - FTPS_EXTERNAL_URI=${FTPS_IP}
   
   # local-db-handler:
   #   build:
