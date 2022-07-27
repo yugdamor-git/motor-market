@@ -28,22 +28,25 @@ class topicHandler:
             try:
                 data =  self.consumer.consume_message()
                 
-                # images = data["data"]["car_cutter_images"]
+                images = data["data"]["car_cutter_images"]
                 
-                # websiteId = data["data"]["websiteId"]
+                websiteId = data["data"]["websiteId"]
                 
-                # listingId = data["data"]["ID"]
+                listingId = data["data"]["ID"]
                 
-                # cc_total_img = 0
+                cc_total_img = 0
+                all_angles_count = 0
                 
-                # data["data"]["car_cutter"] = 0
+                data["data"]["car_cutter"] = 0
                 
-                # if data["data"]["registrationStatus"] == 1 and data["data"]["sourcePrice"] > 10000:
-                #     processed_images,cc_total_img = self.car_cutter.process_images(images,websiteId,listingId)
-                #     data["data"]["images"] = processed_images
-                #     data["data"]["car_cutter"] = 1
+                if data["data"]["registrationStatus"] == 1 and data["data"]["sourcePrice"] > 10000:
+                    processed_images,cc_total_img,all_angles_count = self.car_cutter.process_images(images,websiteId,listingId)
+                    data["data"]["images"] = processed_images
+                    data["data"]["car_cutter"] = 1
                 
-                # data["data"]["cc_total_img"] = cc_total_img
+                data["data"]["cc_total_img"] = cc_total_img
+                
+                data["data"]["all_angles_count"] = all_angles_count
 
                 self.generate_image_producer.produce_message(data)
             

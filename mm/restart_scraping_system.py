@@ -32,54 +32,54 @@ for t in range(0,delay):
 services = [
     "logs",
     
-    "fl-listings-find",
+    # "fl-listings-find",
     "fl-listings-find-at-urls",
     
-    "fl-listings-update",
+    # "fl-listings-update",
     "fl-listings-update-at-urls",
     
     "at-urls-update",
     
-    "fl-listings-insert",
+    # "fl-listings-insert",
     "fl-listings-insert-at-urls",
     
-    "fl-listingphotos-insert",
+    # "fl-listingphotos-insert",
     "fl-listingphotos-insert-at-urls",
     
-    "listing-scraper-scrapy",
+    # "listing-scraper-scrapy",
     "listing-scraper-at-urls",
     
-    "transform",
+    # "transform",
     "transform-at-urls",
     
-    "pre-validation",
+    # "pre-validation",
     "pre-validation-at-urls",
     
-    "makemodel-prediction",
+    # "makemodel-prediction",
     "makemodel-prediction-at-urls",
     
-    "seat-prediction",
+    # "seat-prediction",
     "seat-prediction-at-urls",
     
-    "image-prediction",
+    # "image-prediction",
     "image-prediction-at-urls",
     
-    "post-validation",
+    # "post-validation",
     "post-validation-at-urls",
     
-    "numberplate-prediction",
+    # "numberplate-prediction",
     "numberplate-prediction-at-urls",
     
-    "post-calculation",
+    # "post-calculation",
     "post-calculation-at-urls",
     
-    "image-generation",
+    # "image-generation",
     "image-generation-at-urls",
     
     "at-urls-scraper",
     
     "car-cutter-at-urls",
-    "car-cutter"
+    # "car-cutter"
 ]
 
 # start child services

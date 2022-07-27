@@ -29,7 +29,7 @@ class CarCutter:
         if not self.raw_images.exists():
             self.raw_images.mkdir()
             
-        self.max_retry = 20
+        self.max_retry = 60
         
         self.max_images = 15
         
@@ -101,7 +101,7 @@ class CarCutter:
                 print(f'downloaded : {file_path}')
                 status = True
                 break
-            time.sleep(1)
+            time.sleep(10)
             
         return status,item
         
@@ -152,7 +152,7 @@ class CarCutter:
         # for image in images:
         #     all_images_by_id[image["id"]] = image
         #     car_cutter_images.append(image["url"])
-        
+        all_angles_count = 0
         processed_images = []
         result = self.submit_images(car_cutter_images)
         time.sleep(2)
@@ -166,6 +166,11 @@ class CarCutter:
             img_item = {}
             url = item["image"]
             angle = "_".join(item["angle"]).lower()
+            
+            if angle in unique_angles_found:
+                all_angles_count += 1
+                continue
+            
             id = generate_sha1_hash(url)
             file_name = f'{id}.png'
             file_path = listing_dir.joinpath(file_name)
@@ -183,12 +188,14 @@ class CarCutter:
                         cc_total_img += 1
                         images.append(url)
                         exterior.insert(0,img_item)
+                        all_angles_count += 1
                     elif "rear" in angle:
                         img_item["cc_status"] = 1
                         unique_angles_found[angle] = 1
                         cc_total_img += 1
                         images.append(url)
                         exterior.append(img_item)
+                        all_angles_count += 1
                 else:
                     pass
             elif "interior" in angle:
@@ -219,7 +226,7 @@ class CarCutter:
         
         processed_images = self.download_multiple_images(processed_images)
         
-        return processed_images,len(unique_angles_found)
+        return processed_images,len(unique_angles_found),all_angles_count
 
 
 # if __name__ == "__main__":
