@@ -132,7 +132,7 @@ services:
     volumes:
       - ./services/pulsar/pulsardata:/pulsar/data
     
-    command: "bin/pulsar standalone"
+    command: "bin/pulsar standalone -nss"
 
     restart: on-failure
   
