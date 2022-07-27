@@ -129,7 +129,7 @@ services:
 
   pulsar:
     image: apachepulsar/pulsar:2.8.1
-    
+
     volumes:
       - ./services/pulsar/pulsardata:/pulsar/data
     
@@ -993,6 +993,8 @@ services:
         - ./services/libs:/libs
 
     stdin_open: true
+
+    restart: always
 
 # AT - URL - SCRAPER - INIT
 
