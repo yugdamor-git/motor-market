@@ -75,5 +75,6 @@
   { "key": "BMF", "value": "BMF" },
   { "key": "registrationStatus", "value": "registrationStatus" },
   { "key": "registrationStatus", "value": "number_plate_flag" },
-  { "key": "registration_date", "value": "registration_date" }
+  { "key": "registration_date", "value": "registration_date" },
+  { "key":"ltv_percentage","value":"ltv_percentage"}
 ]

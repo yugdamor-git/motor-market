@@ -9,6 +9,8 @@ import json
 
 from marginCalculation import marginCalculation
 
+from new_ltv_calc import MarketCheckLtvCalculationRules
+
 
 class Calculation:
     def __init__(self) -> None:
@@ -29,6 +31,8 @@ class Calculation:
         self.videoIdCalc = videoId()
         
         self.dealerAdminFeeHandler = dealerAdminFee(self.db)
+        
+        self.mc_calc_rules  = MarketCheckLtvCalculationRules()
     
     def updateAdminFee(self,data):
         
@@ -92,6 +96,60 @@ class Calculation:
         
         data["sourcePrice"] = atPrice + adminFee
         
+    
+    def calculate_ltv(self,data):
+        
+        source_mrp = data["sourcePrice"]
+        
+        registration = data["predictedRegistration"]
+        
+        mileage = data["mileage"]
+        
+        website_id = data["websiteId"]
+        
+        registrationStatus = data.get("registrationStatus")
+        
+        # make = data["predictedMake"]
+        
+        # model = data["predictedModel"]
+        
+        # engine_cc = data.get("engineCylindersCC",None)
+        if registrationStatus == False:
+            ltv = {}
+            ltv["ltvStatus"] = 0
+            ltv.update(self.ltvCalc.getNullValues())
+            data["ltv"] = ltv
+            return True
+
+        ltv_resp = self.mc_calc_rules.calculate(source_mrp,registration,mileage,website_id)
+        
+        # new_source price
+        # new_margin
+        # new_price
+        # new_cal_price_from_file
+        
+        if ltv_resp["status"] == True:
+            mm_price = ltv_resp["mm_price"]
+            margin = ltv_resp["margin"]
+            ltv_percentage = ltv_resp["ltv_percentage"]
+            old_ltv_values = ltv_resp["ltv"]
+            ltv_status =ltv_resp["ltv_status"]
+            data["ltv"] = {}
+            if ltv_resp["forecourt_call"] == True:
+                response = ltv_resp["response"]
+                data["ltv"]["dealerForecourtResponse"] = response
+                
+                data["ltv"]["dealerForecourtPrice"] = ltv_resp["forecourt_price"]
+            
+            data["mmPrice"] = mm_price
+            data["margin"] = margin
+            data["ltv_percentage"] = round(ltv_percentage,1)
+            data["ltv"].update(old_ltv_values)
+            data["ltv"]["ltvStatus"] = ltv_status
+            return True
+        else:
+            return False
+    
     
     def calculateLtv(self,data):
         ltv = {}

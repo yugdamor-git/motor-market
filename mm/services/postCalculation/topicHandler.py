@@ -56,7 +56,7 @@ class topicHandler:
                     self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    self.calculation.calculateLtv(data["data"])
+                    self.calculation.calculate_ltv(data["data"])
                     
                     # extra margin - car cutter
                     # if "car_cutter" in data["data"]:
