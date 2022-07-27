@@ -138,6 +138,7 @@ class Calculation:
             if ltv_resp["forecourt_call"] == True:
                 response = ltv_resp["response"]
                 data["ltv"]["dealerForecourtResponse"] = response
+                data["dealerForecourtResponse"] = response
                 
                 data["ltv"]["dealerForecourtPrice"] = ltv_resp["forecourt_price"]
             
