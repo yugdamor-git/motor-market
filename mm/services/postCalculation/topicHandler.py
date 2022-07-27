@@ -110,7 +110,8 @@ class topicHandler:
                     self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    self.calculation.calculateLtv(data["data"])
+                    # self.calculation.calculateLtv(data["data"])
+                    self.calculation.calculate_ltv(data["data"])
                     
                     # categoryId
                     self.calculation.calculateCategoryId(data["data"])
