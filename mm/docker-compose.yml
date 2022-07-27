@@ -128,13 +128,18 @@ services:
     # stdin_open: true
 
   pulsar:
-    build: ./services/pulsar
+    image: apachepulsar/pulsar:2.8.1
+    
     volumes:
       - ./services/pulsar/pulsardata:/pulsar/data
     
     command: "bin/pulsar standalone -nss"
 
-    restart: on-failure
+    restart: always
+    
+    ports:
+      - 6655:6650
+      - 8080:8080
   
   # pulsar-dashboard:
   #   image: apachepulsar/pulsar-manager:v0.2.0
