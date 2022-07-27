@@ -88,7 +88,11 @@ class topicHandler:
                     
                     what["mm_product_url"] = data["data"]["mmUrl"]
                     if "cc_total_img" in data["data"]:
-                        what["cc_total_img"] = data["data"]["cc_total_img"]
+                        what["cc_unique_img_count"] = data["data"]["cc_total_img"]
+                    
+                    if "all_angles_count" in data["data"]:
+                        what["cc_all_img_count"] = data["data"]["all_angles_count"]
+                    
                     if "car_cutter" in data["data"]:
                         what["car_cutter"] = data["data"]["car_cutter"]
                     
