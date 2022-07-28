@@ -169,10 +169,12 @@ class topicHandler:
                     
                     if data["data"]["ltv"]["ltvStatus"] == 0:
                         mappedData["Status"] = "pending"
-                        
-                    self.db.recUpdate("fl_listings",mappedData)
                     
                     id = records[0]["ID"]
+                        
+                    self.db.recUpdate("fl_listings",mappedData,{"ID":id})
+                    
+                    
                     
                     data["data"]["ID"] = id
                     

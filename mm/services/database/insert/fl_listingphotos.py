@@ -31,6 +31,8 @@ class topicHandler:
                 
         id = data["data"]["ID"]
         
+        self.db.recDelete("fl_listing_photos",{"Listing_ID":id})
+        
         for img in images:
             tmp = {}
             
