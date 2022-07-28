@@ -158,6 +158,41 @@ class topicHandler:
                 print(data)
                 
                 self.car_cutter_producer.produce_message(data)
+            else:
+                if scraperName == "url-scraper":
+                    mappedData["updated_at"] = {"func":"now()"}
+                    
+                    mappedData["Status"] = "to_parse"
+                    
+                    if data["data"]["registrationStatus"] == False:
+                        mappedData["Status"] = "pending"
+                    
+                    if data["data"]["ltv"]["ltvStatus"] == 0:
+                        mappedData["Status"] = "pending"
+                        
+                    self.db.recUpdate("fl_listings",mappedData)
+                    
+                    id = records[0]["ID"]
+                    
+                    data["data"]["ID"] = id
+                    
+                    make = mappedData["make"]
+                    model = mappedData["model"]
+                    title = mappedData["title"]
+                    
+                    mmUrl = self.urlGenerator.generateMMUrl(make,model,title,id)
+                    
+                    data["data"]["status"] = mappedData["Status"]
+                    
+                    data["data"]["mmUrl"] = mmUrl
+                    
+                    data["data"]["upsert"] = "insert"
+                    
+                    self.increase_insert_count()
+                    
+                    print(data)
+                    
+                    self.car_cutter_producer.produce_message(data)
             
             if scraperName == "url-scraper":
                 status = None
@@ -171,6 +206,8 @@ class topicHandler:
                 registrationStatus = data["data"].get("registrationStatus",None)
                 
                 self.handleAtUrl(status,data["data"]["ID"],listingId,registrationStatus)
+                
+                
                 
         except Exception as e:
             print(f'error : {str(e)}')

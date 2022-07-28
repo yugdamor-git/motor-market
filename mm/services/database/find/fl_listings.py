@@ -67,8 +67,11 @@ class topicHandler:
                     })
                     
                 
-                if result[0]["Status"] in ["sold","manual_expire","pending","approval","to_parse"]:
+                if result[0]["Status"] in ["sold","manual_expire","pending","approval"]:
                     return
+
+                if result[0]["Status"] in ["to_parse"]:
+                    data["data"]["scraperType"] = "normal"
                 
                 data["data"]["scraperType"] = "validator"
                 
