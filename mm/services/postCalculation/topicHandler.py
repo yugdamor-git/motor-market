@@ -120,7 +120,9 @@ class topicHandler:
                     
                     # ltv
                     # self.calculation.calculateLtv(data["data"])
-                    self.calculation.calculate_ltv(data["data"])
+                    if self.calculation.calculate_ltv(data["data"]) == False:
+                        
+                        continue
                     
                     customPriceEnabled = data["data"].get("customPriceEnabled",None)
                     
