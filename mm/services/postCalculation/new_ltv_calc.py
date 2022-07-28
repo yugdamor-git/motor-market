@@ -57,18 +57,18 @@ class MarketCheckLtvCalculationRules:
             
             ltv_percentage = (provisional_mm_price / forecourt_value) * 100
             
-            if ltv_percentage >= 120:
+            # if ltv_percentage >= 120:
                 
-                return {
-                    "status":False,
-                    "forecourt_call":True,
-                    "mm_price":None,
-                    "margin":None,
-                    "forecourt_price":forecourt_value,
-                    "ltv":{},
-                    "response": json.dumps(forecourt_response),
-                    "ltv_status":0
-                }
+            #     return {
+            #         "status":False,
+            #         "forecourt_call":True,
+            #         "mm_price":None,
+            #         "margin":None,
+            #         "forecourt_price":forecourt_value,
+            #         "ltv":{},
+            #         "response": json.dumps(forecourt_response),
+            #         "ltv_status":0
+            #     }
                 
             
             if ltv_percentage < 110:
