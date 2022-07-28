@@ -127,7 +127,7 @@ class Calculation:
         # new_margin
         # new_price
         # new_cal_price_from_file
-        customPriceEnabled = data["data"].get("customPriceEnabled",None)
+        customPriceEnabled = data.get("customPriceEnabled",None)
         if customPriceEnabled == True:
             data["ltv"] = self.mc_calc_rules.old_ltv.getDefaultValues()
             data["margin"] = 0
