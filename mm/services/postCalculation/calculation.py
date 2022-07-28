@@ -118,10 +118,10 @@ class Calculation:
             data["ltv"] = ltv
             data["registrationStatus"] = True
             data["ltv_percentage"] = 69
-            return True
+            return True,None
         
         ltv_resp = self.mc_calc_rules.calculate(source_mrp,registration,mileage,website_id)
-
+        
         if ltv_resp["status"] == True:
             mm_price = ltv_resp["mm_price"]
             margin = ltv_resp["margin"]
@@ -142,9 +142,9 @@ class Calculation:
             data["ltv_percentage"] = round(ltv_percentage,1)
             data["ltv"].update(old_ltv_values)
             data["ltv"]["ltvStatus"] = ltv_status
-            return True
+            return True,None
         else:
-            return False
+            return False,f'forecourt price failed. please enable custom price.'
     
     
     def calculateLtv(self,data):

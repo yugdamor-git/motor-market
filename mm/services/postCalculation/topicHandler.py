@@ -6,6 +6,7 @@ from pulsar_manager import PulsarManager
 
 from calculation import Calculation
 from column_mapping import ColumnMapping
+from Database import Database
 import json
 
 import traceback
@@ -27,6 +28,8 @@ class topicHandler:
         self.logs_producer = pulsar_manager.create_producer(self.topics.LOGS)
             
         self.calculation = Calculation()
+        
+        self.db = Database()
         
         self.column_mapping = ColumnMapping()
         
@@ -56,7 +59,12 @@ class topicHandler:
                     self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    if self.calculation.calculate_ltv(data["data"]) == False:
+                    status,msg = self.calculation.calculate_ltv(data["data"])
+                    if status == False:
+                        listingId = data["data"].get("listingId")
+                        self.db.connect()
+                        self.db.recUpdate("AT_urls",{"scraped":3,"errorMessage":msg},{"id":listingId})        
+                        self.db.disconnect()
                         continue
                     
                     customPriceEnabled = data["data"].get("customPriceEnabled",None)
@@ -121,7 +129,12 @@ class topicHandler:
                     
                     # ltv
                     # self.calculation.calculateLtv(data["data"])
-                    if self.calculation.calculate_ltv(data["data"]) == False:
+                    status,msg = self.calculation.calculate_ltv(data["data"])
+                    if status == False:
+                        listingId = data["data"].get("listingId")
+                        self.db.connect()
+                        self.db.recUpdate("AT_urls",{"scraped":3,"errorMessage":msg},{"id":listingId})        
+                        self.db.disconnect()
                         continue
                     
                     customPriceEnabled = data["data"].get("customPriceEnabled",None)
