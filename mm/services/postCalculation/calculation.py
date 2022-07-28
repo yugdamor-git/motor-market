@@ -131,6 +131,7 @@ class Calculation:
         if customPriceEnabled == True:
             data["ltv"] = self.mc_calc_rules.old_ltv.getDefaultValues()
             data["margin"] = 0
+            data["registrationStatus"] = 1
             data["ltv_percentage"] = 69
             return True
 
