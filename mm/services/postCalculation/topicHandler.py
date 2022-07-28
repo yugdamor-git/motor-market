@@ -58,6 +58,13 @@ class topicHandler:
                     # ltv
                     self.calculation.calculate_ltv(data["data"])
                     
+                    if customPriceEnabled == True:
+                        # margin
+                        self.calculation.calculateMargin(data["data"])
+                        
+                        # mmPrice
+                        self.calculation.calculateMMprice(data["data"])
+                    
                     # extra margin - car cutter
                     # if "car_cutter" in data["data"]:
                     #     if data["data"]["car_cutter"] == 1:
@@ -112,6 +119,15 @@ class topicHandler:
                     # ltv
                     # self.calculation.calculateLtv(data["data"])
                     self.calculation.calculate_ltv(data["data"])
+                    
+                    customPriceEnabled = data["data"].get("customPriceEnabled",None)
+                    
+                    if customPriceEnabled == True:
+                        # margin
+                        self.calculation.calculateMargin(data["data"])
+                        
+                        # mmPrice
+                        self.calculation.calculateMMprice(data["data"])
                     
                     # categoryId
                     self.calculation.calculateCategoryId(data["data"])
