@@ -56,7 +56,8 @@ class topicHandler:
                     self.calculation.calculatePcpApr(data["data"])
                     
                     # ltv
-                    self.calculation.calculate_ltv(data["data"])
+                    if self.calculation.calculate_ltv(data["data"]) == False:
+                        continue
                     
                     customPriceEnabled = data["data"].get("customPriceEnabled",None)
                     
@@ -121,7 +122,6 @@ class topicHandler:
                     # ltv
                     # self.calculation.calculateLtv(data["data"])
                     if self.calculation.calculate_ltv(data["data"]) == False:
-                        
                         continue
                     
                     customPriceEnabled = data["data"].get("customPriceEnabled",None)

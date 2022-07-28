@@ -109,32 +109,18 @@ class Calculation:
         
         registrationStatus = data.get("registrationStatus")
         
-        # make = data["predictedMake"]
+        customPriceEnabled = data.get("customPriceEnabled",None)
         
-        # model = data["predictedModel"]
-        
-        # engine_cc = data.get("engineCylindersCC",None)
-        if registrationStatus == False:
+        if registrationStatus == False or customPriceEnabled == True:
             ltv = {}
             ltv["ltvStatus"] = 0
             ltv.update(self.ltvCalc.getNullValues())
             data["ltv"] = ltv
-            return True
-
-        ltv_resp = self.mc_calc_rules.calculate(source_mrp,registration,mileage,website_id)
-        
-        # new_source price
-        # new_margin
-        # new_price
-        # new_cal_price_from_file
-        customPriceEnabled = data.get("customPriceEnabled",None)
-        if customPriceEnabled == True:
-            data["ltv"] = self.mc_calc_rules.old_ltv.getDefaultValues()
-            data["ltv"]["ltvStatus"] = 0
-            data["margin"] = 0
-            data["registrationStatus"] = 1
+            data["registrationStatus"] = True
             data["ltv_percentage"] = 69
             return True
+        
+        ltv_resp = self.mc_calc_rules.calculate(source_mrp,registration,mileage,website_id)
 
         if ltv_resp["status"] == True:
             mm_price = ltv_resp["mm_price"]
@@ -143,6 +129,7 @@ class Calculation:
             old_ltv_values = ltv_resp["ltv"]
             ltv_status =ltv_resp["ltv_status"]
             data["ltv"] = {}
+            
             if ltv_resp["forecourt_call"] == True:
                 response = ltv_resp["response"]
                 data["ltv"]["dealerForecourtResponse"] = response
