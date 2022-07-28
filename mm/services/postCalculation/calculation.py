@@ -113,7 +113,7 @@ class Calculation:
         
         if registrationStatus == False or customPriceEnabled == True:
             ltv = {}
-            ltv["ltvStatus"] = 0
+            ltv["ltvStatus"] = None
             ltv.update(self.ltvCalc.getNullValues())
             data["ltv"] = ltv
             data["registrationStatus"] = True
