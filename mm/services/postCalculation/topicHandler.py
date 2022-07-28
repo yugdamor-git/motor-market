@@ -58,6 +58,8 @@ class topicHandler:
                     # ltv
                     self.calculation.calculate_ltv(data["data"])
                     
+                    customPriceEnabled = data["data"].get("customPriceEnabled",None)
+                    
                     if customPriceEnabled == True:
                         # margin
                         self.calculation.calculateMargin(data["data"])
