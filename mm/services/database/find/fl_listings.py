@@ -72,8 +72,8 @@ class topicHandler:
 
                 if result[0]["Status"] in ["to_parse"]:
                     data["data"]["scraperType"] = "normal"
-                
-                data["data"]["scraperType"] = "validator"
+                else:
+                    data["data"]["scraperType"] = "validator"
                 
                 data["data"].update(result[0])
             else:
